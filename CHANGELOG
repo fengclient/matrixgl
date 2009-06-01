@@ -1,0 +1,81 @@
+matrixgl-v1.1B (2009/05/30)
+---------------
+. Removed 3D images that don't work in widescreen
+. Fixed a few small bugs
+. Added my first image, front shot of smith (#9)
+
+matrixgl-v1.05B   (2008/10/08)
+-----------------
+. Widescreen support complete
+  - Calculates text_x then allocs the core arrays.
+  - rtext_x maintains the width of the 3D 'images'
+. Added header file matrix.h to prototype functions
+. Moved main() to the top 
+. Started editing 3D 'image' data to get seemless edges
+  - The extra columns for widescreen setups makes images
+      that fade at the edges look very lame.
+
+matrixgl-v1.04B   (2008/09/26)
+-----------------
+. Added widescreen capabilities
+  - 90x70 image shown in center
+  - Regular full-alpha lines scroll the sides
+  - Works for any screen-res, but doesn't detect the res YET
+. Hide mouse in windows
+. Increased the brightness of green slightly
+. Knoppix.ru shows longer in credits, so it's consistent with 'Double Creations' timing
+. Edited Makefile, to surpress some of the output
+. Removed lighting calls and arrays, as lighting is then disabled!
+. Removed two unused variables in ourInit()
+. Slimmed down make_text
+
+matrixgl-v1.03B  (2008/05/02)
+-----------------
+. Fixed a bug that caused a slightly incorrect pic_offset
+
+matrixgl-v1.02B  (2008/04/25)
+-----------------
+. Added icon to Windows binary
+. Added ico and xpm icon files (files only, not used in source)
+. Added .desktop file, to install in KDE screensaver directory
+. -install option now creates screensaver directory
+. -install option adds icon to pixmaps directory
+. Checks for root for options -install,-remove
+. Added strip command to Makefile
+. Removed 'make clean', it cleans automatically now
+. Removed 'rm matrix' from Makefile (file never exists)
+. Added file manifest, and made other additions to README
+. Added TODO file for future plans
+
+matrixgl-v1.01B
+------------------
+This section highlights changes made from the base knoppix.ru release 1.0
+. Now runs in the desktop's current resolution in Linux
+. Fixed a mouse bug in Windows that caused it to exit almost immediatly
+   - Note: It appears that only a handful of setups had this bug
+. Fixed bug regarding a permanant white node in the top left corner
+. Removed FPS stats
+. Removed timing functions and unused variables
+. Removed catching of special keys
+. Removed texture error checking: 
+   - Makes ugly source code, and I don't see it ever failing.
+. Added Classic mode (to disable 3D images, toggle with 's')
+. Added pause functionality (toggle with 'p')
+. Improved 'n' next picture function so that it makes smoother transitions
+. Combined 2 funcs into draw_char
+. Added a 3rd column speed
+. Added 'c' key to show credits
+. Credits no longer show when started (see tail of README)
+. Removed concurrent column speed collisions (they become speed 3)
+. Added 'Double Creations' screen to follow knoppix in credits
+. Modified credits to dissapear and transition faster
+. Added --help option (linux only)
+. Added --version option (linux only)
+. Prints out message with name, mentioning help option (linux only)
+. Stopped linking in the math library on Linux
+. Cleaned up source, removed some useless modifiers that were always 0.
+. Added license block, name, and description to source code
+. Added README, CHANGELOG, LICENSE (GPL V2)
+. Removed check for 0 height in cbResizeScene
+. Removed check for it GLUT window exists
+. Removed Height/Width args for ourInit

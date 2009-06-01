@@ -1,0 +1,10 @@
+TODO
+. Fix edges of Alex's original 3D images, that break seams in widescreen mode
+. Fix bugs listed in BUGS
+. Add additional 3D images, with more variety
+. Use time seed for some actual randomness
+. Fix code to follow 80 characater/line guidelines
+. Find out how to properly install screensaver for KDE,Gnome and xscreensaver.
+. Test on *BSD
+. Perhaps start using autotools, for better portability.
+. Possibly parse a config file (~/.matrixgl?) so static mode can be set by default, and possibly certain images disabled.
