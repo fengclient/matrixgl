@@ -35,4 +35,5 @@ void ourBuildTextures(void);
 void cbResizeScene(int Width, int Height);
 void ourInit(void);
 void load_texture(void);
+void *tmalloc(size_t n);
 

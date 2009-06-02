@@ -21,10 +21,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-/* TODO:
- * . check malloc for void!
- * . Don't use bump_pic for 2 or 3 of the really annoying edgewise pics!
- */
 #define TESTING  /* Some functions used for testing */
 /*#define WIN32_MODE*/
 
@@ -50,29 +46,26 @@
 
 /* Global Variables */
 float Z_Off = -89.0f;
-float X_Off = 0.0f;
-float Y_Off = 0.0f;
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
 #define rtext_x 90
 #define _rtext_x rtext_x/2
 #define text_y 70
 #define _text_y text_y/2
-int text_x;
 #define _text_x text_x/2
+int text_x;
 unsigned char *speed;      /* Speed of each column (0-2) */
 unsigned char *text;       /* Random Characters (0-62) */
 unsigned char *text_light; /* Alpha 255-white, 254-none */
-float *bump_pic;           /* Offset from matrix2.h */
+float *bump_pic;           /* Z-Offset (calculated from pic from matrix2.h) */
 
 int pic_offset;            /* Which image to show */
 long timer=40;             /* Controls pic fade in/out */
-long one_frame=60;         /* ms for one frame (controls speed of scrolling) */
 int mode2=1;               /* Initial speed boost (inits the light table) */
 int pic_mode=1;            /* 1-fade in; 2-fade out (controls pic_fade) */
 int pic_fade=0;            /* Makes all chars lighter/darker */
 int classic=0;             /* classic mode (no 3d) */
 int paused=0;
-int num_pics=8 -1;         /* # 3d images (0 indexed) */
+int num_pics=9 -1;         /* # 3d images (0 indexed) */
 
 
 #ifdef WIN32_MODE
@@ -83,15 +76,13 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 {
    int argc=1;
    int i=0,a=0,s=0;
-   load_texture();
-   make_text();
    if(lpCmd[1]=='p' || lpCmd[1]=='c') exit(0);
    glutInit(&argc, &lpCmd);
 #else
 int main(int argc,char **argv) 
 {
    char *par;
-   char *gms = (char *)malloc(35); /* Game Mode String */
+   char *gms = tmalloc(35); /* Game Mode String */
    int i=0,a=0,s=0;
    if(argc>1) {
       par=argv[1];
@@ -155,10 +146,10 @@ int main(int argc,char **argv)
    text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH)/glutGet(GLUT_SCREEN_HEIGHT)));
    if (text_x % 2 == 1) text_x++;
    if (text_x < 108) text_x=108; /* Sanity check? That'd be a crazy monitor :P */
-   speed = malloc(text_x);
-   text= malloc(text_x*(text_y+1));
-   text_light = malloc(text_x*(text_y+1));
-   bump_pic = malloc(sizeof(float) * (text_x*(text_y+1)));
+   speed = tmalloc(text_x);
+   text= tmalloc(text_x*(text_y+1));
+   text_light = tmalloc(text_x*(text_y+1));
+   bump_pic = tmalloc(sizeof(float) * (text_x*(text_y+1)));
    memset(text_light, 253, text_x*(text_y+1));
    /* End allocations */
 
@@ -179,12 +170,7 @@ int main(int argc,char **argv)
    }
    mode2=1;
 
-   /* Set up textures */
-   load_texture();
-   make_text();
-
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-
 #ifndef WIN32_MODE
    /* Force linux to use same resolution as desktop */
    sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
@@ -227,7 +213,6 @@ void draw_char(int mode, long num, float light, float x, float y, float z)
    num3=num-(num2*10);
    ty=(float)num2/7;
    tx=(float)num3/10;
-   glNormal3f(0.0f, 0.0f, 1.0f); /* Needed for lighting */
    glColor4f(0.9,0.4,0.3,light);
 
    glTexCoord2f(tx, ty); glVertex3f( x, y, z); 
@@ -240,7 +225,6 @@ void draw_char(int mode, long num, float light, float x, float y, float z)
 /* Draw flare around white characters */
 void draw_flare(float x,float y,float z)
 {
-   glNormal3f(0.0f, 0.0f, 1.0f); /* Needed for lighting */
    glColor4f(0.9,0.4,0.3,.75);
 
    glTexCoord2f(0, 0); glVertex3f( x-1, y+1, z); 
@@ -298,15 +282,15 @@ void draw_text3(void)
 {
    float x,y;
    long p=0;
-   for(y=_text_y;y>-_text_y;y--){
-      for(x=-_text_x;x<_text_x;x++){
+   for (y=_text_y;y>-_text_y;y--) {
+      for (x=-_text_x;x<_text_x;x++) {
          if(text_light[p]>128 && text_light[p+text_x]<10) 
             draw_flare(x,y, ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
          p++;
-      }}
+      }
+   }
 }
 
-/* 0 - normal; 1 - without clone */
 void scroll(int mode)
 {
    static char odd=0;
@@ -323,7 +307,7 @@ void scroll(int mode)
 
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
-      if(timer>10) {mode2=0;mode=0;}
+      if(timer>10) {mode2=0;mode=0;} /* Initialization */
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 158 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'Double Creations' */
@@ -347,7 +331,7 @@ void scroll(int mode)
       }
    }
    odd =!odd;
-   if(!mode) glutTimerFunc(one_frame,scroll,mode2);
+   if(!mode) glutTimerFunc(60,scroll,mode2);
 }
 
 
@@ -366,7 +350,6 @@ void make_change(void)
 
 void cbRenderScene(void)
 {  
-   /*glClearColor(0.0f, 0.1f, 0.0f, 0);*/
    glBindTexture(GL_TEXTURE_2D,1);
    glEnable(GL_BLEND);
    glEnable(GL_TEXTURE_2D);
@@ -378,7 +361,7 @@ void cbRenderScene(void)
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity(); 
-   glTranslatef(X_Off,Y_Off,Z_Off);
+   glTranslatef(0.0f,0.0f,Z_Off);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    glBegin(GL_QUADS); 
@@ -411,10 +394,10 @@ void MouseFunc(int x, int y)
     */
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
-   else if (xx!=x||yy!=y)exit(1);
+   else if (xx!=x||yy!=y)exit(0);
 #else
    static int c=0;
-   if(c++>=1) exit(1);
+   if(c++>=1) exit(0);
 #endif
 }
 
@@ -447,30 +430,14 @@ void cbKeyPressed(unsigned char key, int x, int y)
          break;
       case 'p': /* Pause */
          paused=!paused;
-         if (!paused) glutTimerFunc(one_frame,scroll,mode2);
+         if (!paused) glutTimerFunc(60,scroll,mode2);
          break;
 #ifdef TESTING
-      case 'z': /* DEL */
-         if (Z_Off == -114.0f) Z_Off = -89.0f;
-         else Z_Off=-114.0f;
-         break;
       case '=':
          Z_Off+=5.0f;
          break;
       case '-':
          Z_Off-=5.0f;
-         break;
-      case 'w':
-         Y_Off-=5.0f;
-         break;
-      case 'a':
-         X_Off+=5.0f;
-         break;
-      case 'd':
-         X_Off-=5.0f;
-         break;
-      case 'x':
-         Y_Off+=5.0f;
          break;
 #endif /* TESTING */
    }
@@ -479,7 +446,7 @@ void cbKeyPressed(unsigned char key, int x, int y)
 
 void ourBuildTextures(void)
 {
-   glPixelTransferf(GL_GREEN_SCALE, 1.2f); /* Give green a bit of a boost */
+   glPixelTransferf(GL_GREEN_SCALE, 1.15f); /* Give green a bit of a boost */
    glBindTexture(GL_TEXTURE_2D,1);
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_GREEN, GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,2);
@@ -506,6 +473,7 @@ void cbResizeScene(int Width, int Height)
 
 void ourInit(void) 
 {
+   make_text();
    ourBuildTextures();   
    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
    glClearDepth(1.0);
@@ -516,16 +484,15 @@ void ourInit(void)
    glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
 
-   pic_offset=(rtext_x*text_y)*(rand()&14);
-   pic_offset=0;
+   pic_offset=(rtext_x*text_y)*(rand()&num_pics);
 }
 
-
-void load_texture(void)
+/* malloc w/ error checking  */
+void *tmalloc(size_t n)
 {
-   long a;
-   for(a=0;a<131072;a++){
-      if (! ((a>>9)&2) )  font[a]=font[a]>>1;
-   }
+   void *p = malloc(n);
+   if (!p && n != 0)
+      exit(EXIT_FAILURE);
+   return p;
 }
 

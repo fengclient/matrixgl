@@ -11,7 +11,6 @@ TODO
    7: Neo Headshot
    8: Smith Headshot
    9: Tank Headshot
-. Fix bugs listed in BUGS
 . Add additional 3D images, with more variety
 . Use time seed for some actual randomness
 . Fix code to follow 80 characater/line guidelines

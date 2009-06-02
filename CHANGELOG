@@ -6,6 +6,9 @@ matrixgl-v1.2B (2009/06/2)
 . Fixed white pixel bug
 . Fixed bug in credits where the end of the 'Double Creations' was broken
 . Initialized text_light to start with a higher alpha
+. Checked malloc for NULL
+. Removed load_texture (adjusting green boost counter-acts the color change)
+. Removed ability to change X and Y offset (not useful for testing anymore)
 
 matrixgl-v1.1B (2009/05/30)
 ---------------
