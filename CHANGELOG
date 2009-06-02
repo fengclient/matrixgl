@@ -1,3 +1,12 @@
+matrixgl-v1.2B (2009/06/2)
+--------------
+. Initialization of light tables is now hidden! (i.e it starts properly, instantly)
+. Added a 3D image of tank
+. Fixed 3 of the widescreen unfriendly images (3 to go)
+. Fixed white pixel bug
+. Fixed bug in credits where the end of the 'Double Creations' was broken
+. Initialized text_light to start with a higher alpha
+
 matrixgl-v1.1B (2009/05/30)
 ---------------
 . Removed 3D images that don't work in widescreen

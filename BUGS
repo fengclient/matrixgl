@@ -1,8 +1,3 @@
 Known Bugs
-. In credits, when 'Double Creations' shows, the last rows of z-values is 
-messed up/missing
-. The permanent white bug in top-left corner has returned! I fixed it for the 
-90x70 3D image, but it has returned to widescreen somehow.
-. Not so much a bug as an annoying part of the design, but the initialization 
-of the light tables when the screensaver starts isn't very visually appealing. 
-Perhaps there is someway to circumvent it?
+----------
+None at this time

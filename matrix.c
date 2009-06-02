@@ -1,8 +1,8 @@
 /* matrixgl - Cross-platform matrix screensaver
- * Copyright (C) Alex Zolotoz 2001. 
+ * Copyright (C) Alex Zolotoz 2003. 
  * Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
  * -------------------------------------------
- * Written By: Alex Zolotoz <No active email known> 2001.
+ * Written By: Alex Zolotoz <No active email known> 2003.
  * Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
  * -------------------------------------------
  *
@@ -82,6 +82,7 @@ int num_pics=8 -1;         /* # 3d images (0 indexed) */
 int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 {
    int argc=1;
+   int i=0,a=0,s=0;
    load_texture();
    make_text();
    if(lpCmd[1]=='p' || lpCmd[1]=='c') exit(0);
@@ -90,7 +91,8 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 int main(int argc,char **argv) 
 {
    char *par;
-   char *a = (char *)malloc(35); /* Game Mode String */
+   char *gms = (char *)malloc(35); /* Game Mode String */
+   int i=0,a=0,s=0;
    if(argc>1) {
       par=argv[1];
       if(!strcmp(par,"-install")) {
@@ -133,7 +135,7 @@ int main(int argc,char **argv)
          printf(" >'q' - Quit\n");
          exit(0);
       } else if(!strcmp(par,"--version")) {
-         printf("matrixgl Version 1.1B.\n");
+         printf("matrixgl Version 1.2B.\n");
          printf(" Based on matrixgl by knoppix.ru\n");
          printf(" Modified by Vincent Launchbury\n");
          exit(0);
@@ -151,14 +153,33 @@ int main(int argc,char **argv)
 
    /* Allocations for dynamic width */
    text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH)/glutGet(GLUT_SCREEN_HEIGHT)));
-   if (text_x % 2 == 1) text_x--;
+   if (text_x % 2 == 1) text_x++;
    if (text_x < 108) text_x=108; /* Sanity check? That'd be a crazy monitor :P */
    speed = malloc(text_x);
    text= malloc(text_x*(text_y+1));
    text_light = malloc(text_x*(text_y+1));
    bump_pic = malloc(sizeof(float) * (text_x*(text_y+1)));
+   memset(text_light, 253, text_x*(text_y+1));
    /* End allocations */
 
+   /* Init the light tables */
+   mode2=0;
+   for (i=0; i<2000;i++) {
+      make_change();
+
+      for(a=(text_x*text_y)+text_x-1;a>text_x;a--)
+         text_light[a]=text_light[a-text_x]; 
+
+      for(a=1;a<text_x;a++) text_light[a]=253; /* Clear top line */
+
+      for(s=0,a=(text_x*text_y)/2; a<(text_x*text_y); a++){
+         if(text_light[a]==255) text_light[s]=text_light[s+text_x]>>1;
+         s++;if(s>=text_x) s=0;
+      }
+   }
+   mode2=1;
+
+   /* Set up textures */
    load_texture();
    make_text();
 
@@ -166,8 +187,8 @@ int main(int argc,char **argv)
 
 #ifndef WIN32_MODE
    /* Force linux to use same resolution as desktop */
-   sprintf(a,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
-   glutGameModeString(a);
+   sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+   glutGameModeString(gms);
 #endif
    glutEnterGameMode();
 
@@ -291,18 +312,18 @@ void scroll(int mode)
    static char odd=0;
    unsigned int a, s=0;
    if (paused)return;
-   for(a=(text_x*text_y)+text_x-1;a>text_x;a--){
+   for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]) text_light[a]=text_light[a-text_x]; 
       s++;if(s>=text_x) s=0;    
    }
-   for(s=0,a=(text_x*text_y)+text_x-1;a>text_x;a--){
+   for(s=0,a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]>1) text_light[a]=text_light[a-text_x]; 
       s++;if(s>=text_x) s=0;    
    }
 
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
-      if(timer>110) {mode2=0;mode=0;}
+      if(timer>10) {mode2=0;mode=0;}
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 158 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'Double Creations' */
@@ -314,7 +335,7 @@ void scroll(int mode)
       }
       timer++;
 
-      for(a=(text_x*text_y)+text_x-1;a>text_x;a--) {
+      for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--) {
          text_light[a]=text_light[a-text_x]; 
       }
 
