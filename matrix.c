@@ -96,8 +96,8 @@ int main(int argc,char **argv)
       {"window-id",optional_argument, 0, 'X'},
       {0, 0, 0, 0}
    };
-   int opt_index = 0;
-   while ((opt = getopt_long_only(argc, argv, "sciuhvX:", long_opts, &opt_index))) {
+   int opti = 0;
+   while ((opt = getopt_long_only(argc, argv, "sciuhvX:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'X':
@@ -171,9 +171,10 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 #endif
 
    /* Allocations for dynamic width */
-   text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH)/glutGet(GLUT_SCREEN_HEIGHT)));
+   text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH) 
+      / glutGet(GLUT_SCREEN_HEIGHT)));
    if (text_x % 2 == 1) text_x++;
-   if (text_x < 108) text_x=108; /* Sanity check? That'd be a crazy monitor :P */
+   if (text_x < 108) text_x=108; /* Sanity check */
    speed = tmalloc(text_x);
    text= tmalloc(text_x*(text_y+1));
    text_light = tmalloc(text_x*(text_y+1));
@@ -201,7 +202,8 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 #ifndef WIN32_MODE
    /* Force linux to use same resolution as desktop */
-   sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH), glutGet(GLUT_SCREEN_HEIGHT));
+   sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH),
+      glutGet(GLUT_SCREEN_HEIGHT));
    glutGameModeString(gms);
 #endif
    glutEnterGameMode();
@@ -226,7 +228,7 @@ void make_text(void)
    for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
    for(a=0;a<text_x;a++) {
       speed[a]=rand()&1;
-      if (!a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions become speed 3 */
+      if (!a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
    }
 }
 
@@ -299,7 +301,8 @@ void draw_text2(void)
    for(y=_text_y;y>-_text_y;y--){
       for(x=-_text_x;x<_text_x;x++){
          if(text_light[p]>128 && text_light[p+text_x]<10) 
-            draw_char(2, text[p]+1,0.5,x,y, ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
+            draw_char(2, text[p]+1,0.5,x,y, 
+               ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
          p++;
       }
    }
@@ -338,12 +341,12 @@ void scroll(int mode)
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 158 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
-         pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'Double Creations' */
+         pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=100;pic_mode=1; /* Make DC dissapear quickly */
       }
       if(timer>280) {
          timer=-1;  /* back to start */
-         pic_offset=(rand()&(num_pics))*(rtext_x*text_y); /* Random 3d image (not credits) */
+         pic_offset=(rand()&(num_pics))*(rtext_x*text_y); /* Random image */
       }
       timer++;
 
@@ -351,10 +354,12 @@ void scroll(int mode)
          text_light[a]=text_light[a-text_x]; 
       }
 
-      for(a=1;a<text_x;a++) text_light[a]=253; /* clear top line (in light table) */
+      /* Clear top line in light table */
+      for(a=1;a<text_x;a++) text_light[a]=253;
 
       for(s=0,a=(text_x*text_y)/2; a<(text_x*text_y); a++){
-         if(text_light[a]==255) text_light[s]=text_light[s+text_x]>>1; /*make black bugs in top line */
+         /* Make black bugs in top line */
+         if(text_light[a]==255) text_light[s]=text_light[s+text_x]>>1;
          s++;if(s>=text_x) s=0;
       }
    }
@@ -385,7 +390,8 @@ void cbRenderScene(void)
    glDisable(GL_LIGHTING);
    glBlendFunc(GL_SRC_ALPHA,GL_ONE); 
    glDisable(GL_DEPTH_TEST); 
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST_MIPMAP_LINEAR);
+   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
+      GL_NEAREST_MIPMAP_LINEAR);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity(); 
@@ -440,7 +446,7 @@ void cbKeyPressed(unsigned char key, int x, int y)
          pic_offset+=rtext_x*text_y;
          pic_mode=1;
          timer=10;
-         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; /* Don't show credits */
+         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
          break;
       case 'c': /* Show "Credits" */
          classic=0;
@@ -476,11 +482,14 @@ void ourBuildTextures(void)
 {
    glPixelTransferf(GL_GREEN_SCALE, 1.15f); /* Give green a bit of a boost */
    glBindTexture(GL_TEXTURE_2D,1);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_GREEN, GL_UNSIGNED_BYTE, (void *)font);
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_GREEN,
+      GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,2);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_LUMINANCE,GL_UNSIGNED_BYTE, (void *)font);
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_LUMINANCE, 
+      GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,3);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE,GL_UNSIGNED_BYTE, (void *)flare);
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE, 
+      GL_UNSIGNED_BYTE, (void *)flare);
 
    /* Some pretty standard settings for wrapping and filtering. */
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);

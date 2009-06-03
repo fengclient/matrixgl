@@ -5,6 +5,7 @@ matrixgl-v1.5B (2009/06/2)
    plus, kde changes the directory structure often)
 . Started using getopt long, for better arg parsing
 . Added better help description
+. Added manpage
 
 matrixgl-v1.2B (2009/06/2)
 --------------

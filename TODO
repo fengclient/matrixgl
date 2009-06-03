@@ -13,6 +13,5 @@ TODO
    9: Tank Headshot
 . Add additional 3D images, with more variety
 . Use time seed for some actual randomness
-. Fix code to follow 80 characater/line guidelines
 . Test on *BSD
 . Perhaps start using autotools, for better portability.
