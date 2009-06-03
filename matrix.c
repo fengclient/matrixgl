@@ -118,6 +118,7 @@ int main(int argc,char **argv)
             }
             system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
             system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
+            system("cp -f matrixgl.1 /usr/local/man/man1/");
             printf("Successfully installed to xscreensaver\n");
             printf("Run 'xscreensaver-demo' and select 'matrixgl'\n");
             exit(0);
@@ -128,11 +129,9 @@ int main(int argc,char **argv)
             }
             system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
             system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
+            system("rm -f /usr/local/man/man1/matrixgl.1");
             printf("Uninstall complete\n");
             exit(0);
-         case 'r':
-            root=1;
-            break;
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\

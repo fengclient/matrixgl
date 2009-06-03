@@ -11,4 +11,4 @@ Matrix: matrix.o
 	@rm -f *.o
 
 matrix: matrix.c
-	$(CC) -c $(CFLAGS) matrix.c
+	@$(CC) -c $(CFLAGS) matrix.c
