@@ -10,6 +10,7 @@ Table of Contents
 -----------------
 . Introduction
 . File Manifest
+. Supported Operating Systems
 . Compiling and Installing on *NIX
 . Compiling and Installing on Windows
 . Removing Matrixgl
@@ -38,7 +39,17 @@ CHANGELOG      - A complete changelog
 COPYING        - License for this software (GPL V2)
 matrixgl.ico   - Windows Icon file (not used by source)
 matrixgl.xml   - Xscreensaver config file
+matrixhgl.1    - *NIX man Page
 
+Supported Operating Systems
+----------------------------
+matrixgl has been tested and confirmed to fully work on the following platforms:
+   . Windows XP 32 bit
+   . Windows Vista 32 bit
+   . Windows 7 64 bit
+   . Linux: Gentoo
+   . Linux: Ubuntu
+   . BSD: Openbsd
 
 Compiling and Installing on *NIX
 ----------------------------------
@@ -49,7 +60,7 @@ Besides GLUT, all you should need to compile matrixgl is gcc and make. Make sure
 #make
 #matrix_gl -install
 
-The latter command will add matrixgl into the appropriate xscreensaver directorys. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
+The latter command will add matrixgl into the appropriate xscreensaver directorys. If they don't exist, install xscreensaver, and run the matrixgl install command again. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
 
 I have chosen not to support KDE and Gnome screensavers, because xscreensaver is DE independent, and can run on both of them anyway. If you aren't using xscreensaver, google how to use it in your desktop environment.
 
@@ -61,14 +72,14 @@ One way to compile would be to use Visual C++ 2005. It is freely available at ht
 
 You can compile this software as a regular .exe file. Be sure to uncomment the '#define WIN32_MODE' line near the top of the matrix.c file. Once compiled, to install it as a screensaver, you will need to rename the .exe file, changing the extension to '.scr'. Matrixgl requires GLUT to run, and even if you didn't compile matrixgl from source, you will need to download and copy the glut32.dll library to your system directory at %WINDIR%\System\ (%WINDIR% is a Windows built-in variable, so you can paste this directly into your file manager). The glut32.dll file is included in the GLUT library mentioned at the top of this section.
 
-Once you have installed GLUT, and have the matrixgl.scr file, simple right click and choose the 'Install' option, and then sit back and enjoy! (Note: CMatrixgl has no preferences dialog, so clicking 'Settings' in Windows Display Properties will have no effect)
+Once you have installed GLUT, and have the matrixgl.scr file, simple right click and choose the 'Install' option, and then sit back and enjoy! (Note: Matrixgl has no preferences dialog, so clicking 'Settings' in Windows Display Properties will have no effect)
 
 
 Removing Matrixgl
 -------------------
-In Linux, to remove any files that may have been added, simply run "#/usr/lib/misc/xscreensaver/matrixgl -remove" as root. You may also want to delete the original source file directory, if you still have it.
+In Linux, to remove any files that may have been added, simply run "#matrixgl -remove" as root. You may also want to delete the original source file directory, if you still have it.
 
-In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrix_gl.scr. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of Matrixgl.
+In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrixgl.scr. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of Matrixgl.
 
 
 Screensaver Functions/Keys

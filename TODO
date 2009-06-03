@@ -1,4 +1,4 @@
 TODO
 . Add additional 3D images, with more variety/characters
-. Test on *BSD
 . Perhaps start using autotools, for better portability.
+. Test on mac, opensolaris
