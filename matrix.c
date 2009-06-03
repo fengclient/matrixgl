@@ -30,6 +30,7 @@
 #else
 #include <X11/Xlib.h>
 #include <unistd.h>
+#include <getopt.h>
 #endif
 
 #include <stdio.h>   /* Always a good idea. */
@@ -81,60 +82,88 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 #else
 int main(int argc,char **argv) 
 {
-   char *par;
    char *gms = tmalloc(35); /* Game Mode String */
    int i=0,a=0,s=0;
-   if(argc>1) {
-      par=argv[1];
-      if(!strcmp(par,"-install")) {
-         fprintf(stderr, "Error: Feature not implemented");
-         exit(1);
-         if (getuid()!=0) {
-            fprintf(stderr, "Error: Must run -install as root\n");
-            exit(1);
-         }
-         system("cp dcmatrix_gl /usr/bin/dcmatrix_gl.kss");
-         system("cp matrixgl.xpm /usr/share/pixmaps/matrixgl.xpm");
-         system("mkdir -p /usr/share/applnk/System/ScreenSavers/"); /* Make sure directory exists */
-         system("cp matrix.desktop /usr/share/applnk/System/ScreenSavers/DCMatrixgl.desktop");
-         printf("Install complete\n");
-         exit(0);
-      } else if(!strcmp(par,"-remove")) {
-         fprintf(stderr, "Error: Feature not implemented");
-         exit(1);
-         if (getuid()!=0) {
-            fprintf(stderr, "Error: Must run -remove as root\n");
-            exit(1);
-         }
-         system("rm -f /usr/bin/dcmatrix_gl.kss");
-         system("rm -f /usr/share/pixmaps/matrixgl.xpm");
-         system("rm -f /usr/share/applnk/System/ScreenSavers/DCMatrixgl.desktop");
-         printf("Uninstall complete\n");
-         exit(0);
-      } else if(!strcmp(par,"--help")) {
-         printf("matrixgl Help\n");
-         printf("----------------\n");
-         printf("-install  -> Install into screensaver directory\n");
-         printf("-remove   -> Remove installed files\n");
-         printf("--help    -> Show this help\n");
-         printf("--version -> Show version info\n");
-         printf("In-Screensaver Keys\n");
-         printf(" >'c' - View Credits\n");
-         printf(" >'s' - Toggle 3D mode");
-         printf(" >'n' - Next Image\n");
-         printf(" >'p' - Pause Screensaver\n");
-         printf(" >'q' - Quit\n");
-         exit(0);
-      } else if(!strcmp(par,"--version")) {
-         printf("matrixgl Version 1.2B.\n");
-         printf(" Based on matrixgl by knoppix.ru\n");
-         printf(" Modified by Vincent Launchbury\n");
-         exit(0);
+   int opt;
+   static struct option long_opts[] =
+   {
+      {"static",  no_argument, 0, 's'},
+      {"credits", no_argument, 0, 'c'},
+      {"install", no_argument, 0, 'i'},
+      {"remove",  no_argument, 0, 'u'},
+      {"help",    no_argument, 0, 'h'},
+      {"version", no_argument, 0, 'v'},
+      {"window-id",optional_argument, 0, 'X'},
+      {0, 0, 0, 0}
+   };
+   int opt_index = 0;
+   while ((opt = getopt_long_only(argc, argv, "sciuhvX:", long_opts, &opt_index))) {
+      if (opt == EOF) break;
+      switch (opt) {
+         case 'X':
+            /* We don't run in a window, so disable 
+             * previews in xscreensaver 
+             */
+            exit(0);
+         case 's':
+            classic=1;
+            break;
+         case 'c':
+            printf("Warning: Credit option not yet implemented\n");
+            break;
+         case 'i':
+            if (getuid()!=0) {
+               fprintf(stderr, "Error: Must run --install as root\n");
+               exit(1);
+            }
+            system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
+            system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
+            printf("Successfully installed to xscreensaver\n");
+            printf("Run 'xscreensaver-demo' and select 'matrixgl'\n");
+            exit(0);
+         case 'u':
+            if (getuid()!=0) {
+               fprintf(stderr, "Error: Must run -remove as root\n");
+               exit(1);
+            }
+            system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
+            system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
+            printf("Uninstall complete\n");
+            exit(0);
+         case 'r':
+            root=1;
+            break;
+         case 'h':
+            fputs("Usage: matrixgl [OPTIONS]...\n\
+3D Matix Screensaver based on The Matrix Reloaded\n\
+ -c --credits      Show the credits on startup\n\
+ -h --help         Show the help screen\n\
+ -i --install      Install to xscreensaver\n\
+ -u --remove       Remove from xscreensaver\n\
+ -s --static       Run in static mode (no 3D images)\n\
+ -v --version      Print version info\n",
+               stdout);
+            fputs("Long options may be passed with a single dash.\n\n\
+In-Screensaver Keys:\n\
+ 'c' - View creidts\n\
+ 's' - Toggle static mode (3D)\n\
+ 'n' - Next image\n\
+ 'p' - Pause screensaver\n\
+ 'q' - Quit\n\n\
+Report bugs to <vincent@doublecreations.com>\n\
+Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
+             stdout);
+            exit(0);
+         case 'v':
+            fputs("matrixgl Version 1.5B\n\
+Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
+Written By: Alex Zolotoz <No active email known> 2003.\n\
+Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
+               stdout);
+            exit(0);
       }
-   } else {
-      printf("matrixgl: Use --help for help and keys\n");
-   }   
-#endif
+   }
+#endif /* Not WIN32_MODE */
 
 #ifdef WIN32_MODE
    glutInit(&argc, &lpCmd);

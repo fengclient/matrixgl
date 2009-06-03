@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<screensaver name="matrixgl" _label="Matrixgl">
+   <boolean id="static" _label="Disable 3D Images (static mode)" arg-set="-static"/>
+   <boolean id="showcred" _label="Show Credits on Startup" arg-set="-credits"/>
+
+   <_description>
+   A 3D matrix screensaver based on the Matrix Reloaded
+   </_description>
+</screensaver>

@@ -1,3 +1,11 @@
+matrixgl-v1.5B (2009/06/2)
+--------------
+. Added xscreensaver support
+. Remove kde support (as xscreensaver can be used in kde/gnome..etc,
+   plus, kde changes the directory structure often)
+. Started using getopt long, for better arg parsing
+. Added better help description
+
 matrixgl-v1.2B (2009/06/2)
 --------------
 . Initialization of light tables is now hidden! (i.e it starts properly, instantly)

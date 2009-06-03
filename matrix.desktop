@@ -1,7 +1,0 @@
-[Desktop Entry]
-Comment=3D Matrix Screensaver
-Name=matrixgl
-GenericName=3D Matrix Screensaver
-Icon=matrixgl.xpm
-Exec=matrix_gl.kss
-Type=Application

@@ -1,22 +1,18 @@
 matrixgl - Cross-platform Matrix Screensaver
 --------------------------------------------
-. Version: matrixgl-v0.1B
+. Version: matrixgl-v1.5B (Beta release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
-. Written By: Alex Zolotoz <No active email known> 2001.
+. Written By: Alex Zolotoz <No active email known> 2003.
 . Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
 
-NOTE: Stability
-****************
-. Note: This is an alpha release. It is an in progress modification of stable software, so while it is technically stable and usable, it is still unfinished. I would suggest using the original version at knoppix.ru, or waiting until this one goes into stable.
-****************
 
 Table of Contents
 -----------------
 . Introduction
 . File Manifest
-. Compiling and Installing on Linux
+. Compiling and Installing on *NIX
 . Compiling and Installing on Windows
-. Removing DCMatrixgl
+. Removing Matrixgl
 . Screensaver Functions/Keys
 . Comments/Feedback/Bugs
 . Acknowledgements
@@ -25,6 +21,8 @@ Introduction
 ------------
 matrixgl is a continuation of the original matrixgl from knoppix.ru. The project was started to remove the bugs and annoyances I had found in the original. On Windows, it would only run for a second before exiting, and on Linux, it would run in an unchangeable 800x600 resolution, making it look slightly outdated. In the process of fixing these flaws, I trimmed down the source and began modifying it more to my liking, removing several other bugs along the way. See the changelog for an almost complete log of changes.
 
+matrixgl now supports widescreen setups, as well as supporting xscreensaver.
+
 
 File Manifest
 -------------
@@ -32,25 +30,28 @@ matrix.c       - Main source file
 matrix.h       - Contains prototypes for matrix.c
 matrix1.h      - Font  header file
 matrix2.h      - 3D Images header file
-Makefile       - Makefile for Linux
+Makefile       - Makefile for *NIX
 README         - The file you're currently reading
 TODO           - Future feature plans
 BUGS           - List of known bugs
 CHANGELOG      - A complete changelog
 COPYING        - License for this software (GPL V2)
 matrixgl.ico   - Windows Icon file (not used by source)
-matrixgl.xpm   - X Pixmap Icon
-matrix.desktop - Linux .desktop file for KDE screensaver directory
+matrixgl.xml   - Xscreensaver config file
 
 
-Compiling and Installing on Linux
+Compiling and Installing on *NIX
 ----------------------------------
-GLUT is a standard part of most Linux distributions, so all you should need to compile matrixgl is gcc and make. Make sure that the '#define WIN32_MODE' line near the top of matrix.c is commented out before you begin. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
+matrixgl relies on the opengl utility library (GLUT). GLUT is a standard part of most Linux distributions, but it isn't on openbsd and others, so check you have it. If you don't have it, use your package manager or compile from source (see http://www.opengl.org/resources/libraries/glut/glut-3.7.tar.gz). 
 
-$make
-$matrix_gl -install
+Besides GLUT, all you should need to compile matrixgl is gcc and make. Make sure that the '#define WIN32_MODE' line near the top of matrix.c is commented out, or deleted, before you begin. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
 
-The latter command should add matrixgl to your list of screensavers in KDE. We plan to add support for other DE's.
+#make
+#matrix_gl -install
+
+The latter command will add matrixgl into the appropriate xscreensaver directorys. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
+
+I have chosen not to support KDE and Gnome screensavers, because xscreensaver is DE independent, and can run on both of them anyway. If you aren't using xscreensaver, google how to use it in your desktop environment.
 
 Compiling and Installing on WINDOWS
 -----------------------------------
@@ -58,16 +59,16 @@ To run matrixgl on windows, you will need to obtain the GLUT Utility Library, as
 
 One way to compile would be to use Visual C++ 2005. It is freely available at http://msdn2.microsoft.com/en-us/express/aa975050.aspx, probably because its an outdated version. You can obtain a free activation key if you register. If you choose to use Visual C++, you will need to make sure you have the Platform SDK, obtainable at http://msdn2.microsoft.com/en-us/express/aa700755.aspx. Also, make sure you copy the GLUT library and header files into the appropriate directories of whichever compiler you are using.
 
-You can compile this software as a regular .exe file. Be sure to uncomment the '#define WIN32_MODE' line near the top of the matrix.c. Once compiled, to install it as a screensaver, you will need to rename the .exe file, changing the extension to '.scr'. Matrixgl requires GLUT to run, and even if you didn't compile matrixgl from source, you will need to download and copy the glut32.dll library to your system directory at %WINDIR%\System\ (%WINDIR% is a Windows built-in variable, so you can paste this directly into your file manager). The glut32.dll file is included in the GLUT library mentioned at the top of this section.
+You can compile this software as a regular .exe file. Be sure to uncomment the '#define WIN32_MODE' line near the top of the matrix.c file. Once compiled, to install it as a screensaver, you will need to rename the .exe file, changing the extension to '.scr'. Matrixgl requires GLUT to run, and even if you didn't compile matrixgl from source, you will need to download and copy the glut32.dll library to your system directory at %WINDIR%\System\ (%WINDIR% is a Windows built-in variable, so you can paste this directly into your file manager). The glut32.dll file is included in the GLUT library mentioned at the top of this section.
 
-Once you have installed GLUT, and have the matrixgl.scr file, simple right click and choose the 'Install' option, and then sit back and enjoy! (Note: DCMatrixgl has no preferences dialog, so clicking 'Settings' in Windows Display Properties will have no effect)
+Once you have installed GLUT, and have the matrixgl.scr file, simple right click and choose the 'Install' option, and then sit back and enjoy! (Note: CMatrixgl has no preferences dialog, so clicking 'Settings' in Windows Display Properties will have no effect)
 
 
-Removing DCMatrixgl
+Removing Matrixgl
 -------------------
-In Linux, to remove any files that may have been added, simply run "$/usr/bin/dcmatrix_gl.kss -remove" as root. You may also want to delete the original source file directory. 
+In Linux, to remove any files that may have been added, simply run "#/usr/lib/misc/xscreensaver/matrixgl -remove" as root. You may also want to delete the original source file directory, if you still have it.
 
-In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrix_gl.scr. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of DCMatrixgl.
+In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrix_gl.scr. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of Matrixgl.
 
 
 Screensaver Functions/Keys
@@ -84,6 +85,6 @@ If you have any comments, feedback or suggestions, or have found a bug, feel fre
 
 Acknowledgements
 -----------------
-Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alex Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support, but in reality, this was just a simple modification of a complex and brilliantly designed gem of free software :). 
+Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alex Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support and xscreensaver support, but in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
 
 Also, although I personally like the 'knoppix.ru' credit that shows up at the beginning in the original screensaver, many users found it to be an annoyance, so I moved it to a credits section accessible via the 'c' key.
