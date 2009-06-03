@@ -1,17 +1,4 @@
 TODO
-. Fix edges of Alex's original 3D images, that break seams in widescreen mode
-   *UNFINISHED*
-   1: Neo,trin,morph trio
-   2: Neo Guns
-   3: Trinity Headshot 
-   *FINISHED*
-   4: The Ghosts
-   5: Morpheus w/ Guns
-   6: Trinity Headshot
-   7: Neo Headshot
-   8: Smith Headshot
-   9: Tank Headshot
-. Add additional 3D images, with more variety
-. Use time seed for some actual randomness
+. Add additional 3D images, with more variety/characters
 . Test on *BSD
 . Perhaps start using autotools, for better portability.

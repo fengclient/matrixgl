@@ -1,4 +1,12 @@
-matrixgl-v1.5B (2009/06/2)
+matrixgl-v2.0 (2009/06/3)
+--------------
+. Fixed all 3D images, they all work in widescreen
+. Starts at an actually random image now
+. Added credit option, to show credits on startup
+. Install now adds binary to /usr/bin, so it can be run from a term
+. Fixed some sign problems (now gcc error free)
+
+matrixgl-v1.5A (2009/06/2)
 --------------
 . Added xscreensaver support
 . Remove kde support (as xscreensaver can be used in kde/gnome..etc,
@@ -7,7 +15,7 @@ matrixgl-v1.5B (2009/06/2)
 . Added better help description
 . Added manpage
 
-matrixgl-v1.2B (2009/06/2)
+matrixgl-v1.2A (2009/06/2)
 --------------
 . Initialization of light tables is now hidden! (i.e it starts properly, instantly)
 . Added a 3D image of tank
@@ -19,13 +27,13 @@ matrixgl-v1.2B (2009/06/2)
 . Removed load_texture (adjusting green boost counter-acts the color change)
 . Removed ability to change X and Y offset (not useful for testing anymore)
 
-matrixgl-v1.1B (2009/05/30)
+matrixgl-v1.1A (2009/05/30)
 ---------------
 . Removed 3D images that don't work in widescreen
 . Fixed a few small bugs
 . Added my first image, front shot of smith (#9)
 
-matrixgl-v1.05B   (2008/10/08)
+matrixgl-v1.05A   (2008/10/08)
 -----------------
 . Widescreen support complete
   - Calculates text_x then allocs the core arrays.
@@ -36,7 +44,7 @@ matrixgl-v1.05B   (2008/10/08)
   - The extra columns for widescreen setups makes images
       that fade at the edges look very lame.
 
-matrixgl-v1.04B   (2008/09/26)
+matrixgl-v1.04A   (2008/09/26)
 -----------------
 . Added widescreen capabilities
   - 90x70 image shown in center
@@ -50,11 +58,11 @@ matrixgl-v1.04B   (2008/09/26)
 . Removed two unused variables in ourInit()
 . Slimmed down make_text
 
-matrixgl-v1.03B  (2008/05/02)
+matrixgl-v1.03A  (2008/05/02)
 -----------------
 . Fixed a bug that caused a slightly incorrect pic_offset
 
-matrixgl-v1.02B  (2008/04/25)
+matrixgl-v1.02A  (2008/04/25)
 -----------------
 . Added icon to Windows binary
 . Added ico and xpm icon files (files only, not used in source)
@@ -68,7 +76,7 @@ matrixgl-v1.02B  (2008/04/25)
 . Added file manifest, and made other additions to README
 . Added TODO file for future plans
 
-matrixgl-v1.01B
+matrixgl-v1.01A
 ------------------
 This section highlights changes made from the base knoppix.ru release 1.0
 . Now runs in the desktop's current resolution in Linux

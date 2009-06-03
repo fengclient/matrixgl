@@ -31,6 +31,7 @@
 #include <X11/Xlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <time.h>
 #endif
 
 #include <stdio.h>   /* Always a good idea. */
@@ -79,6 +80,8 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    int i=0,a=0,s=0;
    if(lpCmd[1]=='p' || lpCmd[1]=='c') exit(0);
    glutInit(&argc, &lpCmd);
+   srand(GetTickCount());
+   pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
 #else
 int main(int argc,char **argv) 
 {
@@ -97,6 +100,7 @@ int main(int argc,char **argv)
       {0, 0, 0, 0}
    };
    int opti = 0;
+   pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
    while ((opt = getopt_long_only(argc, argv, "sciuhvX:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
@@ -109,7 +113,7 @@ int main(int argc,char **argv)
             classic=1;
             break;
          case 'c':
-            printf("Warning: Credit option not yet implemented\n");
+            cbKeyPressed('c', 0, 0); /* Start at credits */
             break;
          case 'i':
             if (getuid()!=0) {
@@ -117,6 +121,7 @@ int main(int argc,char **argv)
                exit(1);
             }
             system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
+            system("cp -f matrixgl /usr/bin/"); /* For running from term */
             system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
             system("cp -f matrixgl.1 /usr/local/man/man1/");
             printf("Successfully installed to xscreensaver\n");
@@ -128,6 +133,7 @@ int main(int argc,char **argv)
                exit(1);
             }
             system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
+            system("rm -f /usr/bin/matrixgl");
             system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
             system("rm -f /usr/local/man/man1/matrixgl.1");
             printf("Uninstall complete\n");
@@ -166,8 +172,9 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 
 #ifdef WIN32_MODE
    glutInit(&argc, &lpCmd);
-#else
+#else /* *NIX */
    glutInit(&argc, argv);
+   srand(time(NULL));
 #endif
 
    /* Allocations for dynamic width */
@@ -224,7 +231,6 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 void make_text(void)
 {
    long a;
-   srand(10);
    for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
    for(a=0;a<text_x;a++) {
       speed[a]=rand()&1;
@@ -325,7 +331,7 @@ void draw_text3(void)
 void scroll(int mode)
 {
    static char odd=0;
-   unsigned int a, s=0;
+   int a, s=0;
    if (paused)return;
    for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]) text_light[a]=text_light[a-text_x]; 
@@ -346,7 +352,8 @@ void scroll(int mode)
       }
       if(timer>280) {
          timer=-1;  /* back to start */
-         pic_offset=(rand()&(num_pics))*(rtext_x*text_y); /* Random image */
+         pic_offset+=rtext_x*text_y; /* Next pic */
+         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
       }
       timer++;
 
@@ -370,7 +377,7 @@ void scroll(int mode)
 
 void make_change(void)
 {
-   unsigned int r=rand()&0xFFFF;
+   int r=rand()&0xFFFF;
    if (paused) return;
    r>>=3;  
    if(r<(text_x*text_y)) text[r]+=133; /* random character changes) */
@@ -521,7 +528,6 @@ void ourInit(void)
    glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
 
-   pic_offset=(rtext_x*text_y)*(rand()&num_pics);
 }
 
 /* malloc w/ error checking  */
