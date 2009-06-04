@@ -90,6 +90,7 @@ int main(int argc,char **argv)
    char *gms = tmalloc(35); /* Game Mode String */
    int i=0,a=0,s=0;
    int opt;
+   short ierror=0;    /* Install Error */
    static struct option long_opts[] =
    {
       {"static",  no_argument,      0, 's'},
@@ -135,16 +136,30 @@ int main(int argc,char **argv)
             }
             /* Std files */
             system("cp -f matrixgl /usr/bin/"); /* For running from term */
-            system("cp -f matrixgl.1 /usr/local/man/man1/");
-            /* Check for usual xscreensaver dirs */
-            if (access("/usr/share/xscreensaver/", F_OK) >= 0) {
+            /* Install man page */
+            if (access("/usr/local/man/man1/", F_OK) >= 0) 
+               system("cp -f matrixgl.1 /usr/local/man/man1/");
+            else if (access("/usr/share/man/man1/", F_OK) >= 0)
+               system("cp -f matrixgl.1 /usr/share/man/man1/");
+            /* else keep going, not fatal */
+
+            /* Install the binary */
+            if (access("/usr/lib/misc/xscreensaver/", F_OK) >= 0)
                system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
-               system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
-            /* Some systems use these dirs (openbsd for one) */
-            } else if (access("/usr/local/share/xscreensaver/", F_OK) >= 0) {
-               system("cp -f matrixgl.xml /usr/local/share/xscreensaver/config/");
+            else if (access("/usr/local/libexec/xscreensaver/", F_OK) >= 0)
                system("cp -f matrixgl /usr/local/libexec/xscreensaver/");
-            } else {
+            else if (access("/usr/lib/xscreensaver/", F_OK) >= 0)
+               system("cp -f matrixgl /usr/lib/xscreensaver/");
+            else ierror=1;
+
+            /* Install the xml file */
+            if (access("/usr/share/xscreensaver/config/", F_OK) >=0)
+               system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
+            else if (access("/usr/local/share/xscreensaver/", F_OK) >= 0)
+               system("cp -f matrixgl.xml /usr/local/share/xscreensaver/config/");
+            else ierror=1;
+
+            if (ierror) {
                fputs("\
 Error: xscreensaver directories cannot be found\n\
 **PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n\n\
