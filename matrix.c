@@ -68,6 +68,8 @@ int pic_fade=0;            /* Makes all chars lighter/darker */
 int classic=0;             /* classic mode (no 3d) */
 int paused=0;
 int num_pics=9 -1;         /* # 3d images (0 indexed) */
+GLenum color=GL_GREEN;     /* Color of text */
+
 
 
 #ifdef WIN32_MODE
@@ -90,18 +92,19 @@ int main(int argc,char **argv)
    int opt;
    static struct option long_opts[] =
    {
-      {"static",  no_argument, 0, 's'},
-      {"credits", no_argument, 0, 'c'},
-      {"install", no_argument, 0, 'i'},
-      {"remove",  no_argument, 0, 'u'},
-      {"help",    no_argument, 0, 'h'},
-      {"version", no_argument, 0, 'v'},
+      {"static",  no_argument,      0, 's'},
+      {"credits", no_argument,      0, 'c'},
+      {"color",   required_argument,0, 'C'},
+      {"install", no_argument,      0, 'i'},
+      {"remove",  no_argument,      0, 'u'},
+      {"help",    no_argument,      0, 'h'},
+      {"version", no_argument,      0, 'v'},
       {"window-id",optional_argument, 0, 'X'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvX:", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvC:X:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'X':
@@ -115,6 +118,18 @@ int main(int argc,char **argv)
          case 'c':
             cbKeyPressed('c', 0, 0); /* Start at credits */
             break;
+         case 'C':
+            if (!strcmp("green", (char *)optarg))
+               color=GL_GREEN;
+            else if (!strcmp("red", (char *)optarg))
+               color=GL_RED;
+            else if (!strcmp("blue", (char *)optarg))
+               color=GL_BLUE;
+            else {
+               fprintf(stderr, "Error: Color must be green, red or blue\n");
+               color=GL_GREEN;
+            }
+            break;
          case 'i':
             if (getuid()!=0) {
                fprintf(stderr, "Error: Must run --install as root\n");
@@ -124,7 +139,7 @@ int main(int argc,char **argv)
             system("cp -f matrixgl /usr/bin/"); /* For running from term */
             system("cp -f matrixgl.1 /usr/local/man/man1/");
             /* Check for usual xscreensaver dirs */
-            if (access("/usr/share/xscreensaver2/", F_OK) >= 0) {
+            if (access("/usr/share/xscreensaver/", F_OK) >= 0) {
                system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
                system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
             /* Some systems use these dirs (openbsd for one) */
@@ -179,6 +194,7 @@ to the next release.\n\n\
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\
+ -C --color=COL    Set color to COL (must be green, red or blue)\n\
  -c --credits      Show the credits on startup\n\
  -h --help         Show the help screen\n\
  -i --install      Install to xscreensaver\n\
@@ -527,7 +543,7 @@ void ourBuildTextures(void)
 {
    glPixelTransferf(GL_GREEN_SCALE, 1.15f); /* Give green a bit of a boost */
    glBindTexture(GL_TEXTURE_2D,1);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_GREEN,
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, color,
       GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,2);
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_LUMINANCE, 

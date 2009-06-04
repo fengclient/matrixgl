@@ -3,6 +3,7 @@ matrixgl-v2.02  (not yet released)
 . Added additional install support for openbsd (and other distros that 
    use alternative xscreensaver directories).
 . Added failure message if we can't find the xscreensaver dirs.
+. Added color option, to change from green to red or blue.
 
 matrixgl-v2.0.1 (2009/06/3)
 ---------------
