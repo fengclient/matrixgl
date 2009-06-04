@@ -198,7 +198,9 @@ to the next release.\n\n\
             /* Make sure we get rid of everything */
             system("rm -f /usr/bin/matrixgl");
             system("rm -f /usr/local/man/man1/matrixgl.1");
+            system("rm -f /usr/share/man/man1/matrixgl.1");
             system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
+            system("rm -f /usr/lib/xscreensaver/matrixgl");
             system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
             system("rm -f /usr/local/libexec/xscreensaver/matrixgl");
             system("rm -f /usr/local/share/xscreensaver/config/matrixgl.xml");

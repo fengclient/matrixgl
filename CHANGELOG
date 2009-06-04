@@ -8,6 +8,7 @@ matrixgl-v2.02  (not yet released)
 . Fixed static/credit option collision
 . Fixed bug that broke matrixgl with xscreensaver
 . Updated X11 include directories to support macs
+. Updated install checks
 
 matrixgl-v2.0.1 (2009/06/3)
 ---------------
