@@ -4,6 +4,10 @@ matrixgl-v2.02  (not yet released)
    use alternative xscreensaver directories).
 . Added failure message if we can't find the xscreensaver dirs.
 . Added color option, to change from green to red or blue.
+. Fixed bug with static option not working
+. Fixed static/credit option collision
+. Fixed bug that broke matrixgl with xscreensaver
+. Updated X11 include directories to support macs
 
 matrixgl-v2.0.1 (2009/06/3)
 ---------------
