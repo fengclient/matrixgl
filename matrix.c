@@ -91,6 +91,9 @@ int main(int argc,char **argv)
    int i=0,a=0,s=0;
    int opt;
    short ierror=0;    /* Install Error */
+   int wuse=1;
+   Window wid=0;
+
    static struct option long_opts[] =
    {
       {"static",  no_argument,      0, 's'},
@@ -100,13 +103,22 @@ int main(int argc,char **argv)
       {"remove",  no_argument,      0, 'u'},
       {"help",    no_argument,      0, 'h'},
       {"version", no_argument,      0, 'v'},
+      {"window-id",required_argument,0, 'Z'},
+      {"root", no_argument,         0, 'X'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvC:", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvC:XZ:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
+         case 'Z':
+            wuse=0;
+            wid=(Window)optarg;
+            break;
+         case 'X':
+            wuse=1;
+            break;
          case 's':
             pic_fade=0;
             pic_offset=0;
@@ -250,7 +262,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH) 
       / glutGet(GLUT_SCREEN_HEIGHT)));
    if (text_x % 2 == 1) text_x++;
-   if (text_x < 108) text_x=108; /* Sanity check */
+   if (text_x < 90) text_x=90; /* Sanity check */
    speed = tmalloc(text_x);
    text= tmalloc(text_x*(text_y+1));
    text_light = tmalloc(text_x*(text_y+1));
@@ -281,8 +293,15 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH),
       glutGet(GLUT_SCREEN_HEIGHT));
    glutGameModeString(gms);
-#endif
+   if (!wuse) {
+      glutInitWindowSize(800, 600);
+      glutCreateWindow("matrix_gl");
+   } else {
+      glutEnterGameMode();
+   }
+#else
    glutEnterGameMode();
+#endif
 
    /* Register the callback functions */
    glutDisplayFunc(&cbRenderScene);
