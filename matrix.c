@@ -241,7 +241,7 @@ Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
              stdout);
             exit(0);
          case 'v':
-            fputs("matrixgl Version 1.5B\n\
+            fputs("matrixgl Version 2.0.2\n\
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
 Written By: Alex Zolotoz <No active email known> 2003.\n\
 Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
