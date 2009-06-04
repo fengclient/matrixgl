@@ -50,7 +50,9 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Windows 7 64 bit
    . Linux: Gentoo
    . Linux: Ubuntu
+   . Linux: Debian
    . BSD: Openbsd
+If you're platform isn't listed above, it is likely to still work.
 
 Compiling and Installing on *NIX
 ----------------------------------
@@ -67,15 +69,9 @@ I have chosen not to support KDE and Gnome screensavers, because xscreensaver is
 
 Compiling and Installing on Mac OSX
 ----------------------------------
-OSX doesn't come with glut, so you need to get it by following the instructions at http://glut.darwinports.com/. 
+Can't get it working on OSX, due to glut errors. If anyone can fix this, please submit a patch to https://sourceforge.net/projects/matrixgl/ or <vincent@doublecreations.com>.
 
-Besides GLUT, OSX comes with all the tools you will need to compile. Make sure that the '#define WIN32_MODE' line near the top of matrix.c is commented out, or deleted, before you begin. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
-
-#make
-#matrixgl -install
-
-The latter command will add matrixgl into the appropriate xscreensaver directorys. If they don't exist, install xscreensaver, and run the matrixgl install command again. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
-
+The UNIX version of glut doesn't compile on OSX, and darwinports claims it's already there. Again, if you can help, please send a patch.
 
 Compiling and Installing on WINDOWS
 -----------------------------------

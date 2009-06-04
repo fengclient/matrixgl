@@ -3,7 +3,7 @@ LIBDIR  = -L/usr/X11R6/lib -I/usr/X11/lib
 
 CFLAGS = -O2 -Wall -pedantic -ansi -W -Wno-unused
 CC = gcc
-LIBRARIES = -lX11 -lglut -lGL -lGLU -lm
+LIBRARIES = -lX11 -lXmu -lglut -lGL -lGLU -lm
 
 Matrix: matrix.o
 	@$(CC) matrix.o -o matrixgl $(CFLAGS) $(INCLUDE) $(LIBDIR) $(LIBRARIES)

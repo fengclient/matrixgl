@@ -1,4 +1,6 @@
 TODO
+. Need to add entry to ~/.xscreensaver, some distros don't do this
+. Figure out how to get glut working on mac, to see if matrixgl works properly on osx.
 . Add additional 3D images, with more variety/characters
 . Perhaps start using autotools, for better portability.
 . Test on mac, opensolaris
