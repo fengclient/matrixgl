@@ -120,10 +120,45 @@ int main(int argc,char **argv)
                fprintf(stderr, "Error: Must run --install as root\n");
                exit(1);
             }
-            system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
+            /* Std files */
             system("cp -f matrixgl /usr/bin/"); /* For running from term */
-            system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
             system("cp -f matrixgl.1 /usr/local/man/man1/");
+            /* Check for usual xscreensaver dirs */
+            if (access("/usr/share/xscreensaver2/", F_OK) >= 0) {
+               system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
+               system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
+            /* Some systems use these dirs (openbsd for one) */
+            } else if (access("/usr/local/share/xscreensaver/", F_OK) >= 0) {
+               system("cp -f matrixgl.xml /usr/local/share/xscreensaver/config/");
+               system("cp -f matrixgl /usr/local/libexec/xscreensaver/");
+            } else {
+               fputs("\
+Error: xscreensaver directories cannot be found\n\
+**PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n\n\
+If xscreensaver is installed, and you still get this \
+message, please report it as a bug by emailing \
+<vincent@doublecreations.com>. Include details of \
+your OS/distro, so we can fix the problem in the \
+next release. \n\n",
+                  stderr);
+               fputs("\
+You can fix this yourself by locating two directories\n\
+Note: They must exist, creating new ones won't work\n\
+ 1) The xscreensaver config dir \n\
+     - Usually /usr/share/xscreensaver/config/\n\
+ 2) The xscreensaver bin dir\n\
+     - Usually /usr/lib/misc/xscreensaver/\n",
+                  stderr);
+               fputs("\
+Copy the file 'matrixgl.xml' to the config dir and \
+the file 'matrixgl' to the bin dir. If you are \
+successful, please send the working directories \
+along with the bug report, so we can add the support \
+to the next release.\n\n\
+**PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n",
+                  stderr);
+               exit(EXIT_FAILURE);
+            }
             printf("Successfully installed to xscreensaver\n");
             printf("Run 'xscreensaver-demo' and select 'matrixgl'\n");
             exit(0);
@@ -132,10 +167,13 @@ int main(int argc,char **argv)
                fprintf(stderr, "Error: Must run -remove as root\n");
                exit(1);
             }
-            system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
+            /* Make sure we get rid of everything */
             system("rm -f /usr/bin/matrixgl");
-            system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
             system("rm -f /usr/local/man/man1/matrixgl.1");
+            system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
+            system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
+            system("rm -f /usr/local/libexec/xscreensaver/matrixgl");
+            system("rm -f /usr/local/share/xscreensaver/config/matrixgl.xml");
             printf("Uninstall complete\n");
             exit(0);
          case 'h':

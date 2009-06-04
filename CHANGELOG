@@ -1,3 +1,14 @@
+matrixgl-v2.02  (not yet released)
+--------------
+. Added additional install support for openbsd (and other distros that 
+   use alternative xscreensaver directories).
+. Added failure message if we can't find the xscreensaver dirs.
+
+matrixgl-v2.0.1 (2009/06/3)
+---------------
+. Linked in the math library (needed for openbsd)
+. Added list of supported OS's to README
+
 matrixgl-v2.0 (2009/06/3)
 --------------
 . Fixed all 3D images, they all work in widescreen
