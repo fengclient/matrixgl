@@ -3,6 +3,11 @@
 <screensaver name="matrixgl" _label="Matrixgl">
    <boolean id="static" _label="Disable 3D Images (static mode)" arg-set="-static"/>
    <boolean id="showcred" _label="Show Credits on Startup" arg-set="-credits"/>
+   <select id="color"> 
+      <option id="green" _label="Green text" arg-set="-C green" />
+      <option id="red" _label="Red text" arg-set="-C red" />
+      <option id="blue" _label="Blue text" arg-set="-C blue" />
+   </select>
 
    <_description>
    A 3D matrix screensaver based on the Matrix Reloaded

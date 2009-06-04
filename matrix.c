@@ -21,7 +21,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-#define TESTING  /* Some functions used for testing */
+/*#define TESTING  *//* Some functions used for testing */
 /*#define WIN32_MODE*/
 
 /* Includes */
@@ -99,23 +99,21 @@ int main(int argc,char **argv)
       {"remove",  no_argument,      0, 'u'},
       {"help",    no_argument,      0, 'h'},
       {"version", no_argument,      0, 'v'},
-      {"window-id",optional_argument, 0, 'X'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvC:X:", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvC:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
-         case 'X':
-            /* We don't run in a window, so disable 
-             * previews in xscreensaver 
-             */
-            exit(0);
          case 's':
+            pic_fade=0;
+            pic_offset=0;
+            pic_mode=!pic_mode;
             classic=1;
             break;
          case 'c':
+            if (classic) break; /* Can't be used with 's' */
             cbKeyPressed('c', 0, 0); /* Start at credits */
             break;
          case 'C':
