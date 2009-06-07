@@ -1,2 +1,2 @@
 KNOWN BUGS
-. GLUT doesn't write to the root window, so xscreensaver support is broken.
+. None at this time
