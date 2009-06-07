@@ -623,10 +623,12 @@ void cbKeyPressed(unsigned char key, int x, int y)
       case 'X':
          break; /* Do nothing */
       case 113: case 81: case 27: /* q,ESC */
+#ifdef NIX_MODE
          glXMakeCurrent(dpy, None, NULL);
          glXDestroyContext(dpy, glc);
          XDestroyWindow(dpy, win);
          XCloseDisplay(dpy);
+#endif /* NIX_MODE */
          exit(0); 
       case 'n': /* n - Next picture. */
          if (classic) break;
