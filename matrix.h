@@ -36,4 +36,8 @@ void cbResizeScene(int Width, int Height);
 void ourInit(void);
 void load_texture(void);
 void *tmalloc(size_t n);
+#ifdef NIX_MODE
+char get_ascii_keycode(XEvent *ev);
+int htoi(char *str);
+#endif
 

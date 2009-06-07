@@ -23,16 +23,19 @@
 
 /*#define TESTING  *//* Some functions used for testing */
 /*#define WIN32_MODE*/
+#ifndef WIN32_MODE
+   #define NIX_MODE
+#endif
 
 /* Includes */
 #ifdef WIN32_MODE 
 #include <windows.h>
-#else
+#else /* NIX_MODE */
 #include <X11/Xlib.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <time.h>
-#endif
+#endif /* NIX_MODE */
 
 #include <stdio.h>   /* Always a good idea. */
 #include <math.h> 
@@ -40,7 +43,12 @@
 #include <string.h>
 #include <GL/gl.h>   /* OpenGL itself. */
 #include <GL/glu.h>  /* GLU support library. */
-#include <GL/glut.h> /* GLUT support library. */
+#ifdef WIN32_MODE
+   #include <GL/glut.h> /* GLUT support library. */
+#else /* NIX_MODE */
+   #include <GL/glx.h>
+   #include "vroot.h"
+#endif /* NIX_MODE */
 
 #include "matrix.h"  /* Prototypes */
 #include "matrix1.h" /* Font data */
@@ -71,6 +79,56 @@ int num_pics=9 -1;         /* # 3d images (0 indexed) */
 GLenum color=GL_GREEN;     /* Color of text */
 
 
+#ifdef NIX_MODE
+Display                 *dpy;
+Window                  root;
+GLint                   att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
+XVisualInfo             *vi;
+Colormap                cmap;
+XWindowAttributes       gwa;
+XSetWindowAttributes    swa;
+Window                  win;
+GLXContext              glc;
+XEvent                  xev;
+int x,y;
+
+int htoi(char *str)
+{
+  int i,sum=0,d,sl;
+  sl=strlen(str);
+
+  if(str[0]!='0' || str[1]!='x') return -1;
+  for(i=2;i<sl;i++){
+    d=0;
+    if(str[i]>='0' && str[i]<='9') d=(int)(str[i]-'0');
+    if(str[i]>='A' && str[i]<='F') d=(int)(str[i]-'A'+10);
+    if(str[i]>='a' && str[i]<='f') d=(int)(str[i]-'a'+10);
+    sum+=d;
+    sum=sum<<4;
+  }
+
+  return(sum>>4);
+}
+
+char get_ascii_keycode(XEvent *ev)
+{
+   char keys[256], *s;
+   int count;
+   KeySym k;
+
+   if (ev) {
+      count = XLookupString((XKeyEvent *)ev, keys, 256, &k,NULL);
+      keys[count] = '\0';
+      if (count == 0) {
+         s = XKeysymToString(k);
+         strcpy(keys, (s)?s:"");
+      }
+      if (count==1) return *keys;
+   }
+   return 'X';
+}
+#endif
+
 
 #ifdef WIN32_MODE
 /* 
@@ -84,14 +142,14 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    glutInit(&argc, &lpCmd);
    srand(GetTickCount());
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-#else
+#else /* NIX_MODE */
 int main(int argc,char **argv) 
 {
    char *gms = tmalloc(35); /* Game Mode String */
    int i=0,a=0,s=0;
    int opt;
    short ierror=0;    /* Install Error */
-   int wuse=1;
+   int wuse=2;
    Window wid=0;
 
    static struct option long_opts[] =
@@ -114,7 +172,7 @@ int main(int argc,char **argv)
       switch (opt) {
          case 'Z':
             wuse=0;
-            wid=(Window)optarg;
+            wid=htoi(optarg);
             break;
          case 'X':
             wuse=1;
@@ -249,18 +307,55 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
             exit(0);
       }
    }
-#endif /* Not WIN32_MODE */
+#endif /* NIX_MODE */
 
 #ifdef WIN32_MODE
    glutInit(&argc, &lpCmd);
-#else /* *NIX */
-   glutInit(&argc, argv);
+#else /* NIX_MODE */
    srand(time(NULL));
 #endif
 
-   /* Allocations for dynamic width */
+
+#ifdef NIX_MODE
+   /* Set up X Window */
+   dpy = XOpenDisplay(NULL);
+   if(dpy == NULL) {
+      fprintf(stderr, "Can't connect to X server\n");
+      exit(0); 
+   }
+   root = DefaultRootWindow(dpy);
+   vi = glXChooseVisual(dpy, 0, att);
+   cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
+   swa.colormap = cmap;
+   swa.event_mask = ExposureMask | KeyPressMask;
+   y = DisplayHeight(dpy, DefaultScreen(dpy));
+   x = DisplayWidth(dpy, DefaultScreen(dpy));
+   /* Take height of preview win in xscreensaver */
+   if (!wuse) {
+      XGetWindowAttributes(dpy, wid, &gwa);
+      x = gwa.width;
+      y = gwa.height;
+   }
+   if (wuse==2) {
+      x/=2;
+      y/=2;
+   }
+   win = XCreateWindow(dpy, root, 0, 0, x, y, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+   XMapWindow(dpy, win);
+   XStoreName(dpy, win, "Matrixgl Screensaver");
+   glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
+   glXMakeCurrent(dpy, win, glc);
+#endif /* NIX_MODE */
+
+/* Allocations for dynamic width */
+#ifdef WIN32_MODE
    text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH) 
       / glutGet(GLUT_SCREEN_HEIGHT)));
+#else /* NIX_MODE */
+   text_x = ceil(70 * ((float)x/y));
+#endif /* NIX_MODE */
+
+   /* Initializations */
    if (text_x % 2 == 1) text_x++;
    if (text_x < 90) text_x=90; /* Sanity check */
    speed = tmalloc(text_x);
@@ -287,22 +382,26 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    }
    mode2=1;
 
-   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-#ifndef WIN32_MODE
-   /* Force linux to use same resolution as desktop */
-   sprintf(gms,"%dx%d:24@85", glutGet(GLUT_SCREEN_WIDTH),
-      glutGet(GLUT_SCREEN_HEIGHT));
-   glutGameModeString(gms);
+#ifdef NIX_MODE
+   ourInit();
+   cbResizeScene(x,y);
+   while(1) {
+      XNextEvent(dpy, &xev);
+      if(xev.type == KeyPress) {
+         cbKeyPressed(get_ascii_keycode(&xev),0,0);
+      }
+      scroll(0);
+      XGetWindowAttributes(dpy, win, &gwa);
+      glViewport(0, 0, gwa.width, gwa.height);
+      cbRenderScene();
+      glXSwapBuffers(dpy, win); 
+   } 
    if (!wuse) {
-      glutInitWindowSize(800, 600);
-      glutCreateWindow("matrix_gl");
    } else {
-      glutEnterGameMode();
    }
-#else
+#else /* WIN32_MODE */
+   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
    glutEnterGameMode();
-#endif
-
    /* Register the callback functions */
    glutDisplayFunc(&cbRenderScene);
    glutIdleFunc(&cbRenderScene);
@@ -311,6 +410,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    glutPassiveMotionFunc(MouseFunc);   
    ourInit();
    glutMainLoop(); /* Pass off control to OpenGL. */
+#endif /* WIN32_MODE */
    return 0;
 }
 
@@ -459,7 +559,9 @@ void scroll(int mode)
       }
    }
    odd =!odd;
+#ifdef WIN32_MODE
    if(!mode) glutTimerFunc(60,scroll,mode2);
+#endif
 }
 
 
@@ -472,19 +574,20 @@ void make_change(void)
    r=rand()&0xFFFF;r>>=7;
    if(r<text_x && text_light[r]!=0) text_light[r]=255; /* white nodes */
 
-   if(mode2) scroll(mode2);
+   scroll(mode2);
 }
 
 
 void cbRenderScene(void)
 {  
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    glBindTexture(GL_TEXTURE_2D,1);
    glEnable(GL_BLEND);
    glEnable(GL_TEXTURE_2D);
 
    glDisable(GL_LIGHTING);
    glBlendFunc(GL_SRC_ALPHA,GL_ONE); 
-   glDisable(GL_DEPTH_TEST); 
+   glDisable(GL_DEPTH_TEST);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
       GL_NEAREST_MIPMAP_LINEAR);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
@@ -510,7 +613,10 @@ void cbRenderScene(void)
    make_change();
    glLoadIdentity();
    glMatrixMode(GL_PROJECTION);
+
+#ifdef WIN32_MODE
    glutSwapBuffers();
+#endif
 } 
 
 
@@ -524,18 +630,24 @@ void MouseFunc(int x, int y)
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
    else if (xx!=x||yy!=y)exit(0);
-#else
+#else /* NIX_MODE */
    static int c=0;
    if(c++>=1) exit(0);
-#endif
+#endif /* NIX_MODE */
 }
 
 
 void cbKeyPressed(unsigned char key, int x, int y)
 {
    switch (key) {
+      case 'X':
+         break; /* Do nothing */
       case 113: case 81: case 27: /* q,ESC */
-         exit(0);
+         glXMakeCurrent(dpy, None, NULL);
+         glXDestroyContext(dpy, glc);
+         XDestroyWindow(dpy, win);
+         XCloseDisplay(dpy);
+         exit(0); 
       case 'n': /* n - Next picture. */
          if (classic) break;
          pic_offset+=rtext_x*text_y;
@@ -559,7 +671,9 @@ void cbKeyPressed(unsigned char key, int x, int y)
          break;
       case 'p': /* Pause */
          paused=!paused;
+#ifdef WIN32_MODE
          if (!paused) glutTimerFunc(60,scroll,mode2);
+#endif /* WIN32_MODE */
          break;
 #ifdef TESTING
       case '=':
@@ -598,7 +712,7 @@ void cbResizeScene(int Width, int Height)
    glViewport(0, 0, Width, Height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,100.0f);
+   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,900.0f);
    glMatrixMode(GL_MODELVIEW);
 }
 

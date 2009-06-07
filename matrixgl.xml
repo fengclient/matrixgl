@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <screensaver name="matrixgl" _label="Matrixgl">
+   <command arg="-root" /> 
    <boolean id="static" _label="Disable 3D Images (static mode)" arg-set="-static"/>
    <boolean id="showcred" _label="Show Credits on Startup" arg-set="-credits"/>
    <select id="color"> 

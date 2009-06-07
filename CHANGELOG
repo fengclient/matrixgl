@@ -1,3 +1,10 @@
+matrixgl-c2.1  (not yet relased)
+-------------
+. Ported from GLUT to x11 on *NIX
+. Fixed xscreensaver support
+. Preview in xscreensaver now works
+. Added file vroot.h so we can write to the virtual root for xscreensaver
+
 matrixgl-v2.0.2  (2009/06/4)
 ---------------
 . Added additional install support for openbsd (and other distros that 
