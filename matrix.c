@@ -91,42 +91,6 @@ Window                  win;
 GLXContext              glc;
 XEvent                  xev;
 int x,y;
-
-int htoi(char *str)
-{
-  int i,sum=0,d,sl;
-  sl=strlen(str);
-
-  if(str[0]!='0' || str[1]!='x') return -1;
-  for(i=2;i<sl;i++){
-    d=0;
-    if(str[i]>='0' && str[i]<='9') d=(int)(str[i]-'0');
-    if(str[i]>='A' && str[i]<='F') d=(int)(str[i]-'A'+10);
-    if(str[i]>='a' && str[i]<='f') d=(int)(str[i]-'a'+10);
-    sum+=d;
-    sum=sum<<4;
-  }
-
-  return(sum>>4);
-}
-
-char get_ascii_keycode(XEvent *ev)
-{
-   char keys[256], *s;
-   int count;
-   KeySym k;
-
-   if (ev) {
-      count = XLookupString((XKeyEvent *)ev, keys, 256, &k,NULL);
-      keys[count] = '\0';
-      if (count == 0) {
-         s = XKeysymToString(k);
-         strcpy(keys, (s)?s:"");
-      }
-      if (count==1) return *keys;
-   }
-   return 'X';
-}
 #endif
 
 
@@ -340,7 +304,8 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
       x/=2;
       y/=2;
    }
-   win = XCreateWindow(dpy, root, 0, 0, x, y, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+   win = XCreateWindow(dpy, root, 0, 0, x, y, 0, vi->depth, InputOutput, 
+       vi->visual, CWColormap | CWEventMask, &swa);
    XMapWindow(dpy, win);
    XStoreName(dpy, win, "Matrixgl Screensaver");
    glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
@@ -386,8 +351,8 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    ourInit();
    cbResizeScene(x,y);
    while(1) {
-      XNextEvent(dpy, &xev);
-      if(xev.type == KeyPress) {
+      if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev) 
+         && xev.type == KeyPress) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
       }
       scroll(0);
@@ -395,10 +360,8 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
       glViewport(0, 0, gwa.width, gwa.height);
       cbRenderScene();
       glXSwapBuffers(dpy, win); 
+      glFinish();
    } 
-   if (!wuse) {
-   } else {
-   }
 #else /* WIN32_MODE */
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
    glutEnterGameMode();
@@ -740,4 +703,42 @@ void *tmalloc(size_t n)
       exit(EXIT_FAILURE);
    return p;
 }
+
+#ifdef NIX_MODE
+int htoi(char *str)
+{
+  int i,sum=0,d,sl;
+  sl=strlen(str);
+
+  if(str[0]!='0' || str[1]!='x') return -1;
+  for(i=2;i<sl;i++){
+    d=0;
+    if(str[i]>='0' && str[i]<='9') d=(int)(str[i]-'0');
+    if(str[i]>='A' && str[i]<='F') d=(int)(str[i]-'A'+10);
+    if(str[i]>='a' && str[i]<='f') d=(int)(str[i]-'a'+10);
+    sum+=d;
+    sum=sum<<4;
+  }
+
+  return(sum>>4);
+}
+
+char get_ascii_keycode(XEvent *ev)
+{
+   char keys[256], *s;
+   int count;
+   KeySym k;
+
+   if (ev) {
+      count = XLookupString((XKeyEvent *)ev, keys, 256, &k,NULL);
+      keys[count] = '\0';
+      if (count == 0) {
+         s = XKeysymToString(k);
+         strcpy(keys, (s)?s:"");
+      }
+      if (count==1) return *keys;
+   }
+   return 'X';
+}
+#endif
 
