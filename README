@@ -52,7 +52,7 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Linux: Ubuntu
    . Linux: Debian
    . BSD: Openbsd
-If you're platform isn't listed above, it is likely to still work.
+If you're platform isn't listed above, it will likely still work. 
 
 Compiling and Installing on *NIX
 ----------------------------------
@@ -64,6 +64,8 @@ All you should need to compile matrixgl is gcc and make. Make sure that the '#de
 The latter command will add matrixgl into the appropriate xscreensaver directorys. If they don't exist, install xscreensaver, and run the matrixgl install command again. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
 
 I have chosen not to support KDE and Gnome screensavers, because xscreensaver is DE independent, and can run on both of them anyway. If you aren't using xscreensaver, google how to use it in your desktop environment.
+
+Note: On some setups, xscreensaver won't automatically recognize new screensavers when you launch xscreensaver-demo. If it doesn't, you can fix it manually by adding the line "   matrixgl -root -C green         \n\" to your ~/.xscreensaver file. This should be done automatically in a future release.
 
 Compiling and Installing on Mac OSX
 ----------------------------------

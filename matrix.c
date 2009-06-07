@@ -372,7 +372,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
        * method overall.
        */
       glFinish();
-      usleep(30 * 1000); /* Prevent drawing too fast */
+      usleep(25 * 1000); /* Prevent drawing too fast */
       scroll(0);
    } 
 #else /* WIN32_MODE */
@@ -509,12 +509,12 @@ void scroll(int mode)
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
-      if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
-      if (timer > 158 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+      if(timer>190 && timer<195 && !classic) pic_mode=2; /* pic fade out */
+      if (timer > 190 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=100;pic_mode=1; /* Make DC dissapear quickly */
       }
-      if(timer>280) {
+      if(timer>300) {
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
          if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
