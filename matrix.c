@@ -35,6 +35,8 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <time.h>
+#include <sys/time.h>
+#include <signal.h>
 #endif /* NIX_MODE */
 
 #include <stdio.h>   /* Always a good idea. */
@@ -115,6 +117,7 @@ int main(int argc,char **argv)
    short ierror=0;    /* Install Error */
    int wuse=2;
    Window wid=0;
+   struct itimerval sigt;
 
    static struct option long_opts[] =
    {
@@ -350,17 +353,25 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 #ifdef NIX_MODE
    ourInit();
    cbResizeScene(x,y);
+   /* Set up scroll() timer */
+   signal(SIGALRM, scroll);
+
+   sigt.it_interval.tv_sec=0;
+   sigt.it_interval.tv_usec=80000;
+   sigt.it_value.tv_sec=0;
+   sigt.it_value.tv_usec=60000;
+   /*setitimer(ITIMER_REAL, &sigt, NULL);*/
+
    while(1) {
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev) 
          && xev.type == KeyPress) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
       }
-      scroll(0);
       XGetWindowAttributes(dpy, win, &gwa);
       glViewport(0, 0, gwa.width, gwa.height);
       cbRenderScene();
-      glXSwapBuffers(dpy, win); 
       glFinish();
+      scroll(0);
    } 
 #else /* WIN32_MODE */
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -483,6 +494,9 @@ void scroll(int mode)
 {
    static char odd=0;
    int a, s=0;
+#ifdef NIX_MODE
+   signal(SIGALRM, scroll);
+#endif
    if (paused)return;
    for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]) text_light[a]=text_light[a-text_x]; 
@@ -537,7 +551,9 @@ void make_change(void)
    r=rand()&0xFFFF;r>>=7;
    if(r<text_x && text_light[r]!=0) text_light[r]=255; /* white nodes */
 
-   scroll(mode2);
+#ifdef WIN32_MODE
+   if(mode2) scroll(mode2);
+#endif
 }
 
 
@@ -579,7 +595,9 @@ void cbRenderScene(void)
 
 #ifdef WIN32_MODE
    glutSwapBuffers();
-#endif
+#else /* NIX_MODE */
+   glXSwapBuffers(dpy, win); 
+#endif /* NIX_MODE */
 } 
 
 
