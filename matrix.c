@@ -21,7 +21,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-/*#define TESTING  *//* Some functions used for testing */
 /*#define WIN32_MODE*/
 #ifndef WIN32_MODE
    #define NIX_MODE
@@ -29,14 +28,13 @@
 
 /* Includes */
 #ifdef WIN32_MODE 
-#include <windows.h>
+   #include <windows.h>
 #else /* NIX_MODE */
-#include <X11/Xlib.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <time.h>
-#include <sys/time.h>
-#include <signal.h>
+   #include <X11/Xlib.h>
+   #include <unistd.h>
+   #include <getopt.h>
+   #include <time.h>
+   #include <sys/time.h>
 #endif /* NIX_MODE */
 
 #include <stdio.h>   /* Always a good idea. */
@@ -111,13 +109,11 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 #else /* NIX_MODE */
 int main(int argc,char **argv) 
 {
-   char *gms = tmalloc(35); /* Game Mode String */
    int i=0,a=0,s=0;
    int opt;
    short ierror=0;    /* Install Error */
    int wuse=2;
    Window wid=0;
-   struct itimerval sigt;
 
    static struct option long_opts[] =
    {
@@ -353,15 +349,6 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 #ifdef NIX_MODE
    ourInit();
    cbResizeScene(x,y);
-   /* Set up scroll() timer */
-   signal(SIGALRM, scroll);
-
-   sigt.it_interval.tv_sec=0;
-   sigt.it_interval.tv_usec=80000;
-   sigt.it_value.tv_sec=0;
-   sigt.it_value.tv_usec=60000;
-   /*setitimer(ITIMER_REAL, &sigt, NULL);*/
-
    while(1) {
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev) 
          && xev.type == KeyPress) {
@@ -370,7 +357,22 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
       XGetWindowAttributes(dpy, win, &gwa);
       glViewport(0, 0, gwa.width, gwa.height);
       cbRenderScene();
+      /* There are several methods I tried here. If we were
+       * to just call scroll() every x milliseconds, or call it 
+       * without first calling glFinish(), it would look bad on 
+       * slower video cards, because we might only get the chance
+       * to draw the screen once every 4 scrolls, so it would 
+       * appear to skip, and look terrible. On the other hand,
+       * if it were run on a really fast video card, calling 
+       * scroll() at every redraw would make it scroll too fast.
+       * Forcing opengl to finish painting here makes sure
+       * that we don't get horrible skipping, and the usleep
+       * call guarentees it doesn't run too fast on high end cards.
+       * In the testing I did, this was by far the best
+       * method overall.
+       */
       glFinish();
+      usleep(30 * 1000); /* Prevent drawing too fast */
       scroll(0);
    } 
 #else /* WIN32_MODE */
@@ -494,9 +496,6 @@ void scroll(int mode)
 {
    static char odd=0;
    int a, s=0;
-#ifdef NIX_MODE
-   signal(SIGALRM, scroll);
-#endif
    if (paused)return;
    for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]) text_light[a]=text_light[a-text_x]; 
@@ -604,7 +603,7 @@ void cbRenderScene(void)
 void MouseFunc(int x, int y)
 {
 #ifdef WIN32_MODE
-   /* 
+   /*
     * WIN seems to randomly call passive mouse func when no movement
     * takes place, so we gotta check if coords have infact changed.
     */
@@ -656,14 +655,6 @@ void cbKeyPressed(unsigned char key, int x, int y)
          if (!paused) glutTimerFunc(60,scroll,mode2);
 #endif /* WIN32_MODE */
          break;
-#ifdef TESTING
-      case '=':
-         Z_Off+=5.0f;
-         break;
-      case '-':
-         Z_Off-=5.0f;
-         break;
-#endif /* TESTING */
    }
 }
 
@@ -693,7 +684,7 @@ void cbResizeScene(int Width, int Height)
    glViewport(0, 0, Width, Height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,900.0f);
+   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,200.0f);
    glMatrixMode(GL_MODELVIEW);
 }
 
