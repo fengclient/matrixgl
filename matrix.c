@@ -40,14 +40,19 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <GL/gl.h>   /* OpenGL itself. */
-#include <GL/glu.h>  /* GLU support library. */
-#ifdef WIN32_MODE
-   #include <GL/glut.h> /* GLUT support library. */
-#else /* NIX_MODE */
+#ifdef __APPLE__
+   #include <OpenGL/gl.h>
+   #include <OpenGL/glu.h>
+#else 
+   #include <GL/gl.h>   /* OpenGL itself. */
+   #include <GL/glu.h>  /* GLU support library. */
+#endif
+#ifdef NIX_MODE
    #include <GL/glx.h>
    #include "vroot.h"
-#endif /* NIX_MODE */
+#else /* WIN32_MODE */
+   #include <GL/glut.h> /* GLUT support library. */
+#endif /* WIN32_MODE */
 
 #include "matrix.h"  /* Prototypes */
 #include "matrix1.h" /* Font data */
