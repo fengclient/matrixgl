@@ -34,11 +34,10 @@
    #include <unistd.h>
    #include <getopt.h>
    #include <time.h>
-   #include <sys/time.h>
 #endif /* NIX_MODE */
 
 #include <stdio.h>   /* Always a good idea. */
-#include <math.h> 
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <GL/gl.h>   /* OpenGL itself. */
@@ -117,15 +116,17 @@ int main(int argc,char **argv)
 
    static struct option long_opts[] =
    {
-      {"static",  no_argument,      0, 's'},
-      {"credits", no_argument,      0, 'c'},
-      {"color",   required_argument,0, 'C'},
-      {"install", no_argument,      0, 'i'},
-      {"remove",  no_argument,      0, 'u'},
-      {"help",    no_argument,      0, 'h'},
-      {"version", no_argument,      0, 'v'},
-      {"window-id",required_argument,0, 'Z'},
-      {"root", no_argument,         0, 'X'},
+      {"static",    no_argument,       0, 's'},
+      {"credits",   no_argument,       0, 'c'},
+      {"color",     required_argument, 0, 'C'},
+      {"install",   no_argument,       0, 'i'},
+      {"remove",    no_argument,       0, 'u'},
+      {"help",      no_argument,       0, 'h'},
+      {"version",   no_argument,       0, 'v'},
+      {"window-id", required_argument, 0, 'W'},
+      {"root",      no_argument,       0, 'F'},
+      {"fs",        no_argument,       0, 'F'},
+      {"fullscreen",no_argument,       0, 'F'},
       {0, 0, 0, 0}
    };
    int opti = 0;
@@ -133,11 +134,11 @@ int main(int argc,char **argv)
    while ((opt = getopt_long_only(argc, argv, "sciuhvC:XZ:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
-         case 'Z':
+         case 'W':
             wuse=0;
             wid=htoi(optarg);
             break;
-         case 'X':
+         case 'F':
             wuse=1;
             break;
          case 's':
@@ -164,9 +165,15 @@ int main(int argc,char **argv)
             break;
          case 'i':
             if (getuid()!=0) {
-               fprintf(stderr, "Error: Must run --install as root\n");
-               exit(1);
+               fprintf(stderr, "Error: Must run -install as root\n");
+               exit(EXIT_FAILURE);
             }
+            if (access("matrixgl.xml", F_OK) < 0) {
+               fprintf(stderr, 
+                  "Error: Must run install from the source directory.\n");
+               exit(EXIT_FAILURE);
+            }
+
             /* Std files */
             system("cp -f matrixgl /usr/bin/"); /* For running from term */
             /* Install man page */
@@ -226,7 +233,7 @@ to the next release.\n\n\
          case 'u':
             if (getuid()!=0) {
                fprintf(stderr, "Error: Must run -remove as root\n");
-               exit(1);
+               exit(EXIT_FAILURE);
             }
             /* Make sure we get rid of everything */
             system("rm -f /usr/bin/matrixgl");

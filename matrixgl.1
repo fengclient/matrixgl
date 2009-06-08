@@ -1,39 +1,41 @@
-.TH matrixgl 1 "June 7th, 2009"
+.TH MATRIXGL "1" "June 8th, 2009" "matrixgl" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
 .SH SYNOPSIS
-.B matrixgl [-Cchiusv]
+.B matrixgl [\fI-CcFhiusv\fR]
 .SH DESCRIPTION
-matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
-
+Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
 .TP 5
 -C --color=COL
 Set color of falling text. COL must be one of green, red, blue.
 .TP
 -c --credits
-Show the credits on startup. This option will do nothing if used with --static.
+Show the credits on startup. This option will have no effect if used with --static.
+.TP
+-F --fs --fullscreen
+Run in fullscreen, when run from a terminal. This is the default in xscreensaver.
 .TP
 -h --help
-Display this help and exit
+Display this help and exit.
 .TP
 -i --install
-Install matrixgl to xscreensaver, only if in the source directory.
+Install matrixgl to xscreensaver, which also installs this man page, as well as adding a copy of the screensaver to /usr/bin, so that it can be run from a terminal. The install will fail if it is not run in the source directory.
 .TP
 -u --remove
-Uninstall matrixgl from xscreensaver, removing all associated files.
+Uninstall matrixgl, removing all added xscreensaver files, this man page, and the copy of the screensaver from /usr/bin. May be run from a terminal.
 .TP
 -s --static
-Enable static mode (no 3D images)
+Enable static mode, which disables the 3D images, making it look like the scrolling text from the original Matrix film.
 .TP
 -v --version
-Output version information and exit
+Output version information and exit.
 
 .P
 Note: Long options may be passed with a single dash.
 
 .SH KEYS
-The following keys can be used while in the screensaver
+The following keys can be used while in the screensaver.
 .TP 5
 c
 View Credits
@@ -49,9 +51,8 @@ Pause screensaver
 .TP
 q
 Quit screensaver
-
 .P
-Note: Under xscreensaver, matrixgl will be killed before it receives input. These keys only apply when you run matrixgl from a terminal.
+Note: Under xscreensaver, matrixgl will be killed before it receives input. These keys only apply when you run matrixgl from a terminal, or when using a different screensaver manager (like KDE or GNOME's).
 
 .SH AUTHOR
 Written by Alex Zolotoz <No active email known> 2003
@@ -61,7 +62,7 @@ Modified by Vincent Launchbury <vincent@doublecreations.com> 2008,2009
 .SH REPORTING BUGS
 Report matrixgl bugs to <vincent@doublecreations.com>
 .br
-matrixgl homepage: <http://www.sourceforge.net/projects/matrixgl/>
+Matrixgl homepage: <http://www.sourceforge.net/projects/matrixgl/>
 .br
 Bugs may be reported using the sourceforge tracker system.
 
@@ -73,4 +74,4 @@ Modifications Copyright (C) Vincent Launchbury 2008,2009.
 License: GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
 
 .SH SEE ALSO
-Check out the project page at <http://www.sourceforge.net/projects/matrixgl/>.
+Check out the project page at <http://www.sf.net/projects/matrixgl/>.

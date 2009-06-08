@@ -1,3 +1,9 @@
+matrixgl-v2.1.1 (not yet released)
+---------------
+. Added check to make sure we only install from the source directory
+. Added --fs and --fullscreen options, for when running from a terminal
+. Updated documentation
+
 matrixgl-v2.1  (2009/06/7)
 -------------
 . Ported from GLUT to x11 on *NIX
