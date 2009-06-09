@@ -386,22 +386,19 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
       XGetWindowAttributes(dpy, win, &gwa);
       glViewport(0, 0, gwa.width, gwa.height);
       cbRenderScene();
-      /* There are several methods I tried here. If we were
-       * to just call scroll() every x milliseconds, or call it 
-       * without first calling glFinish(), it would look bad on 
-       * slower video cards, because we might only get the chance
-       * to draw the screen once every 4 scrolls, so it would 
-       * appear to skip, and look terrible. On the other hand,
-       * if it were run on a really fast video card, calling 
-       * scroll() at every redraw would make it scroll too fast.
-       * Forcing opengl to finish painting here makes sure
-       * that we don't get horrible skipping, and the usleep
-       * call guarentees it doesn't run too fast on high end cards.
-       * In the testing I did, this was by far the best
-       * method overall.
+      /* glFinish is required so that it doesn't skip on 
+       * slow video cards. It must finish rendering the frame
+       * before it is scrolled, otherwise the white nodes may
+       * appear to skip down 4 or 5 rows every redraw.
+       * 
+       * There used to be a usleep call here, so that it didn't
+       * run too fast on really good cards, but with additional
+       * testing, this made it too slow on some mid-range cards,
+       * especially where the timer granularity was poor. On top
+       * of that, it seems it runs a little slower when run
+       * through xscreensaver, so it should balance out nicely.
        */
       glFinish();
-      usleep(25 * 1000); /* Prevent drawing too fast */
       scroll(0);
    } 
 #else /* WIN32_MODE */
@@ -538,12 +535,12 @@ void scroll(int mode)
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
-      if(timer>190 && timer<195 && !classic) pic_mode=2; /* pic fade out */
-      if (timer > 190 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+      if(timer>250 && timer<255 && !classic) pic_mode=2; /* pic fade out */
+      if (timer > 250 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=100;pic_mode=1; /* Make DC dissapear quickly */
       }
-      if(timer>300) {
+      if(timer>550) {
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
          if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
