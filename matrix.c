@@ -116,8 +116,9 @@ int main(int argc,char **argv)
    int i=0,a=0,s=0;
    int opt;
    short ierror=0;    /* Install Error */
-   int wuse=2;
-   Window wid=0;
+   short allowroot=0; /* If they insist... */
+   int wuse=2;        /* Window method 2-windowed, 1-fs, 0-preview */
+   Window wid=0;      /* ID of window, used to grab preview size */
 
    static struct option long_opts[] =
    {
@@ -132,13 +133,18 @@ int main(int argc,char **argv)
       {"root",      no_argument,       0, 'F'},
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
+      {"allow-root",no_argument,       0, 'Z'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvC:XZ:", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvC:FW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
+         case 'Z':
+            if (opti==NULL) break; /* Short opt not allowed */
+            allowroot=1;
+            break;
          case 'W':
             wuse=0;
             wid=htoi(optarg);
@@ -286,6 +292,12 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
                stdout);
             exit(0);
       }
+   }
+   /* Don't run as root, unless specifically requested */
+   if (!allowroot && getuid()==0) {
+      fprintf(stderr, "Error: You probably don't want to run this as "
+         "root.\n (Use --allow-root if you really want to..)\n");
+      exit(0);
    }
 #endif /* NIX_MODE */
 
