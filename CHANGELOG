@@ -3,6 +3,8 @@ matrixgl-v2.1.1 (not yet released)
 . Added check to make sure we only install from the source directory
 . Added --fs and --fullscreen options, for when running from a terminal
 . Updated documentation
+. Updated include's to be compatible with OSX OpenGL.
+. Updated Makefile to work better with OSX (still a problem with glx)
 
 matrixgl-v2.1  (2009/06/7)
 -------------

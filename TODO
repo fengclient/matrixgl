@@ -1,6 +1,7 @@
 TODO
+. Fix glx problem on OSX
 . Use a config file for windows and have key to save settings
 . Need to add entry to ~/.xscreensaver, some distros don't do this
 . Add additional 3D images, with more variety/characters
 . Perhaps start using autotools, for better portability.
-. Test on mac, opensolaris
+. Test on opensolaris
