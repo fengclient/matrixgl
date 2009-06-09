@@ -69,7 +69,15 @@ Note: On some setups, xscreensaver won't automatically recognize new screensaver
 
 Compiling and Installing on Mac OSX
 ----------------------------------
-Coming Soon
+To compile on OSX, you will need to first install XCode. It should come on a disk accompanying most macs, but you can always download it at <http://developer.apple.com/technology/Xcode.html>.
+
+Depending what version of OSX you have, you may need to download the X-Windows System (X11), available at <http://www.apple.com/downloads/macosx/apple/macosx_updates/x11formacosx.html>. It comes on the disc with 10.4 (Tiger), but you'll have to download it for 10.3 (Panther). I believe 10.5 (Leopard) has it installed by default.
+
+Then, open up the terminal (I believe it is in Applications->Utilities->Terminal), cd to the source directory, and run the following commands:
+
+$make mac
+
+This is where things get tricky, it compiles and runs fine (try --fs for a fullscreen window). However, I don't know how to install it in OSX, as xscreensaver works differently on it. If you know how to get it working, please email <vincent@doublecreations.com> or submit a patch, or even just a description, at <http://sf.net/projects/matrixgl/>. I don't own a mac, so I cannot work on it myself.
 
 Compiling and Installing on WINDOWS
 -----------------------------------

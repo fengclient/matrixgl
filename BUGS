@@ -1,2 +1,2 @@
 KNOWN BUGS
-. None at this time
+. Runs on OSX, but won't install in the screensaver manager.

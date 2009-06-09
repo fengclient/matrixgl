@@ -188,6 +188,10 @@ int main(int argc,char **argv)
                system("cp -f matrixgl.1 /usr/share/man/man1/");
             /* else keep going, not fatal */
 
+#ifdef __APPLE__
+            fprintf(stderr, "Error: No install support for OSX\n");
+            exit(0);
+#else
             /* Install the binary */
             if (access("/usr/lib/misc/xscreensaver/", F_OK) >= 0)
                system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
@@ -235,6 +239,7 @@ to the next release.\n\n\
             printf("Successfully installed to xscreensaver\n");
             printf("Run 'xscreensaver-demo' and select 'matrixgl'\n");
             exit(0);
+#endif
          case 'u':
             if (getuid()!=0) {
                fprintf(stderr, "Error: Must run -remove as root\n");
