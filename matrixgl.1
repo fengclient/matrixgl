@@ -1,9 +1,9 @@
-.TH MATRIXGL "1" "June 8th, 2009" "matrixgl" "Matrixgl - The 3D Matrix Screensaver"
+.TH MATRIXGL "1" "June 10th, 2009" "matrixgl" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
 .SH SYNOPSIS
-.B matrixgl [\fI-CcFhiusv\fR]
+.B matrixgl [\fI-CcFfhiusv\fR]
 .SH DESCRIPTION
 Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
 .TP 5
@@ -15,6 +15,9 @@ Show the credits on startup. This option will have no effect if used with --stat
 .TP
 -F --fs --fullscreen
 Run in fullscreen, when run from a terminal. This is the default in xscreensaver.
+.TP
+-f --fps=SEC
+Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range 1,20.
 .TP
 -h --help
 Display this help and exit.

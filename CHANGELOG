@@ -7,6 +7,7 @@ matrixgl-v2.1.1 (not yet released)
 . Updated Makefile to work better with OSX (still a problem with glx)
 . No longer runs as root, unless specifically requested with new opt
 . Removed usleep call, so that it runs faster on slower cards
+. Added FPS stats, and option to enable them
 
 matrixgl-v2.1  (2009/06/7)
 -------------

@@ -97,6 +97,12 @@ XEvent                  xev;
 int x,y;
 #endif
 
+/* FPS Stats */
+time_t last;
+int usefps=0;
+int frames=0;
+int fpoll=5;
+
 
 #ifdef WIN32_MODE
 /* 
@@ -134,15 +140,16 @@ int main(int argc,char **argv)
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
       {"allow-root",no_argument,       0, 'Z'},
+      {"fps",       optional_argument, 0, 'f'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvC:FW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvf:C:FW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'Z':
-            if (opti==NULL) break; /* Short opt not allowed */
+            if (!opti) break; /* Short opt not allowed */
             allowroot=1;
             break;
          case 'W':
@@ -173,6 +180,10 @@ int main(int argc,char **argv)
                fprintf(stderr, "Error: Color must be green, red or blue\n");
                color=GL_GREEN;
             }
+            break;
+         case 'f':
+            usefps=1;
+            fpoll=clamp(atoi(optarg), 1, 20);
             break;
          case 'i':
             if (getuid()!=0) {
@@ -379,6 +390,15 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    ourInit();
    cbResizeScene(x,y);
    while(1) {
+      if (usefps) {
+         if (!frames) time(&last);
+         else if (time(NULL)-last >= fpoll) {
+            printf("FPS:%5.1f (%3d frames in %2d seconds)\n", 
+               (float)frames/(time(NULL)-last), frames, (int)(time(NULL)-last));
+            frames=-1;
+         }
+      }
+
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev) 
          && xev.type == KeyPress) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
@@ -400,6 +420,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
        */
       glFinish();
       scroll(0);
+      if (usefps) frames++;
    } 
 #else /* WIN32_MODE */
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);

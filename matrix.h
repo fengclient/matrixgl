@@ -41,3 +41,4 @@ char get_ascii_keycode(XEvent *ev);
 int htoi(char *str);
 #endif
 
+#define clamp(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
