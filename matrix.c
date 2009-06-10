@@ -276,13 +276,18 @@ to the next release.\n\n\
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\
- -C --color=COL    Set color to COL (must be green, red or blue)\n\
- -c --credits      Show the credits on startup\n\
- -h --help         Show the help screen\n\
- -i --install      Install to xscreensaver\n\
- -u --remove       Remove from xscreensaver\n\
- -s --static       Run in static mode (no 3D images)\n\
- -v --version      Print version info\n",
+ -C --color=COL         Set color to COL (must be green, red or blue)\n\
+ -c --credits           Show the credits on startup\n\
+ -F --fs --fullscreen   Run in fullscreen window\n\
+ -f --fps=SEC           Print fps stats every SEC seconds\n\
+ -h --help              Show the help screen\n\
+ -i --install           Install to xscreensaver\n",
+               stdout);
+            fputs("\
+ -u --remove            Remove from xscreensaver\n\
+ -s --static            Run in static mode (no 3D images)\n\
+ -v --version           Print version info\n\
+ --allow-root           Allow to be run as root\n",
                stdout);
             fputs("Long options may be passed with a single dash.\n\n\
 In-Screensaver Keys:\n\
