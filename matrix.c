@@ -86,9 +86,8 @@ GLenum color=GL_GREEN;     /* Color of text */
 #ifdef NIX_MODE
 Display                 *dpy;
 Window                  root;
-GLint                   att[] = { GLX_RGBA, GLX_DEPTH_SIZE, 24, GLX_DOUBLEBUFFER, None };
+GLint                   att[] = { GLX_RGBA, GLX_DOUBLEBUFFER, None };
 XVisualInfo             *vi;
-Colormap                cmap;
 XWindowAttributes       gwa;
 XSetWindowAttributes    swa;
 Window                  win;
@@ -333,9 +332,8 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
    }
    root = DefaultRootWindow(dpy);
    vi = glXChooseVisual(dpy, 0, att);
-   cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
-   swa.colormap = cmap;
-   swa.event_mask = ExposureMask | KeyPressMask;
+   swa.colormap = XCreateColormap(dpy, root, vi->visual, AllocNone);
+   swa.event_mask = KeyPressMask;
    y = DisplayHeight(dpy, DefaultScreen(dpy));
    x = DisplayWidth(dpy, DefaultScreen(dpy));
    /* Take height of preview win in xscreensaver */
@@ -376,7 +374,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
 
    /* Init the light tables */
    mode2=0;
-   for (i=0; i<2000;i++) {
+   for (i=0; i<500;i++) {
       make_change();
 
       for(a=(text_x*text_y)+text_x-1;a>text_x;a--)
@@ -404,8 +402,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
          }
       }
 
-      if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev) 
-         && xev.type == KeyPress) {
+      if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
       }
       XGetWindowAttributes(dpy, win, &gwa);
@@ -459,12 +456,11 @@ void make_text(void)
 void draw_char(int mode, long num, float light, float x, float y, float z)
 {
    float tx,ty;
-   long num2,num3;
+   long num2;
    if (mode==1) light/=255;
    num2=num/10;
-   num3=num-(num2*10);
    ty=(float)num2/7;
-   tx=(float)num3/10;
+   tx=(float)num/10;
    glColor4f(0.9,0.4,0.3,light);
 
    glTexCoord2f(tx, ty); glVertex3f( x, y, z); 
@@ -610,21 +606,13 @@ void make_change(void)
 
 void cbRenderScene(void)
 {  
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    glBindTexture(GL_TEXTURE_2D,1);
-   glEnable(GL_BLEND);
-   glEnable(GL_TEXTURE_2D);
-
-   glDisable(GL_LIGHTING);
-   glBlendFunc(GL_SRC_ALPHA,GL_ONE); 
-   glDisable(GL_DEPTH_TEST);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
       GL_NEAREST_MIPMAP_LINEAR);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity(); 
    glTranslatef(0.0f,0.0f,Z_Off);
-   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   glClear(GL_COLOR_BUFFER_BIT);
 
    glBegin(GL_QUADS); 
    draw_text1();
@@ -748,14 +736,16 @@ void ourInit(void)
    make_text();
    ourBuildTextures();   
    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-   glClearDepth(1.0);
-   glDepthFunc(GL_LESS); 
    glShadeModel(GL_SMOOTH);
 
    /* A handy trick -- have surface material mirror the color. */
    glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
    glEnable(GL_COLOR_MATERIAL);
 
+   glEnable(GL_BLEND);
+   glEnable(GL_TEXTURE_2D);
+   glDisable(GL_LIGHTING);
+   glBlendFunc(GL_SRC_ALPHA,GL_ONE); 
 }
 
 /* malloc w/ error checking  */
