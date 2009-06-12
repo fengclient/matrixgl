@@ -2,7 +2,7 @@ matrixgl - Cross-platform Matrix Screensaver
 --------------------------------------------
 . Version: matrixgl-v2.1 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
-. Written By: Alex Zolotoz <No active email known> 2003.
+. Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
 . Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
 
 
@@ -56,7 +56,9 @@ If you're platform isn't listed above, it will likely still work.
 
 Compiling and Installing on *NIX
 ----------------------------------
-All you should need to compile matrixgl is gcc and make. Make sure that the '#define WIN32_MODE' line near the top of matrix.c is commented out, or deleted, before you begin. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
+I don't provide binary packages for matrixgl, if you want one, go ask your distro's devs to add a package for it.
+
+All you should need to compile matrixgl is gcc and make. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
 
 #make
 #matrixgl -install
@@ -107,10 +109,10 @@ n - Cycle through to next image (when not in classic mode)
 
 Comments/Feedback/Bugs
 ------------------
-If you have any comments, feedback or suggestions, or have found a bug, feel free to email Vincent Launchbury at vincent@doublecreations.com. Please do not send any bug reports to knoppix.ru unless you are using their original version. This version has no connection to knoppix.ru (Also note that the current email address of the original author is unknown, as his listed email bounces.)
+If you have any comments, feedback or suggestions, or have found a bug, feel free to email Vincent Launchbury at vincent@doublecreations.com. Please do not send any bug reports to knoppix.ru unless you are using their original version. Any bugs in this version are fully mine.
 
 Acknowledgements
 -----------------
-Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alex Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support and xscreensaver support, but in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
+Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alexander Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support and xscreensaver support, but in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
 
 Also, although I personally like the 'knoppix.ru' credit that shows up at the beginning in the original screensaver, many users found it to be an annoyance, so I moved it to a credits section accessible via the 'c' key.

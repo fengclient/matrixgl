@@ -1,8 +1,8 @@
 /* matrixgl - Cross-platform matrix screensaver
- * Copyright (C) Alex Zolotoz 2003. 
+ * Copyright (C) Alexander Zolotov 2003. 
  * Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
  * -------------------------------------------
- * Written By: Alex Zolotoz <No active email known> 2003.
+ * Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
  * Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
  * -------------------------------------------
  *
@@ -302,7 +302,7 @@ Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
          case 'v':
             fputs("matrixgl Version 2.1\n\
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
-Written By: Alex Zolotoz <No active email known> 2003.\n\
+Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.\n\
 Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
                stdout);
             exit(0);
