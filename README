@@ -3,6 +3,7 @@ matrixgl - Cross-platform Matrix Screensaver
 . Version: matrixgl-v2.1 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
+        and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
 . Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
 
 
@@ -113,6 +114,6 @@ If you have any comments, feedback or suggestions, or have found a bug, feel fre
 
 Acknowledgements
 -----------------
-Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alexander Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support and xscreensaver support, but in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
+Just a note for those who may not know, to put credit where credit is due, I would like to say that the original (mostly) working screensaver was developed by Alexander Zolotov and Eugene Zolotov of knoppix.ru and that it composes 99% of the functionality of this version. I did not write this screensaver, I merely modified it to my liking, as well as fixing several bugs. I also added widescreen support and xscreensaver support, but in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
 
 Also, although I personally like the 'knoppix.ru' credit that shows up at the beginning in the original screensaver, many users found it to be an annoyance, so I moved it to a credits section accessible via the 'c' key.
