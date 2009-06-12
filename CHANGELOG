@@ -1,4 +1,4 @@
-matrixgl-v2.1.1 (not yet released)
+matrixgl-v2.1.1 (2009/06/12)
 ---------------
 . Added check to make sure we only install from the source directory
 . Added --fs and --fullscreen options, for when running from a terminal
@@ -8,6 +8,7 @@ matrixgl-v2.1.1 (not yet released)
 . No longer runs as root, unless specifically requested with new opt
 . Removed usleep call, so that it runs faster on slower cards
 . Added FPS stats, and option to enable them
+. Updated author information 
 
 matrixgl-v2.1  (2009/06/7)
 -------------
