@@ -1,4 +1,4 @@
-.TH MATRIXGL "1" "June 12th, 2009" "matrixgl 2.1.1" "Matrixgl - The 3D Matrix Screensaver"
+.TH MATRIXGL "1" "June 15th, 2009" "matrixgl 2.1.1" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
@@ -6,9 +6,11 @@ matrixgl - 3D matrix screensaver
 .B matrixgl [\fI-CcFfhiusv\fR]
 .SH DESCRIPTION
 Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
+.P
+Mandatory arguments to long options are mandatory for short options too.
 .TP 5
 -C --color=COL
-Set color of falling text. COL must be one of green, red, blue.
+Set color of the falling text. COL must be one of green, red, blue.
 .TP
 -c --credits
 Show the credits on startup. This option will have no effect if used with --static.
@@ -17,10 +19,10 @@ Show the credits on startup. This option will have no effect if used with --stat
 Run in fullscreen, when run from a terminal. This is the default in xscreensaver.
 .TP
 -f --fps=SEC
-Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range 1,20.
+Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range 1,20. Note that the first few stats may be inaccurate due to startup delays.
 .TP
 -h --help
-Display this help and exit.
+Display a help message and exit.
 .TP
 -i --install
 Install matrixgl to xscreensaver, which also installs this man page, as well as adding a copy of the screensaver to /usr/bin, so that it can be run from a terminal. The install will fail if it is not run in the source directory.
@@ -29,10 +31,10 @@ Install matrixgl to xscreensaver, which also installs this man page, as well as 
 Uninstall matrixgl, removing all added xscreensaver files, this man page, and the copy of the screensaver from /usr/bin. May be run from a terminal.
 .TP
 -s --static
-Enable static mode, which disables the 3D images, making it look like the scrolling text from the original Matrix film.
+Enable static mode, which disables the 3D images, making it look like the plain scrolling text from the original Matrix film.
 .TP
 -v --version
-Output version information and exit.
+Output version and author information and exit.
 .TP
 --allow-root
 Allow matrixgl to be run by the root user, if you really want it to. Disabled by default as a safeguard.
@@ -70,7 +72,11 @@ Report matrixgl bugs to <vincent@doublecreations.com>
 .br
 Matrixgl homepage: <http://www.sourceforge.net/projects/matrixgl/>
 .br
-Bugs may be reported using the sourceforge tracker system.
+Bugs may also be reported using the sourceforge tracker system.
+.P
+To best assist us, please run the following script in the source directory and follow the instructions, before submitting your bug report.
+.br
+$./gen-bug-report.sh 
 
 .SH COPYRIGHT
 Copyright (C) Alexander Zolotov, Eugene Zolotov 2003. 

@@ -8,10 +8,10 @@ LIBS = -lX11 -lGL -lGLU -lm
 
 
 Matrix: matrix.c
-	@$(CC) matrix.c -o matrixgl $(CFLAGS) $(INCLUDE) $(LIBDIR) $(LIBS)
+	$(CC) matrix.c -o matrixgl $(CFLAGS) $(INCLUDE) $(LIBDIR) $(LIBS)
 	@strip matrixgl
 
 mac: matrix.c
-	@$(CC) matrix.c -o matrixgl $(CFLAGS) $(INCLUDE) $(LIBDIR) $(LIBS) $(MACLIBS) -framework OpenGL
+	$(CC) matrix.c -o matrixgl $(CFLAGS) $(INCLUDE) $(LIBDIR) $(LIBS) $(MACLIBS) -framework OpenGL
 	@strip matrixgl
 

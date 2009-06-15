@@ -230,24 +230,10 @@ Error: xscreensaver directories cannot be found\n\
 **PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n\n\
 If xscreensaver is installed, and you still get this \
 message, please report it as a bug by emailing \
-<vincent@doublecreations.com>. Include details of \
-your OS/distro, so we can fix the problem in the \
-next release. \n\n",
-                  stderr);
-               fputs("\
-You can fix this yourself by locating two directories\n\
-Note: They must exist, creating new ones won't work\n\
- 1) The xscreensaver config dir \n\
-     - Usually /usr/share/xscreensaver/config/\n\
- 2) The xscreensaver bin dir\n\
-     - Usually /usr/lib/misc/xscreensaver/\n",
-                  stderr);
-               fputs("\
-Copy the file 'matrixgl.xml' to the config dir and \
-the file 'matrixgl' to the bin dir. If you are \
-successful, please send the working directories \
-along with the bug report, so we can add the support \
-to the next release.\n\n\
+<vincent@doublecreations.com>. To best assist us, \
+please run the ./get-bug-report.sh script in the source \
+directory and follow the instructions, before sending \
+in your bug report.\n\n\
 **PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n",
                   stderr);
                exit(EXIT_FAILURE);
@@ -304,7 +290,12 @@ Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
 Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.\n\
       and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.\n\
-Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
+Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n\n",
+               stdout);
+            fputs("Send bug reports to <vincent@doublecreations.com>\n\
+To assist us best, please run the script ./gen-bug-report.sh in the \
+source directory and follow the instructions, before sending your \
+bug report.\n",
                stdout);
             exit(0);
       }
@@ -399,6 +390,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
          else if (time(NULL)-last >= fpoll) {
             printf("FPS:%5.1f (%3d frames in %2d seconds)\n", 
                (float)frames/(time(NULL)-last), frames, (int)(time(NULL)-last));
+            fflush(stdout); /* Don't buffer fps stats (do not remove!) */
             frames=-1;
          }
       }
@@ -426,7 +418,7 @@ Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n",
       if (usefps) frames++;
    } 
 #else /* WIN32_MODE */
-   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
    glutEnterGameMode();
    /* Register the callback functions */
    glutDisplayFunc(&cbRenderScene);

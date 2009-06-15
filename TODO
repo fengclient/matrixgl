@@ -1,5 +1,7 @@
 TODO
 . Use a config file for windows and have key to save settings
+   . Make the settings button open the config file in notepad
+      or $EDITOR if it exists on windows
 . Need to add entry to ~/.xscreensaver, some distros don't do this
 . Add additional 3D images, with more variety/characters
 . Perhaps start using autotools, for better portability.
