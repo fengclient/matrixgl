@@ -1,6 +1,6 @@
 matrixgl - Cross-platform Matrix Screensaver
 --------------------------------------------
-. Version: matrixgl-v2.1 (Stable release)
+. Version: matrixgl-v2.1.1 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
@@ -88,7 +88,7 @@ To run matrixgl on windows, you will need to obtain the GLUT Utility Library, as
 
 One way to compile would be to use Visual C++ 2005. It is freely available at http://msdn2.microsoft.com/en-us/express/aa975050.aspx, probably because its an outdated version. You can obtain a free activation key if you register. If you choose to use Visual C++, you will need to make sure you have the Platform SDK, obtainable at http://msdn2.microsoft.com/en-us/express/aa700755.aspx. Also, make sure you copy the GLUT library and header files into the appropriate directories of whichever compiler you are using.
 
-You can compile this software as a regular .exe file. Be sure to uncomment the '#define WIN32_MODE' line near the top of the matrix.c file. Once compiled, to install it as a screensaver, you will need to rename the .exe file, changing the extension to '.scr'. Matrixgl requires GLUT to run, and even if you didn't compile matrixgl from source, you will need to download and copy the glut32.dll library to your system directory at %WINDIR%\System\ (%WINDIR% is a Windows built-in variable, so you can paste this directly into your file manager). The glut32.dll file is included in the GLUT library mentioned at the top of this section.
+You can compile this software as a regular .exe file. Once compiled, to install it as a screensaver, you will need to rename the .exe file, changing the extension to '.scr'. Matrixgl requires GLUT to run, and even if you didn't compile matrixgl from source, you will need to download and copy the glut32.dll library to your system directory at %WINDIR%\System\ (%WINDIR% is a Windows built-in variable, so you can paste this directly into your file manager). The glut32.dll file is included in the GLUT library mentioned at the top of this section.
 
 Once you have installed GLUT, and have the matrixgl.scr file, simple right click and choose the 'Install' option, and then sit back and enjoy! (Note: Matrixgl has no preferences dialog, so clicking 'Settings' in Windows Display Properties will have no effect)
 

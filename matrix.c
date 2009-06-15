@@ -22,9 +22,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-/*#define WIN32_MODE*/
-#ifndef WIN32_MODE
-   #define NIX_MODE
+#ifndef NIX_MODE
+   #define WIN32_MODE
 #endif
 
 /* Includes */
@@ -87,7 +86,7 @@ GLenum color=GL_GREEN;     /* Color of text */
 #ifdef NIX_MODE
 Display                 *dpy;
 Window                  root;
-GLint                   att[] = { GLX_RGBA, GLX_DOUBLEBUFFER, None };
+GLint                   att[] = {GLX_RGBA, GLX_DOUBLEBUFFER, None};
 XVisualInfo             *vi;
 XWindowAttributes       gwa;
 XSetWindowAttributes    swa;
