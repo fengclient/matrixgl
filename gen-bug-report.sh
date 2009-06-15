@@ -29,7 +29,7 @@ dialog --clear --title "Generating a Bug Report" \
 \n\nPLEASE DON'T CLOSE ANY WINDOWS THAT OPEN, they will be closed \
 automatically after the script has finished. \
 \n\n This may take a while, a dialog will pop up when it's \
-finished" 80 80
+finished" 20 80
 clear
 echo 'WORKING..'
 
@@ -56,7 +56,7 @@ if test "$?" -eq 0; then
    ./matrixgl -f2                            >>bug_report 2>&1 & 
    PID=$!
    dialog --clear --pause "Please don't close the matrixgl window, \
-it will close automatically after the timer finishes" 80 80 8
+it will close automatically after the timer finishes" 20 80 8
    clear
    echo 'WORKING'
    kill $PID
@@ -67,7 +67,7 @@ it will close automatically after the timer finishes" 80 80 8
 catch install errors, and add them to this report, you will need \
 to enter the root password. If you don't want to enter your password, \
 you can continue without it. \n\n\Z1Note: Your password is not  \
-stored or added to the report" 80 80
+stored or added to the report" 20 80
    if test $? -eq 0; then 
       clear
       echo 'Please enter your root password'
@@ -89,7 +89,7 @@ the problem, as well as attaching the file 'bug_report'. \
 \n\nThe file contains no personal information \
 \n\nIf you are a developer, please use the sourceforge \
 tracker system at <http://sf.net/projects/matrixgl/> \
-instead of emailing the report." 80 80
+instead of emailing the report." 20 80
 
 clear
 echo "Email problem to vincent@doublecreations.com and attach \
