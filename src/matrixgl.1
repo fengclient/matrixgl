@@ -1,9 +1,9 @@
-.TH MATRIXGL "1" "June 15th, 2009" "matrixgl 2.1.1" "Matrixgl - The 3D Matrix Screensaver"
+.TH MATRIXGL "1" "June 16th, 2009" "matrixgl 2.2" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
 .SH SYNOPSIS
-.B matrixgl [\fI-CcFfhiusv\fR]
+.B matrixgl [\fI-CcFfhsv\fR]
 .SH DESCRIPTION
 Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
 .P
@@ -24,11 +24,8 @@ Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range 1
 -h --help
 Display a help message and exit.
 .TP
--i --install
-Install matrixgl to xscreensaver, which also installs this man page, as well as adding a copy of the screensaver to /usr/bin, so that it can be run from a terminal. The install will fail if it is not run in the source directory.
-.TP
--u --remove
-Uninstall matrixgl, removing all added xscreensaver files, this man page, and the copy of the screensaver from /usr/bin. May be run from a terminal.
+-u --remove (deprecated)
+Uninstall matrixgl, removing all added xscreensaver files, this man page, and the copy of the screensaver from /usr/bin. May be run from a terminal. \fINote:\fR this method of installation is deprecated. Please refer to the file INSTALL, or README.
 .TP
 -s --static
 Enable static mode, which disables the 3D images, making it look like the plain scrolling text from the original Matrix film.
