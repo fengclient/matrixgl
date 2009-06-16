@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Script to generate a useful bug report
 # Copyright (C) Vincent Launchbury 2009 
@@ -41,9 +41,12 @@ uname -a                                     >>bug_report 2>&1
 echo '@@glxinfo@@'                           >>bug_report 2>&1
 glxinfo | grep direct                        >>bug_report 2>&1
 
-# Grab compile errors if any
+# Grab configure errors (if any)
+echo '@@config@@'                            >>bug_report 2>&1
+./configure                                  >>bug_report 2>&1
+# Grab compilation errors (if any)
 echo '@@make@@'                              >>bug_report 2>&1
-make -B                                      >>bug_report 2>&1
+make                                         >>bug_report 2>&1
 
 # If it compiled
 if test "$?" -eq 0; then
@@ -53,7 +56,7 @@ if test "$?" -eq 0; then
    
    # Now grab fps stats/runtime errors
    echo '@@fps-stats@@'                      >>bug_report 2>&1
-   ./matrixgl -f2                            >>bug_report 2>&1 & 
+   ./src/matrixgl -f2                        >>bug_report 2>&1 & 
    PID=$!
    dialog --clear --pause "Please don't close the matrixgl window, \
 it will close automatically after the timer finishes" 20 80 8
@@ -71,7 +74,7 @@ stored or added to the report" 20 80
    if test $? -eq 0; then 
       clear
       echo 'Please enter your root password'
-      su -c "echo '@@install@@' >>bug_report 2>&1 && ./matrixgl -i >>bug_report 2>&1 && exit"
+      su -c "echo '@@install@@' >>bug_report 2>&1 && make install >>bug_report 2>&1 && exit"
    else 
       echo '@@install@@' >> bug_report
       echo 'User refused to give root pass for install' >> bug_report

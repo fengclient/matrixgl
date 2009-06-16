@@ -54,9 +54,10 @@
    #include <GL/glut.h> /* GLUT support library. */
 #endif /* WIN32_MODE */
 
-#include "matrix.h"  /* Prototypes */
-#include "matrix1.h" /* Font data */
-#include "matrix2.h" /* Image data */
+#include "matrix.h"     /* Prototypes */
+#include "matrix1.h"    /* Font data */
+#include "matrix2.h"    /* Image data */
+#include "../config.h"  /* Autoconf stuff */
 
 /* Global Variables */
 float Z_Off = -89.0f;
@@ -281,18 +282,18 @@ In-Screensaver Keys:\n\
  'n' - Next image\n\
  'p' - Pause screensaver\n\
  'q' - Quit\n\n\
-Report bugs to <vincent@doublecreations.com>\n\
+Report bugs to <" PACKAGE_BUGREPORT ">\n\
 Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
              stdout);
             exit(0);
          case 'v':
-            fputs("matrixgl Version 2.1.1\n\
+            fputs("matrixgl version " VERSION "\n\
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
 Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.\n\
       and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.\n\
 Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n\n",
                stdout);
-            fputs("Send bug reports to <vincent@doublecreations.com>\n\
+            fputs("Send bug reports to <" PACKAGE_BUGREPORT ">\n\
 To assist us best, please run the script ./gen-bug-report.sh in the \
 source directory and follow the instructions, before sending your \
 bug report.\n",

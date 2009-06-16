@@ -1,4 +1,8 @@
 bin_PROGRAMS = matrixgl
-#man_MANS = matrixgl.1
+xssexecdir = @XSS_HACKS@
+xssconfdir = @XSS_CONF@
+xssexec_PROGRAMS = matrixgl
+xssconf_DATA = matrixgl.xml
+man_MANS = matrixgl.1
 matrixgl_SOURCES = matrix.c
-matrixgl_CFLAGS = -DNIX_MODE
+matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused
