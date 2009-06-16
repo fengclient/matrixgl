@@ -1,10 +1,11 @@
 matrixgl - Cross-platform Matrix Screensaver
 --------------------------------------------
-. Version: matrixgl-v2.1.1 (Stable release)
+. Version: matrixgl-v2.2 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
 . Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
+. See AUTHORS for a complete list of contributors.
 
 
 Table of Contents
@@ -17,31 +18,38 @@ Table of Contents
 . Compiling and Installing on Windows
 . Removing Matrixgl
 . Screensaver Functions/Keys
-. Comments/Feedback/Bugs
+. Comments and Suggestions
+. Reporting Bugs
 . Acknowledgements
 
 Introduction
 ------------
-matrixgl is a continuation of the original matrixgl from knoppix.ru. The project was started to remove the bugs and annoyances I had found in the original. On Windows, it would only run for a second before exiting, and on Linux, it would run in an unchangeable 800x600 resolution, making it look slightly outdated. In the process of fixing these flaws, I trimmed down the source and began modifying it more to my liking, removing several other bugs along the way. See the changelog for an almost complete log of changes.
+matrixgl is a continuation of the original matrixgl from knoppix.ru. The project was started to remove the bugs and annoyances I had found in the original. On Windows, it would sometimes only run for a second before exiting, and on Linux, it would run in an unchangeable 800x600 resolution, making it look slightly outdated. In the process of fixing these flaws, I trimmed down the source and began modifying it more to my liking, removing several other bugs along the way. See the changelog for an almost complete log of changes.
 
 matrixgl now supports widescreen setups, as well as fully supporting xscreensaver, including preview mode.
 
 
 File Manifest
 -------------
-matrix.c       - Main source file
-matrix.h       - Contains prototypes for matrix.c
-matrix1.h      - Font  header file
-matrix2.h      - 3D Images header file
-Makefile       - Makefile for *NIX
-README         - The file you're currently reading
-TODO           - Future feature plans
-BUGS           - List of known bugs
-CHANGELOG      - A complete changelog
-COPYING        - License for this software (GPL V2)
-matrixgl.ico   - Windows Icon file (not used by source)
-matrixgl.xml   - Xscreensaver config file
-matrixhgl.1    - *NIX man Page
+Makefile          - Makefile for *NIX
+AUTHORS           - A list of authors and contributors
+BUGS              - List of known bugs
+COPYING           - License for this software (GPL V2)
+ChangeLog         - A complete changelog, for developers
+INSTALL           - Detailed generic install instructions
+Makefile.am       - Automake file
+NEWS              - A basic changelog, for users
+README            - The file you're currently reading
+TODO              - Future feature plans
+configure.ac      - Autoconf file
+gen-bug-report.sh - Script to generate a bug report.
+src/Makefile.am   - Automake file
+src/matrix.c      - Main source file
+src/matrix.h      - Contains prototypes for matrix.c
+src/matrix1.h     - Font  header file
+src/matrix2.h     - 3D Images header file
+src/matrixhgl.1   - *NIX man Page
+src/matrixgl.xml  - Xscreensaver config file
 
 Supported Operating Systems
 ----------------------------
@@ -59,26 +67,36 @@ Compiling and Installing on *NIX
 ----------------------------------
 I don't provide binary packages for matrixgl, if you want one, go ask your distro's devs to add a package for it.
 
-All you should need to compile matrixgl is gcc and make. To compile and install, fire up a terminal, cd into the source directory, and type the following as root:
+To compile and install, fire up a terminal, cd into the source directory, and type the following commands:
 
-#make
-#matrixgl -install
+$./configure
+$make
 
-The latter command will add matrixgl into the appropriate xscreensaver directorys. If they don't exist, install xscreensaver, and run the matrixgl install command again. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
+And then, as root,
 
-I have chosen not to support KDE and Gnome screensavers, because xscreensaver is DE independent, and can run on both of them anyway. If you aren't using xscreensaver, google how to use it in your desktop environment.
+#make install
+
+The latter command will add matrixgl into the appropriate xscreensaver directorys. If they don't exist, install xscreensaver, and run all 3 commands again. Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings. 
+
+I have chosen not to support KDE and Gnome screensavers, because xscreensaver is DE independent, and can run on both of them anyway. Instructions of how to switch to xscreensaver from KDE or GNOME are in the xscreensaver man page (accessible via '$man xscreensaver').
 
 Note: On some setups, xscreensaver won't automatically recognize new screensavers when you launch xscreensaver-demo. If it doesn't, you can fix it manually by adding the line "   matrixgl -root -C green         \n\" to your ~/.xscreensaver file. This should be done automatically in a future release.
 
+For a more advanced install, see the file INSTALL. Note however, that the file contains generic instructions not specific to this project.
+
+
 Compiling and Installing on Mac OSX
 ----------------------------------
+NOTE: We don't yet support OSX. If you are not a developer, the following text won't help.
+
 To compile on OSX, you will need to first install XCode. It should come on a disk accompanying most macs, but you can always download it at <http://developer.apple.com/technology/Xcode.html>.
 
 Depending what version of OSX you have, you may need to download the X-Windows System (X11), available at <http://www.apple.com/downloads/macosx/apple/macosx_updates/x11formacosx.html>. It comes on the disc with 10.4 (Tiger), but you'll have to download it for 10.3 (Panther). I believe 10.5 (Leopard) has it installed by default.
 
 Then, open up the terminal (I believe it is in Applications->Utilities->Terminal), cd to the source directory, and run the following commands:
 
-$make mac
+$./configure
+$make
 
 This is where things get tricky, it compiles and runs fine (try --fs for a fullscreen window). However, I don't know how to install it in OSX, as xscreensaver works differently on it. If you know how to get it working, please email <vincent@doublecreations.com> or submit a patch, or even just a description, at <http://sf.net/projects/matrixgl/>. I don't own a mac, so I cannot work on it myself.
 
@@ -95,7 +113,7 @@ Once you have installed GLUT, and have the matrixgl.scr file, simple right click
 
 Removing Matrixgl
 -------------------
-In *NIX or OSX, to remove any files that may have been added, simply run "#matrixgl -remove" as root. You may also want to delete the original source file directory, if you still have it.
+In *NIX or OSX, to remove any files that may have been added, simply run '#make uninstall' in the source directory, as root. You may then also want to delete the original source file directory. 
 
 In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrixgl.scr. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of Matrixgl.
 
@@ -108,9 +126,21 @@ s - Toggle classic mode (no 3D images)
 n - Cycle through to next image (when not in classic mode)
 
 
-Comments/Feedback/Bugs
-------------------
-If you have any comments, feedback or suggestions, or have found a bug, feel free to email Vincent Launchbury at vincent@doublecreations.com. Please do not send any bug reports to knoppix.ru unless you are using their original version. Any bugs in this version are fully mine.
+Comments and Suggestions
+------------------------
+All comments and suggestions are fully welcome. If you have anything to say, drop me a line at vincent@doublecreations.com. 
+
+Reporting Bugs
+---------------
+If you have found a bug in matrixgl, don't worry, it is very easy to report it. Open up a terminal and cd into the soruce directory. Then, type the following as a regular user:
+
+$./gen-bug-report.sh 
+
+and follow the instructions. This script will generate a file that will help us to fix bugs. When finished, you can email <vincent@doublecreations.com> with details of the problem. Please attach the bug_report file once it has been generated, it will help us immensly. 
+
+Again, don't worry if you are new to this, if you're not sure if something is a bug, send the report anyway. As a show of appreciation for your help, we will add you to the AUTHORS file as a contributer, if you give us your name/nickname (and also your email or website if you choose).
+
+Please do not send any bug reports to knoppix.ru unless you are using their original version. Any bugs in this version are fully mine.
 
 Acknowledgements
 -----------------

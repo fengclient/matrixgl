@@ -1,7 +1,10 @@
-matrixgl-v2.1.2 (not yet released)
+matrixgl-v2.2 (not yet released)
 ---------------
 . No longer have to uncomment a #define to compile on windows
 . Added script to generate useful bug reports
+. Ported to autotools.
+. Restructured organization
+. Started using standard GNU files (AUTHORS.. etc)
 
 matrixgl-v2.1.1 (2009/06/12)
 ---------------

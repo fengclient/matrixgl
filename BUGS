@@ -1,2 +1,2 @@
 KNOWN BUGS
-. Runs on OSX, but won't install in the screensaver manager.
+. Runs on OSX, but doesn't install properly, and therefore can't be used as a screensaver.
