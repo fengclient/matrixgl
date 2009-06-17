@@ -39,9 +39,15 @@ AC_CHECK_LIB([X11], [XOpenDisplay],,
               [echo "Error: X11 not found";exit 1])]
 )
 
-# Check opengl
+# 
+#Opengl stuff
+#
 AX_CHECK_GL
 AX_CHECK_GLU
+AC_CHECK_HEADERS(GL/gl.h GL/glu.h GL/glx.h,,
+         [AC_CHECK_HEADERS(OpenGL/gl.h OpenGL/glu.h GL/glx.h,,
+           [echo "Error: OpenGL not found";exit 1])]
+)
 
 # 
 # Find xscreensaver directories

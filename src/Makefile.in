@@ -196,8 +196,11 @@ xssconf_DATA = matrixgl.xml
 man_MANS = matrixgl.1
 matrixgl_SOURCES = matrix.c
 matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused \
-	@GL_CFLAGS@ $(am__empty)
-matrixgl_LDFLAGS = @GL_LIBS@
+	-I/usr/X11R6/include -I/usr/X11/include @GL_CFLAGS@ \
+	@GLU_CFLAGS@ $(am__empty)
+matrixgl_LDFLAGS = -L/usr/X11R6/lib -L/usr/X11/lib -L/usr/local/lib/ \
+	-L/System/Library/Frameworks/OpenGL.framework/Libraries \
+	@GL_LIBS@ @GLU_LIBS@ $(am__empty)
 all: all-am
 
 .SUFFIXES:
