@@ -5,4 +5,6 @@ xssexec_PROGRAMS = matrixgl
 xssconf_DATA = matrixgl.xml
 man_MANS = matrixgl.1
 matrixgl_SOURCES = matrix.c
-matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused
+matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused 
+matrixgl_CFLAGS += @GL_CFLAGS@
+matrixgl_LDFLAGS = @GL_LIBS@

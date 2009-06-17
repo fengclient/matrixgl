@@ -33,26 +33,15 @@ AC_PROG_MAKE_SET
 AC_PATH_X
 AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 
-# 
-#Opengl stuff
-#
-AC_CHECK_HEADERS(GL/gl.h GL/glu.h GL/glx.h,,
-         [AC_CHECK_HEADERS(OpenGL/gl.h OpenGL/glu.h GL/glx.h,,
-           [echo "Error: OpenGL is mandatory";exit 1])]
-)
-if test `uname -s` != Darwin;
-then
-AC_CHECK_LIB(GL, glInitNames,,
-     AC_CHECK_LIB(MesaGL,glInitNames,,
-            echo "Error: OpenGL library is missing or incomplete";exit 1)
+# X11 Lib
+AC_CHECK_LIB([X11], [XOpenDisplay],, 
+             [AC_CHECK_HEADERS(X11/Xlib.h,,
+              [echo "Error: X11 not found";exit 1])]
 )
 
-dnl Check for GLU (Original or Mesa)
-AC_CHECK_LIB(GLU, gluLookAt, ,
-     AC_CHECK_LIB(MesaGLU,gluLookAt,,
-     echo "Error: OpenGL is not complete (no GLU)";exit 1)
-)
-fi
+# Check opengl
+AX_CHECK_GL
+AX_CHECK_GLU
 
 # 
 # Find xscreensaver directories
