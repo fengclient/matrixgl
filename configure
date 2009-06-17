@@ -5047,7 +5047,7 @@ _ACEOF
   LIBS="-lMesaGL $LIBS"
 
 else
-  echo "OpenGL is mandatory";exit 1
+  echo "Error: OpenGL library is missing or incomplete";exit 1
 fi
 
 
@@ -5202,7 +5202,7 @@ _ACEOF
   LIBS="-lMesaGLU $LIBS"
 
 else
-  echo "incomplete OpenGL (no GLU)";exit 1
+  echo "Error: OpenGL is not complete (no GLU)";exit 1
 fi
 
 

@@ -44,13 +44,13 @@ if test `uname -s` != Darwin;
 then
 AC_CHECK_LIB(GL, glInitNames,,
      AC_CHECK_LIB(MesaGL,glInitNames,,
-            echo "OpenGL is mandatory";exit 1)
+            echo "Error: OpenGL library is missing or incomplete";exit 1)
 )
 
 dnl Check for GLU (Original or Mesa)
 AC_CHECK_LIB(GLU, gluLookAt, ,
      AC_CHECK_LIB(MesaGLU,gluLookAt,,
-     echo "incomplete OpenGL (no GLU)";exit 1)
+     echo "Error: OpenGL is not complete (no GLU)";exit 1)
 )
 fi
 
