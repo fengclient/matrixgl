@@ -5,6 +5,7 @@ matrixgl-v2.2 (not yet released)
 . Ported to autotools.
 . Restructured organization
 . Started using standard GNU files (AUTHORS.. etc)
+. We manually find the man1 dir, as automakes method is broken
 
 matrixgl-v2.1.1 (2009/06/12)
 ---------------

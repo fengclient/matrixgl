@@ -8,9 +8,8 @@ xssconfdir = @XSS_CONF@
 xssexec_PROGRAMS = matrixgl
 xssconf_DATA = matrixgl.xml
 
-# Doesn't work on some distros
-# I tested.
-man_MANS = matrixgl.1
+# Doesn't work on some distros I tested.
+#man_MANS = matrixgl.1
 
 # So we find it ourselves instead
 ourman1dir = @MAN1_DIR@
