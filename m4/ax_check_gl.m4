@@ -38,11 +38,8 @@ AC_DEFUN([AX_CHECK_GL],
 [AC_REQUIRE([AC_CANONICAL_HOST])dnl
 AC_REQUIRE([AC_PATH_X])dnl
 AC_REQUIRE([AC_PROG_SED])dnl
-AC_REQUIRE([ACX_PTHREAD])dnl
 
 AC_LANG_PUSH([C])
-AS_IF([test X$ax_compiler_ms = Xno],
-      [GL_CFLAGS="${PTHREAD_CFLAGS}"; GL_LIBS="${PTHREAD_LIBS} -lm"])
 
 #
 # Use x_includes and x_libraries if they have been set (presumably by
@@ -82,9 +79,7 @@ ax_save_LIBS=$LIBS
 LIBS=""
 ax_check_libs="-lopengl32 -lGL"
 for ax_lib in $ax_check_libs; do
-  AS_IF([test X$ax_compiler_ms = Xyes],
-        [ax_try_lib=`echo $ax_lib | $SED -e 's/^-l//' -e 's/$/.lib/'`],
-        [ax_try_lib=$ax_lib])
+        ax_try_lib=$ax_lib
   LIBS="$ax_try_lib $GL_LIBS $ax_save_LIBS"
 AC_LINK_IFELSE([AX_CHECK_GL_PROGRAM],
                [ax_cv_check_gl_libgl=$ax_try_lib; break],

@@ -23,36 +23,38 @@ AC_COPYRIGHT([Parts Copyright (C) Vincent Launchbury 2009])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/matrix.c])
 AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_FILES([Makefile
+                 src/Makefile])
 
 # Programs
 AC_PROG_CC
+AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
 # Headers
-AC_PATH_X
+AC_HEADER_STDC
+
+# Library Stuff
+AC_TYPE_SIZE_T
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([memset])
 
 
 # X11 Lib
+AC_PATH_X
 AC_CHECK_LIB([X11], [XOpenDisplay],, 
              [AC_CHECK_HEADERS(X11/Xlib.h,,
               [echo "Error: X11 not found";exit 1])]
 )
 
-# 
 #Opengl stuff
-#
-AX_CHECK_GL
 AX_CHECK_GLU
-AC_CHECK_HEADERS(GL/gl.h GL/glu.h GL/glx.h,,
-         [AC_CHECK_HEADERS(OpenGL/gl.h OpenGL/glu.h GL/glx.h,,
-           [echo "Error: OpenGL not found";exit 1])]
-)
+
 
 # 
 # Find xscreensaver directories
 #
-
 # First the hack dir
 XSS_HACKS=0
 echo -n "checking for xscreensaver hack directory... "
@@ -97,19 +99,7 @@ the bug report for you, so please please send it :)"
 fi
 AC_SUBST([XSS_HACKS])
 AC_SUBST([XSS_CONF])
-# End xscreensaver stuff
 
 
-
-
-AM_PROG_CC_C_O
-AC_HEADER_STDC
-AC_CONFIG_FILES([Makefile
-                 src/Makefile])
-
-# Library Stuff
-AC_TYPE_SIZE_T
-AC_FUNC_MALLOC
-AC_CHECK_FUNCS([memset])
-
+# And we're done
 AC_OUTPUT
