@@ -53,7 +53,7 @@ AX_CHECK_GLU
 
 # Find man dirs better than automake does.
 MAN1_DIR=0
-echo -n "checking for man1 directory... "
+test "$silent" != yes && echo -n "checking for man1 directory... "
 for dir in /usr/share/man/man1 \
    /usr/local/share/man/man1 \
    /usr/local/man/man1 \
@@ -62,9 +62,9 @@ for dir in /usr/share/man/man1 \
    test -d $dir && MAN1_DIR=$dir && break
 done
 if test -n $MAN1_DIR; then
-   echo "$MAN1_DIR"
+   test "$silent" != yes && echo "$MAN1_DIR"
 else
-   echo "no. Using /usr/share/man/man1"
+   test "$silent" != yes && echo "no. Using /usr/share/man/man1"
    MAN1_DIR = "/usr/share/man/man1"
 fi
 AC_SUBST([MAN1_DIR])
@@ -75,7 +75,7 @@ AC_SUBST([MAN1_DIR])
 #
 # First the hack dir
 XSS_HACKS=0
-echo -n "checking for xscreensaver hack directory... "
+test "$silent" != yes && echo -n "checking for xscreensaver hack directory... "
 for dir in /usr/lib/xscreensaver \
    /usr/lib/misc/xscreensaver \
    /usr/libexec/xscreensaver \
@@ -86,15 +86,15 @@ for dir in /usr/lib/xscreensaver \
    test -d $dir && XSS_HACKS=$dir && break
 done
 if test -n $XSS_HACKS; then
-   echo "$XSS_HACKS"
+   test "$silent" != yes && echo "$XSS_HACKS"
 else
-   echo "no"
+   test "$silent" != yes && echo "no"
 fi
 AC_DEFINE_UNQUOTED(XSCREENSAVER_HACKS_DIR, "$XSS_HACKS", [xscreensaver hack directory])
 
 # Then the config dir
 XSS_CONF=''
-echo -n "checking for xscreensaver config directory... "
+test "$silent" != yes && echo -n "checking for xscreensaver config directory... "
 for dir in /usr/lib/xscreensaver/config \
    /usr/lib/X11/xscreensaver/config \
    /usr/share/xscreensaver/config \
@@ -102,9 +102,9 @@ for dir in /usr/lib/xscreensaver/config \
    test -d $dir && XSS_CONF=$dir && break
 done
 if test -n $XSS_CONF; then
-   echo "$XSS_CONF"
+   test "$silent" != yes && echo "$XSS_CONF"
 else
-   echo "no"
+   test "$silent" != yes && echo "no"
 fi
 AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$XSS_CONF", [xscreensaver conf directory])
 
