@@ -51,6 +51,24 @@ AC_CHECK_LIB([X11], [XOpenDisplay],,
 #Opengl stuff
 AX_CHECK_GLU
 
+# Find man dirs better than automake does.
+MAN1_DIR=0
+echo -n "checking for man1 directory... "
+for dir in /usr/share/man/man1 \
+   /usr/local/share/man/man1 \
+   /usr/local/man/man1 \
+   /usr/man/man1 \
+   /usr/contrib/man/man1; do
+   test -d $dir && MAN1_DIR=$dir && break
+done
+if test -n $MAN1_DIR; then
+   echo "$MAN1_DIR"
+else
+   echo "no. Using /usr/share/man/man1"
+   MAN1_DIR = "/usr/share/man/man1"
+fi
+AC_SUBST([MAN1_DIR])
+
 
 # 
 # Find xscreensaver directories

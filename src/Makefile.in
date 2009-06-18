@@ -33,7 +33,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = matrixgl$(EXEEXT)
+bexec_PROGRAMS = matrixgl$(EXEEXT)
 xssexec_PROGRAMS = matrixgl$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -45,11 +45,12 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
-am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(xssexecdir)" \
-	"$(DESTDIR)$(man1dir)" "$(DESTDIR)$(xssconfdir)"
-binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+am__installdirs = "$(DESTDIR)$(bexecdir)" "$(DESTDIR)$(xssexecdir)" \
+	"$(DESTDIR)$(man1dir)" "$(DESTDIR)$(ourman1dir)" \
+	"$(DESTDIR)$(xssconfdir)"
+bexecPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 xssexecPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
-PROGRAMS = $(bin_PROGRAMS) $(xssexec_PROGRAMS)
+PROGRAMS = $(bexec_PROGRAMS) $(xssexec_PROGRAMS)
 am_matrixgl_OBJECTS = matrixgl-matrix.$(OBJEXT)
 matrixgl_OBJECTS = $(am_matrixgl_OBJECTS)
 matrixgl_LDADD = $(LDADD)
@@ -73,8 +74,9 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
+ourman1DATA_INSTALL = $(INSTALL_DATA)
 xssconfDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(xssconf_DATA)
+DATA = $(ourman1_DATA) $(xssconf_DATA)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -115,6 +117,7 @@ LIBOBJS = @LIBOBJS@
 LIBS = @LIBS@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
+MAN1_DIR = @MAN1_DIR@
 MKDIR_P = @MKDIR_P@
 OBJEXT = @OBJEXT@
 PACKAGE = @PACKAGE@
@@ -183,10 +186,24 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+# We want /usr/bin, not /usr/local/bin
+bexecdir = /usr/bin
+
+# Now install to xscreensaver
 xssexecdir = @XSS_HACKS@
 xssconfdir = @XSS_CONF@
 xssconf_DATA = matrixgl.xml
+
+# Doesn't work on some distros
+# I tested.
 man_MANS = matrixgl.1
+
+# So we find it ourselves instead
+ourman1dir = @MAN1_DIR@
+ourman1_DATA = matrixgl.1
+
+# Now make sure it finds Xlib and GL/GLU
 matrixgl_SOURCES = matrix.c
 matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused \
 	-I/usr/X11R6/include -I/usr/X11/include @GLU_CFLAGS@
@@ -226,29 +243,29 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-install-binPROGRAMS: $(bin_PROGRAMS)
+install-bexecPROGRAMS: $(bexec_PROGRAMS)
 	@$(NORMAL_INSTALL)
-	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
-	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	test -z "$(bexecdir)" || $(MKDIR_P) "$(DESTDIR)$(bexecdir)"
+	@list='$(bexec_PROGRAMS)'; for p in $$list; do \
 	  p1=`echo $$p|sed 's/$(EXEEXT)$$//'`; \
 	  if test -f $$p \
 	  ; then \
 	    f=`echo "$$p1" | sed 's,^.*/,,;$(transform);s/$$/$(EXEEXT)/'`; \
-	   echo " $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(bindir)/$$f'"; \
-	   $(INSTALL_PROGRAM_ENV) $(binPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(bindir)/$$f" || exit 1; \
+	   echo " $(INSTALL_PROGRAM_ENV) $(bexecPROGRAMS_INSTALL) '$$p' '$(DESTDIR)$(bexecdir)/$$f'"; \
+	   $(INSTALL_PROGRAM_ENV) $(bexecPROGRAMS_INSTALL) "$$p" "$(DESTDIR)$(bexecdir)/$$f" || exit 1; \
 	  else :; fi; \
 	done
 
-uninstall-binPROGRAMS:
+uninstall-bexecPROGRAMS:
 	@$(NORMAL_UNINSTALL)
-	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	@list='$(bexec_PROGRAMS)'; for p in $$list; do \
 	  f=`echo "$$p" | sed 's,^.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/'`; \
-	  echo " rm -f '$(DESTDIR)$(bindir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(bindir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(bexecdir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(bexecdir)/$$f"; \
 	done
 
-clean-binPROGRAMS:
-	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+clean-bexecPROGRAMS:
+	-test -z "$(bexec_PROGRAMS)" || rm -f $(bexec_PROGRAMS)
 install-xssexecPROGRAMS: $(xssexec_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	test -z "$(xssexecdir)" || $(MKDIR_P) "$(DESTDIR)$(xssexecdir)"
@@ -356,6 +373,23 @@ uninstall-man1:
 	  echo " rm -f '$(DESTDIR)$(man1dir)/$$inst'"; \
 	  rm -f "$(DESTDIR)$(man1dir)/$$inst"; \
 	done
+install-ourman1DATA: $(ourman1_DATA)
+	@$(NORMAL_INSTALL)
+	test -z "$(ourman1dir)" || $(MKDIR_P) "$(DESTDIR)$(ourman1dir)"
+	@list='$(ourman1_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f=$(am__strip_dir) \
+	  echo " $(ourman1DATA_INSTALL) '$$d$$p' '$(DESTDIR)$(ourman1dir)/$$f'"; \
+	  $(ourman1DATA_INSTALL) "$$d$$p" "$(DESTDIR)$(ourman1dir)/$$f"; \
+	done
+
+uninstall-ourman1DATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(ourman1_DATA)'; for p in $$list; do \
+	  f=$(am__strip_dir) \
+	  echo " rm -f '$(DESTDIR)$(ourman1dir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(ourman1dir)/$$f"; \
+	done
 install-xssconfDATA: $(xssconf_DATA)
 	@$(NORMAL_INSTALL)
 	test -z "$(xssconfdir)" || $(MKDIR_P) "$(DESTDIR)$(xssconfdir)"
@@ -451,7 +485,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(PROGRAMS) $(MANS) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(xssexecdir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(xssconfdir)"; do \
+	for dir in "$(DESTDIR)$(bexecdir)" "$(DESTDIR)$(xssexecdir)" "$(DESTDIR)$(man1dir)" "$(DESTDIR)$(ourman1dir)" "$(DESTDIR)$(xssconfdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-am
@@ -480,7 +514,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic clean-xssexecPROGRAMS \
+clean-am: clean-bexecPROGRAMS clean-generic clean-xssexecPROGRAMS \
 	mostlyclean-am
 
 distclean: distclean-am
@@ -499,11 +533,11 @@ info: info-am
 
 info-am:
 
-install-data-am: install-man install-xssconfDATA
+install-data-am: install-man install-ourman1DATA install-xssconfDATA
 
 install-dvi: install-dvi-am
 
-install-exec-am: install-binPROGRAMS install-xssexecPROGRAMS
+install-exec-am: install-bexecPROGRAMS install-xssexecPROGRAMS
 
 install-html: install-html-am
 
@@ -534,27 +568,29 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-binPROGRAMS uninstall-man \
-	uninstall-xssconfDATA uninstall-xssexecPROGRAMS
+uninstall-am: uninstall-bexecPROGRAMS uninstall-man \
+	uninstall-ourman1DATA uninstall-xssconfDATA \
+	uninstall-xssexecPROGRAMS
 
 uninstall-man: uninstall-man1
 
 .MAKE: install-am install-strip
 
-.PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic clean-xssexecPROGRAMS ctags distclean \
-	distclean-compile distclean-generic distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-binPROGRAMS install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-man1 install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip install-xssconfDATA \
-	install-xssexecPROGRAMS installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
-	ps ps-am tags uninstall uninstall-am uninstall-binPROGRAMS \
-	uninstall-man uninstall-man1 uninstall-xssconfDATA \
+.PHONY: CTAGS GTAGS all all-am check check-am clean \
+	clean-bexecPROGRAMS clean-generic clean-xssexecPROGRAMS ctags \
+	distclean distclean-compile distclean-generic distclean-tags \
+	distdir dvi dvi-am html html-am info info-am install \
+	install-am install-bexecPROGRAMS install-data install-data-am \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-man1 install-ourman1DATA install-pdf \
+	install-pdf-am install-ps install-ps-am install-strip \
+	install-xssconfDATA install-xssexecPROGRAMS installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
+	uninstall-am uninstall-bexecPROGRAMS uninstall-man \
+	uninstall-man1 uninstall-ourman1DATA uninstall-xssconfDATA \
 	uninstall-xssexecPROGRAMS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
