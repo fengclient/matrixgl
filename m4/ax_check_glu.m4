@@ -50,9 +50,6 @@ CPPFLAGS=$ax_save_CPPFLAGS
 
 m4_define([AX_CHECK_GLU_PROGRAM],
           [AC_LANG_PROGRAM([[
-# if defined(HAVE_WINDOWS_H) && defined(_WIN32)
-#   include <windows.h>
-# endif
 # ifdef HAVE_GL_GLU_H
 #   include <GL/glu.h>
 # elif defined(HAVE_OPENGL_GLU_H)
@@ -80,8 +77,6 @@ LIBS="$GL_LIBS $ax_save_LIBS"
 # to do with such a file.
 #
 AC_LANG_PUSH([C++])
-AS_IF([test X$ax_compiler_ms = Xyes],
-      [AC_LANG_PUSH([C])])
 AC_LINK_IFELSE([AX_CHECK_GLU_PROGRAM],
                [ax_cv_check_glu_libglu=yes],
                [LIBS=""
@@ -94,8 +89,6 @@ AC_LINK_IFELSE([AX_CHECK_GLU_PROGRAM],
                  AC_LINK_IFELSE([AX_CHECK_GLU_PROGRAM],
                                 [ax_cv_check_glu_libglu=$ax_try_lib; break])
                done])
-AS_IF([test X$ax_compiler_ms = Xyes],
-      [AC_LANG_POP([C])])
 AC_LANG_POP([C++])
 
 LIBS=$ax_save_LIBS

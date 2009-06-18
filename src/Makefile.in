@@ -40,9 +40,7 @@ DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/acx_pthread.m4 \
 	$(top_srcdir)/m4/ax_check_gl.m4 \
-	$(top_srcdir)/m4/ax_check_glu.m4 \
-	$(top_srcdir)/m4/ax_lang_compiler_ms.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/ax_check_glu.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -196,11 +194,10 @@ xssconf_DATA = matrixgl.xml
 man_MANS = matrixgl.1
 matrixgl_SOURCES = matrix.c
 matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W -Wno-unused \
-	-I/usr/X11R6/include -I/usr/X11/include @GL_CFLAGS@ \
-	@GLU_CFLAGS@ $(am__empty)
+	-I/usr/X11R6/include -I/usr/X11/include @GLU_CFLAGS@
 matrixgl_LDFLAGS = -L/usr/X11R6/lib -L/usr/X11/lib -L/usr/local/lib/ \
 	-L/System/Library/Frameworks/OpenGL.framework/Libraries \
-	@GL_LIBS@ @GLU_LIBS@ $(am__empty)
+	@GLU_LIBS@ $(am__empty)
 all: all-am
 
 .SUFFIXES:

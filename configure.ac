@@ -31,7 +31,7 @@ AC_PROG_MAKE_SET
 
 # Headers
 AC_PATH_X
-AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
+
 
 # X11 Lib
 AC_CHECK_LIB([X11], [XOpenDisplay],, 
@@ -104,7 +104,6 @@ AC_SUBST([XSS_CONF])
 
 AM_PROG_CC_C_O
 AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h])
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
 
