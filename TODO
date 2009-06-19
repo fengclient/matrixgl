@@ -3,11 +3,6 @@ TODO
    . Make the settings button open the config file in notepad
       or $EDITOR if it exists on windows
 . Need to add entry to ~/.xscreensaver, some distros don't do this
+. Limit framerate to ~45fps, in a portable way.
 . Add additional 3D images, with more variety/characters
-. Perhaps start using autotools, for better portability.
-   . Including porting --install to the Makefile
-   . Should have the standard
-      $./configure
-      $make
-      #make install
 . Test on opensolaris
