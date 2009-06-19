@@ -47,6 +47,10 @@ glxinfo | grep direct                        >>bug_report 2>&1
 # Grab configure errors (if any)
 echo '@@config@@'                            >>bug_report 2>&1
 ./configure                                  >>bug_report 2>&1
+
+# Clean, to make sure it rebuilds again
+make clean >/dev/null 2>&1
+
 # Grab compilation errors (if any)
 echo '@@make@@'                              >>bug_report 2>&1
 make                                         >>bug_report 2>&1
@@ -55,7 +59,8 @@ make                                         >>bug_report 2>&1
 if test "$?" -eq 0; then
    # Grab location of xscreensaver dirs (incase they differ in your distro)
    echo '@@xscreensaver-dirs@@'              >>bug_report 2>&1
-   find /usr -name xscreensaver -type d      >>bug_report 2>/dev/null
+   find /usr -name xscreensaver -type d \
+      -maxdepth 4                            >>bug_report 2>/dev/null
    
    # Now grab fps stats/runtime errors
    echo '@@fps-stats@@'                      >>bug_report 2>&1
