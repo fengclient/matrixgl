@@ -1,4 +1,4 @@
-matrixgl-v2.2 (not yet released)
+matrixgl-v2.2 (2009/06/19)
 ---------------
 . No longer have to uncomment a #define to compile on windows
 . Added script to generate useful bug reports

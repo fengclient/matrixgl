@@ -1,3 +1,15 @@
-See ChangeLog for a detailed log of changes. 
+This file contains a non-definitive list of user-visible changes. 
+See ChangeLog for a more detailed log of changes, geared toward developers
 
-Note however that the file is geared more to developers.
+Changes in 2.2 (from the original 1.0 release)
+-----------------------------------------------
+* Added widescreen support.
+* Fixed 3D images to look good in widescreen.
+* Added new 3D images.
+* Ported to xscreensaver so we can support all Destkop Environments.
+* Ported to the GNU Build System, for an easier build and install process.
+* No longer has a visually unappealing startup.
+* Added documentation and a new website
+* Added options for stuff like color, that can also be set in xscreensaver-demo.
+* Runs in the native desktop resolution in Linux.
+* Fixed a Windows bug that caused matrixgl to quit after a few seconds.

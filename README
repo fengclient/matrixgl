@@ -24,9 +24,10 @@ Table of Contents
 
 Introduction
 ------------
-matrixgl is a continuation of the original matrixgl from knoppix.ru. The project was started to remove the bugs and annoyances I had found in the original. On Windows, it would sometimes only run for a second before exiting, and on Linux, it would run in an unchangeable 800x600 resolution, making it look slightly outdated. In the process of fixing these flaws, I trimmed down the source and began modifying it more to my liking, removing several other bugs along the way. See the changelog for an almost complete log of changes.
-
-matrixgl now supports widescreen setups, as well as fully supporting xscreensaver, including preview mode.
+The matrixgl 2.x series is based on the original version 1.0 screensaver from Knoppix.ru. It was written by brothers Alexander and Eugene Zolotov back in 2003. Vincent Launchbury is now maintaining the project, with the goals of:
+    * Fixing bugs, and making it run more smoothly.
+    * Improving portability, so that it can run on more operating systems.
+    * Adding new features and a larger variety of images.
 
 
 File Manifest

@@ -434,16 +434,6 @@ bug report.\n",
 }
 
 
-/* Set Up initial column speeds and character mappings */
-void make_text(void)
-{
-   long a;
-   for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
-   for(a=0;a<text_x;a++) {
-      speed[a]=rand()&1;
-      if (!a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
-   }
-}
 
 
 /* Draw character #num on the screen. */
@@ -505,30 +495,25 @@ void draw_text1(void)
    }
 }
 
-/* Draw white characters for each column */
-void draw_text2(void)
+/* Draw white characters and flares for each column */
+void draw_text2(int mode)
 {
    float x,y;
    long p=0;
    for(y=_text_y;y>-_text_y;y--){
       for(x=-_text_x;x<_text_x;x++){
-         if(text_light[p]>128 && text_light[p+text_x]<10) 
-            draw_char(2, text[p]+1,0.5,x,y, 
-               ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
-         p++;
-      }
-   }
-}
+         if(text_light[p]>128 && text_light[p+text_x]<10) {
+            /* White character */
+            if (!mode) {
+               draw_char(2, text[p]+1,0.5,x,y, 
+                  ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
+            /* Flare */
+            } else {
+               draw_flare(x,y, 
+                  ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
+            }
+         }
 
-/* Draw flares for each column */
-void draw_text3(void)
-{
-   float x,y;
-   long p=0;
-   for (y=_text_y;y>-_text_y;y--) {
-      for (x=-_text_x;x<_text_x;x++) {
-         if(text_light[p]>128 && text_light[p+text_x]<10) 
-            draw_flare(x,y, ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
          p++;
       }
    }
@@ -614,12 +599,12 @@ void cbRenderScene(void)
 
    glBindTexture(GL_TEXTURE_2D,2);
    glBegin(GL_QUADS);
-   draw_text2();
+   draw_text2(0);
    glEnd();
 
    glBindTexture(GL_TEXTURE_2D,3);
    glBegin(GL_QUADS);
-   draw_text3();
+   draw_text2(1);
    glEnd();
 
    make_change();
@@ -636,18 +621,9 @@ void cbRenderScene(void)
 
 void MouseFunc(int x, int y)
 {
-#ifdef WIN32_MODE
-   /*
-    * WIN seems to randomly call passive mouse func when no movement
-    * takes place, so we gotta check if coords have infact changed.
-    */
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
    else if (xx!=x||yy!=y)exit(0);
-#else /* NIX_MODE */
-   static int c=0;
-   if(c++>=1) exit(0);
-#endif /* NIX_MODE */
 }
 
 
@@ -695,8 +671,29 @@ void cbKeyPressed(unsigned char key, int x, int y)
 }
 
 
-void ourBuildTextures(void)
+
+
+void cbResizeScene(int Width, int Height)
 {
+   glViewport(0, 0, Width, Height);
+   glMatrixMode(GL_PROJECTION);
+   glLoadIdentity();
+   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,200.0f);
+   glMatrixMode(GL_MODELVIEW);
+}
+
+
+void ourInit(void) 
+{
+   /* Set up column speeds and character mappings */
+   long a;
+   for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
+   for(a=0;a<text_x;a++) {
+      speed[a]=rand()&1;
+      if (!a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
+   }
+
+   /* Make Textures */
    glPixelTransferf(GL_GREEN_SCALE, 1.15f); /* Give green a bit of a boost */
    glBindTexture(GL_TEXTURE_2D,1);
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, color,
@@ -712,23 +709,6 @@ void ourBuildTextures(void)
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
    glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
-}
-
-
-void cbResizeScene(int Width, int Height)
-{
-   glViewport(0, 0, Width, Height);
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,200.0f);
-   glMatrixMode(GL_MODELVIEW);
-}
-
-
-void ourInit(void) 
-{
-   make_text();
-   ourBuildTextures();   
    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
    glShadeModel(GL_SMOOTH);
 
