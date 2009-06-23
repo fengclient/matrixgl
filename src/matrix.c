@@ -189,79 +189,19 @@ int main(int argc,char **argv)
             fpoll=clamp(atoi(optarg), 1, 20);
             break;
          case 'i':
-            if (getuid()!=0) {
-               fprintf(stderr, "Error: Must run -install as root\n");
-               exit(EXIT_FAILURE);
-            }
-            if (access("matrixgl.xml", F_OK) < 0) {
-               fprintf(stderr, 
-                  "Error: Must run install from the source directory.\n");
-               exit(EXIT_FAILURE);
-            }
-
-            /* Std files */
-            system("cp -f matrixgl /usr/bin/"); /* For running from term */
-            /* Install man page */
-            if (access("/usr/local/man/man1/", F_OK) >= 0) 
-               system("cp -f matrixgl.1 /usr/local/man/man1/");
-            else if (access("/usr/share/man/man1/", F_OK) >= 0)
-               system("cp -f matrixgl.1 /usr/share/man/man1/");
-            /* else keep going, not fatal */
-
-#ifdef __APPLE__
-            fprintf(stderr, "Error: No install support for OSX\n");
-            exit(0);
-#else
-            /* Install the binary */
-            if (access("/usr/lib/misc/xscreensaver/", F_OK) >= 0)
-               system("cp -f matrixgl /usr/lib/misc/xscreensaver/");
-            else if (access("/usr/local/libexec/xscreensaver/", F_OK) >= 0)
-               system("cp -f matrixgl /usr/local/libexec/xscreensaver/");
-            else if (access("/usr/lib/xscreensaver/", F_OK) >= 0)
-               system("cp -f matrixgl /usr/lib/xscreensaver/");
-            else ierror=1;
-
-            /* Install the xml file */
-            if (access("/usr/share/xscreensaver/config/", F_OK) >=0)
-               system("cp -f matrixgl.xml /usr/share/xscreensaver/config/");
-            else if (access("/usr/local/share/xscreensaver/", F_OK) >= 0)
-               system("cp -f matrixgl.xml /usr/local/share/xscreensaver/config/");
-            else ierror=1;
-
-            if (ierror) {
-               fputs("\
-Error: xscreensaver directories cannot be found\n\
-**PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n\n\
-If xscreensaver is installed, and you still get this \
-message, please report it as a bug by emailing \
-<vincent@doublecreations.com>. To best assist us, \
-please run the ./get-bug-report.sh script in the source \
-directory and follow the instructions, before sending \
-in your bug report.\n\n\
-**PLEASE MAKE SURE YOU HAVE INSTALLED XSCREENSAVER**\n",
-                  stderr);
-               exit(EXIT_FAILURE);
-            }
-            printf("Successfully installed to xscreensaver\n");
-            printf("Run 'xscreensaver-demo' and select 'matrixgl'\n");
-            exit(0);
-#endif
+            fputs("\
+Error: This install method is deprecated.\n\
+Please use '$make install' in the source \
+directory instead.\n",
+               stderr);
+            exit(EXIT_FAILURE);
          case 'u':
-            if (getuid()!=0) {
-               fprintf(stderr, "Error: Must run -remove as root\n");
-               exit(EXIT_FAILURE);
-            }
-            /* Make sure we get rid of everything */
-            system("rm -f /usr/bin/matrixgl");
-            system("rm -f /usr/local/man/man1/matrixgl.1");
-            system("rm -f /usr/share/man/man1/matrixgl.1");
-            system("rm -f /usr/lib/misc/xscreensaver/matrixgl");
-            system("rm -f /usr/lib/xscreensaver/matrixgl");
-            system("rm -f /usr/share/xscreensaver/config/matrixgl.xml");
-            system("rm -f /usr/local/libexec/xscreensaver/matrixgl");
-            system("rm -f /usr/local/share/xscreensaver/config/matrixgl.xml");
-            printf("Uninstall complete\n");
-            exit(0);
+            fputs("\
+Error: This uninstall method is deprecated.\n\
+Please use '$make uninstall' in the source \
+directory instead.\n",
+               stderr);
+            exit(EXIT_FAILURE);
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\

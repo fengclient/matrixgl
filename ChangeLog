@@ -3,6 +3,8 @@ matrixgl-v2.2.1 (not yet released)
 . Framerate limited to 32fps
 . Images fade in/out much more smoothly
 . Updated documentation
+. Removed deprecated install method (matrixgl -install)
+. Removed deprecated remove method (matrixgl -remove)
 
 matrixgl-v2.2 (2009/06/19)
 ---------------
