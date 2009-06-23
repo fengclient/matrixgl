@@ -1,4 +1,4 @@
-Source: stardates
+Source: matrixgl
 Section: games
 Priority: extra
 Maintainer: Yves Fischer <yvesf-debian@xapek.org>
@@ -6,11 +6,7 @@ Build-Depends: debhelper (>= 7)
 Standards-Version: 3.7.3
 Homepage: http://starchive.cs.umanitoba.ca/?stardates/
 
-Package: stardates
+Package: matrixgl
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Stardates is a C program that will manipulate dates in various
- formats.  It can display the current date, or a date specified in one of five
- formats.  It can display dates in any of these five formats.  The date formats
- supported are stardates (of course), the Julian, Gregorian and Quadcent
- calendars, and the traditional Unix form of date specification. (From original README)
+Description: Matrixgl without xscreensaver

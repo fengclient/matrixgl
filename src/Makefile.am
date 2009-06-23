@@ -3,10 +3,17 @@ bexecdir = /usr/bin
 bexec_PROGRAMS = matrixgl
 
 # Now install to xscreensaver
+if USE_XSCREENSAVER
 xssexecdir = @XSS_HACKS@
 xssconfdir = @XSS_CONF@
 xssexec_PROGRAMS = matrixgl
+
 xssconf_DATA = matrixgl.xml
+else
+xssexecdir = 
+xssconfdir = 
+xssconf_DATA = 
+endif
 
 # Doesn't work on some distros I tested.
 #man_MANS = matrixgl.1

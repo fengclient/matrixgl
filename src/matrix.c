@@ -210,7 +210,7 @@ directory instead.\n",
  -F --fs --fullscreen   Run in fullscreen window\n\
  -f --fps=SEC           Print fps stats every SEC seconds\n\
  -h --help              Show the help screen\n\
- -i --install           Install to xscreensaver\n",
+ -i --install           Install to xscreensaver (deprecated)\n",
                stdout);
             fputs("\
  -u --remove            Remove from xscreensaver\n\
