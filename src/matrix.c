@@ -100,7 +100,7 @@ int x,y;
 
 /* FPS Stats */
 time_t last;
-int usefps=0;
+float usefps=0.0;
 unsigned long sleeper = 0;
 float fps=0;
 int frames=0;
@@ -143,7 +143,7 @@ int main(int argc,char **argv)
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
       {"allow-root",no_argument,       0, 'Z'},
-      {"fps",       optional_argument, 0, 'f'},
+      {"fps",       required_argument, 0, 'f'},
       {0, 0, 0, 0}
    };
    int opti = 0;
@@ -185,8 +185,8 @@ int main(int argc,char **argv)
             }
             break;
          case 'f':
-            usefps=1;
-            fpoll=clamp(atoi(optarg), 1, 20);
+            usefps=atof(optarg);
+            /*fpoll=clamp(atoi(optarg), 1, 20);*/
             break;
          case 'i':
             fputs("\
@@ -208,7 +208,7 @@ directory instead.\n",
  -C --color=COL         Set color to COL (must be green, red or blue)\n\
  -c --credits           Show the credits on startup\n\
  -F --fs --fullscreen   Run in fullscreen window\n\
- -f --fps=SEC           Print fps stats every SEC seconds\n\
+ -f --fps=FPS           Print fps stats and limit to FPS fps.\n\
  -h --help              Show the help screen\n\
  -i --install           Install to xscreensaver (deprecated)\n",
                stdout);
@@ -334,20 +334,22 @@ bug report.\n",
       else if (time(NULL)-last >= fpoll) {
          fps = frames/(time(NULL)-last);
          if (usefps) {
-            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds)\n", 
-               fps, sleeper, frames, (int)(time(NULL)-last));
-            fflush(stdout); /* Don't buffer fps stats (do not remove!) */
-         }
-         frames=-1;
+            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds) - goal: %f\n", 
+		   fps, sleeper, frames, (int)(time(NULL)-last), usefps);
 
-         /* Limit framerate */
-         if (fps > 32.0) {
-            sleeper+=3000;
-         } else if (sleeper >= 3000) {
-            sleeper-=1000;
-         }
-         if (sleeper > 1000000) sleeper=100000;
+	    /* Limit framerate */
+	    if (fps > usefps) {
+	      sleeper+=3000;
+	    } else if (sleeper >= 3000) {
+	      sleeper-=1000;
+	    }
+	    if (sleeper > 1000000) sleeper=100000;
+	    printf("sleeper %ld\n", sleeper);
+	    fflush(stdout); /* Don't buffer fps stats (do not remove!) */
+	 }
+	 frames=-1;
       }
+
 
       /* Check events */
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
