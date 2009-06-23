@@ -31,6 +31,7 @@
    #include <windows.h>
 #else /* NIX_MODE */
    #include <X11/Xlib.h>
+   #define __USE_XOPEN_EXTENDED
    #include <unistd.h>
    #include <getopt.h>
    #include <time.h>
@@ -100,8 +101,10 @@ int x,y;
 /* FPS Stats */
 time_t last;
 int usefps=0;
+unsigned long sleeper = 0;
+float fps=0;
 int frames=0;
-int fpoll=5;
+int fpoll=2;
 
 
 #ifdef WIN32_MODE
@@ -386,34 +389,35 @@ bug report.\n",
    ourInit();
    cbResizeScene(x,y);
    while(1) {
-      if (usefps) {
-         if (!frames) time(&last);
-         else if (time(NULL)-last >= fpoll) {
-            printf("FPS:%5.1f (%3d frames in %2d seconds)\n", 
-               (float)frames/(time(NULL)-last), frames, (int)(time(NULL)-last));
+      /* FPS and frame limiting */
+      if (!frames) time(&last);
+      else if (time(NULL)-last >= fpoll) {
+         fps = frames/(time(NULL)-last);
+         if (usefps) {
+            printf("FPS:%5.1f %ld (%3d frames in %2d seconds)\n", 
+               fps, sleeper, frames, (int)(time(NULL)-last));
             fflush(stdout); /* Don't buffer fps stats (do not remove!) */
-            frames=-1;
          }
+         frames=-1;
+
+         /* Limit framerate */
+         if (fps > 32.0) {
+            sleeper+=3000;
+         } else if (sleeper >= 3000) {
+            sleeper-=1000;
+         }
+         if (sleeper > 1000000) sleeper=100000;
       }
 
+      /* Check events */
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
       }
       XGetWindowAttributes(dpy, win, &gwa);
       glViewport(0, 0, gwa.width, gwa.height);
+      /* Render frame */
       cbRenderScene();
-      /* glFinish is required so that it doesn't skip on 
-       * slow video cards. It must finish rendering the frame
-       * before it is scrolled, otherwise the white nodes may
-       * appear to skip down 4 or 5 rows every redraw.
-       * 
-       * There used to be a usleep call here, so that it didn't
-       * run too fast on really good cards, but with additional
-       * testing, this made it too slow on some mid-range cards,
-       * especially where the timer granularity was poor. On top
-       * of that, it seems it runs a little slower when run
-       * through xscreensaver, so it should balance out nicely.
-       */
+      usleep(sleeper);
       glFinish();
       scroll(0);
       if (usefps) frames++;
