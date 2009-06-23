@@ -1,6 +1,11 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.2.1
+----------------
+. Framerate limited to 32fps
+. Images fade in/out much more smoothly
+
 Changes in 2.2 (from the original 1.0 release)
 -----------------------------------------------
 * Added widescreen support.

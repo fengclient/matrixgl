@@ -1,3 +1,9 @@
+matrixgl-v2.2.1 (not yet released)
+---------------
+. Framerate limited to 32fps
+. Images fade in/out much more smoothly
+. Updated documentation
+
 matrixgl-v2.2 (2009/06/19)
 ---------------
 . No longer have to uncomment a #define to compile on windows

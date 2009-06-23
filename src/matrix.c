@@ -394,7 +394,7 @@ bug report.\n",
       else if (time(NULL)-last >= fpoll) {
          fps = frames/(time(NULL)-last);
          if (usefps) {
-            printf("FPS:%5.1f %ld (%3d frames in %2d seconds)\n", 
+            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds)\n", 
                fps, sleeper, frames, (int)(time(NULL)-last));
             fflush(stdout); /* Don't buffer fps stats (do not remove!) */
          }
@@ -475,8 +475,8 @@ void draw_text1(void)
    float x,y;
    long p=0,b=0;
    int c,c_pic;
-   if(!paused && pic_mode==1 && ++pic_fade>255) pic_fade=255;
-   if(!paused && pic_mode==2 && --pic_fade<0) pic_fade=0;
+   if(!paused && pic_mode==1 && (pic_fade+=3)>255) pic_fade=255;
+   if(!paused && pic_mode==2 && (pic_fade-=3)<0) pic_fade=0;
    for(y=_text_y;y>-_text_y;y--){
       for(x=-_text_x;x<_text_x;x++){
          if (x>-_rtext_x-1 && x<_rtext_x ) {
@@ -540,12 +540,12 @@ void scroll(int mode)
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
-      if(timer>250 && timer<255 && !classic) pic_mode=2; /* pic fade out */
-      if (timer > 250 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+      if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
+      if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
-         timer=100;pic_mode=1; /* Make DC dissapear quickly */
+         timer=70;pic_mode=1; /* Make DC dissapear quickly */
       }
-      if(timer>550) {
+      if(timer>220) {
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
          if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
@@ -655,7 +655,7 @@ void cbKeyPressed(unsigned char key, int x, int y)
          classic=0;
          pic_offset=(num_pics+1)*(rtext_x*text_y);
          pic_mode=1;
-         timer=110;
+         timer=70;
          break;
       case 's': /* Stop 3D Images, classic style. */
          if (!classic) {
