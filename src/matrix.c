@@ -209,8 +209,7 @@ directory instead.\n",
  -c --credits           Show the credits on startup\n\
  -F --fs --fullscreen   Run in fullscreen window\n\
  -f --fps=SEC           Print fps stats every SEC seconds\n\
- -h --help              Show the help screen\n\
- -i --install           Install to xscreensaver\n",
+ -h --help              Show the help screen\n",
                stdout);
             fputs("\
  -u --remove            Remove from xscreensaver\n\
