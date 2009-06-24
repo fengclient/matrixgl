@@ -34,7 +34,7 @@ POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
 bexec_PROGRAMS = matrixgl$(EXEEXT)
-xssexec_PROGRAMS = matrixgl$(EXEEXT)
+@USE_XSCREENSAVER_TRUE@xssexec_PROGRAMS = matrixgl$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -187,9 +187,9 @@ top_srcdir = @top_srcdir@
 bexecdir = /usr/bin
 
 # Now install to xscreensaver
-xssexecdir = @XSS_HACKS@
-xssconfdir = @XSS_CONF@
-xssconf_DATA = matrixgl.xml
+@USE_XSCREENSAVER_TRUE@xssexecdir = @XSS_HACKS@
+@USE_XSCREENSAVER_TRUE@xssconfdir = @XSS_CONF@
+@USE_XSCREENSAVER_TRUE@xssconf_DATA = matrixgl.xml
 
 # Doesn't work on some distros I tested.
 #man_MANS = matrixgl.1
