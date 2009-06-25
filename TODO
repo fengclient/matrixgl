@@ -1,10 +1,6 @@
 TODO
-. Have a --without-xscreensaver option for configure, so that
-the build won't fail if someone wants to use matrixgl with a 
-different screensaver manager (or just to run from a shell..)
 . Use a config file for windows and have key to save settings
    . Make the settings button open the config file in notepad
-      or $EDITOR if it exists on windows
    . Perhaps have the same functionality in *NIX, if 
    --without-xscreensaver  is passed to the configure script. 
    A bash alias would surfice, so I don't know how useful it 

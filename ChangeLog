@@ -5,6 +5,7 @@ matrixgl-v2.2.1 (not yet released)
 . Updated documentation
 . Removed deprecated install method (matrixgl -install)
 . Removed deprecated remove method (matrixgl -remove)
+. Added option to build w/o xscreensaver support
 
 matrixgl-v2.2 (2009/06/19)
 ---------------
