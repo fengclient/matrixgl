@@ -5,6 +5,8 @@ Changes in 2.2.1
 ----------------
 . Framerate limited to 32fps
 . Images fade in/out much more smoothly
+. Added --disable-xscreensaver option to the configure 
+script, so that matrixgl can be used without xscreensaver.
 
 Changes in 2.2 (from the original 1.0 release)
 -----------------------------------------------

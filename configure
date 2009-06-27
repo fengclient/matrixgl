@@ -1401,7 +1401,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
-  --disable-xscreensaver  dont check for XScreensaver
+  --disable-xscreensaver Don't install to or check for xscreensaver
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -6801,24 +6801,21 @@ fi
 
 
 
-#
-# Find xscreensaver directories
-#
-# First the hack dir
+# Let user disable xscreensaver support
 # Check whether --enable-xscreensaver was given.
 if test "${enable_xscreensaver+set}" = set; then
   enableval=$enable_xscreensaver; case "${enableval}" in
-      no) skip_xscreensaver=true ;;
-     yes) skip_xscreensaver=false ;;
-       *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --disable-xscreensaver" >&5
+                no) skip_xscreensaver=true ;;
+               yes) skip_xscreensaver=false ;;
+                 *) { { $as_echo "$as_me:$LINENO: error: bad value ${enableval} for --disable-xscreensaver" >&5
 $as_echo "$as_me: error: bad value ${enableval} for --disable-xscreensaver" >&2;}
    { (exit 1); exit 1; }; } ;;
-   esac
+               esac
 else
   skip_xscreensaver=false
 fi
 
- if test x"skip_xscreensaver" = xtrue; then
+ if test "$skip_xscreensaver" != true; then
   USE_XSCREENSAVER_TRUE=
   USE_XSCREENSAVER_FALSE='#'
 else
@@ -6827,7 +6824,18 @@ else
 fi
 
 
+test "$silent" != yes && echo -n "checking if xscreensaver feature is enabled.. "
 if test "$skip_xscreensaver" = false; then
+   test "$silent" != yes && echo "yes"
+else
+   test "$silent" != yes && echo "no"
+fi
+
+if test "$skip_xscreensaver" = false; then
+   #
+   # Find xscreensaver directories
+   #
+   # First the hack dir
    XSS_HACKS=0
    test "$silent" != yes && echo -n "checking for xscreensaver hack directory... "
    for dir in /usr/lib/xscreensaver \
@@ -6880,9 +6888,7 @@ the bug report for you, so please please send it :)"
    fi
 
 
-else
-  echo "dont check for xscreensaver due --disable-xscreensaver"
-fi #if test x"$check_xscreensaver" = xtrue
+fi
 
 # And we're done
 cat >confcache <<\_ACEOF

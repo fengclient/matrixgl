@@ -134,8 +134,6 @@ int main(int argc,char **argv)
       {"static",    no_argument,       0, 's'},
       {"credits",   no_argument,       0, 'c'},
       {"color",     required_argument, 0, 'C'},
-      {"install",   no_argument,       0, 'i'},
-      {"remove",    no_argument,       0, 'u'},
       {"help",      no_argument,       0, 'h'},
       {"version",   no_argument,       0, 'v'},
       {"window-id", required_argument, 0, 'W'},
@@ -188,20 +186,6 @@ int main(int argc,char **argv)
             usefps=atof(optarg);
             /*fpoll=clamp(atoi(optarg), 1, 20);*/
             break;
-         case 'i':
-            fputs("\
-Error: This install method is deprecated.\n\
-Please use '$make install' in the source \
-directory instead.\n",
-               stderr);
-            exit(EXIT_FAILURE);
-         case 'u':
-            fputs("\
-Error: This uninstall method is deprecated.\n\
-Please use '$make uninstall' in the source \
-directory instead.\n",
-               stderr);
-            exit(EXIT_FAILURE);
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\
@@ -209,11 +193,9 @@ directory instead.\n",
  -c --credits           Show the credits on startup\n\
  -F --fs --fullscreen   Run in fullscreen window\n\
  -f --fps=FPS           Print fps stats and limit to FPS fps.\n\
- -h --help              Show the help screen\n\
- -i --install           Install to xscreensaver (deprecated)\n",
+ -h --help              Show the help screen\n"
                stdout);
             fputs("\
- -u --remove            Remove from xscreensaver\n\
  -s --static            Run in static mode (no 3D images)\n\
  -v --version           Print version info\n\
  --allow-root           Allow to be run as root\n",

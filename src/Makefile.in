@@ -185,13 +185,10 @@ top_srcdir = @top_srcdir@
 
 # We want /usr/bin, not /usr/local/bin
 bexecdir = /usr/bin
-@USE_XSCREENSAVER_FALSE@xssexecdir = 
 
 # Now install to xscreensaver
 @USE_XSCREENSAVER_TRUE@xssexecdir = @XSS_HACKS@
-@USE_XSCREENSAVER_FALSE@xssconfdir = 
 @USE_XSCREENSAVER_TRUE@xssconfdir = @XSS_CONF@
-@USE_XSCREENSAVER_FALSE@xssconf_DATA = 
 @USE_XSCREENSAVER_TRUE@xssconf_DATA = matrixgl.xml
 
 # Doesn't work on some distros I tested.
