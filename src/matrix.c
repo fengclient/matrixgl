@@ -193,7 +193,7 @@ int main(int argc,char **argv)
  -c --credits           Show the credits on startup\n\
  -F --fs --fullscreen   Run in fullscreen window\n\
  -f --fps=FPS           Print fps stats and limit to FPS fps.\n\
- -h --help              Show the help screen\n"
+ -h --help              Show the help screen\n",
                stdout);
             fputs("\
  -s --static            Run in static mode (no 3D images)\n\
