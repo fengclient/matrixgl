@@ -99,12 +99,13 @@ int x,y;
 #endif
 
 /* FPS Stats */
-time_t last;
-float usefps=0.0;
+time_t last;               /* Tims since last stat was printed */
+int showfps=0;
 unsigned long sleeper = 0;
 float fps=0;
-int frames=0;
-int fpoll=2;
+int frames=0;              /* # frames shown since [last] */
+int fpoll=2;               /* Print stats every [fpoll] seconds */
+float maxfps=32.0;
 
 
 #ifdef WIN32_MODE
@@ -141,12 +142,13 @@ int main(int argc,char **argv)
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
       {"allow-root",no_argument,       0, 'Z'},
-      {"fps",       required_argument, 0, 'f'},
+      {"fps",       optional_argument, 0, 'f'},
+      {"limit",     required_argument, 0, 'l'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvf:C:FW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "sciuhvl:f::C:FW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'Z':
@@ -183,8 +185,13 @@ int main(int argc,char **argv)
             }
             break;
          case 'f':
-            usefps=atof(optarg);
-            /*fpoll=clamp(atoi(optarg), 1, 20);*/
+            showfps=1;
+            if (optarg) fpoll=clamp(atoi(optarg), 1, 20);
+            else if (optind>0 && optind<argc && atoi(argv[optind])) 
+               fpoll=clamp(atoi(argv[optind]), 1, 20);
+            break;
+         case 'l':
+            maxfps=clamp(atoi(optarg), 1, 200);
             break;
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
@@ -192,8 +199,9 @@ int main(int argc,char **argv)
  -C --color=COL         Set color to COL (must be green, red or blue)\n\
  -c --credits           Show the credits on startup\n\
  -F --fs --fullscreen   Run in fullscreen window\n\
- -f --fps=FPS           Print fps stats and limit to FPS fps.\n\
- -h --help              Show the help screen\n",
+ -f --fps[=SEC]         Print fps stats every SEC seconds (default: 2)\n\
+ -h --help              Show the help screen\n\
+ -l --limit=LIM         Limit framerate to LIM fps (default: 32)\n",
                stdout);
             fputs("\
  -s --static            Run in static mode (no 3D images)\n\
@@ -315,21 +323,20 @@ bug report.\n",
       if (!frames) time(&last);
       else if (time(NULL)-last >= fpoll) {
          fps = frames/(time(NULL)-last);
-         if (usefps) {
-            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds) - goal: %f\n", 
-		   fps, sleeper, frames, (int)(time(NULL)-last), usefps);
+         if (showfps) {
+            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds)\n", 
+               fps, sleeper, frames, (int)(time(NULL)-last));
+            fflush(stdout); /* Don't buffer fps stats (do not remove!) */
+         }
+         frames=-1;
 
-	    /* Limit framerate */
-	    if (fps > usefps) {
-	      sleeper+=3000;
-	    } else if (sleeper >= 3000) {
-	      sleeper-=1000;
-	    }
-	    if (sleeper > 1000000) sleeper=100000;
-	    printf("sleeper %ld\n", sleeper);
-	    fflush(stdout); /* Don't buffer fps stats (do not remove!) */
-	 }
-	 frames=-1;
+         /* Limit framerate */
+         if (fps > maxfps) {
+            sleeper+=3000;
+         } else if (sleeper >= 3000) {
+            sleeper-=1000;
+         }
+         if (sleeper > 1000000) sleeper=100000;
       }
 
 
@@ -344,7 +351,7 @@ bug report.\n",
       usleep(sleeper);
       glFinish();
       scroll(0);
-      if (usefps) frames++;
+      frames++; /* Finished drawing a frame */
    } 
 #else /* WIN32_MODE */
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
