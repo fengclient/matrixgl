@@ -58,7 +58,9 @@
 #include "matrix.h"     /* Prototypes */
 #include "matrix1.h"    /* Font data */
 #include "matrix2.h"    /* Image data */
-#include "../config.h"  /* Autoconf stuff */
+#ifdef NIX_MODE
+  #include "../config.h"  /* Autoconf stuff */
+#endif /* NIX_MODE */
 
 /* Global Variables */
 float Z_Off = -89.0f;
@@ -116,10 +118,45 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 {
    int argc=1;
    int i=0,a=0,s=0;
-   if(lpCmd[1]=='p' || lpCmd[1]=='c') exit(0);
+   char win[100];
+   char *cfile = malloc(strlen(win)+25);
+   FILE *config;
+   GetWindowsDirectory(win, 100);
+   if(lpCmd[1]=='p') exit(0);
+   if(lpCmd[1]=='c') {
+      sprintf(cfile, "%s\\matrixgl_dlg", win);
+      system(cfile);
+   }
+
    glutInit(&argc, &lpCmd);
    srand(GetTickCount());
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
+
+   /* Read in config */
+   sprintf(cfile, "%s\\matrixgl_config", win);
+   fprintf(stderr, "cfile=%s\n", cfile);
+   config = fopen(cfile, "r");
+   if (config) {
+      char vals[4];
+      fgets(vals, 4, config);
+      /* Static mode */
+      if (vals[0]!='0') {
+            pic_fade=0;
+            pic_offset=0;
+            pic_mode=!pic_mode;
+            classic=1;
+      }
+      /* Show credits on startup */
+      if (vals[1]!='0') {
+            if (!classic) cbKeyPressed('c', 0, 0); /* Start at credits */
+      }
+      /* Set color */
+      if (vals[2]=='1') color=GL_GREEN;
+      if (vals[2]=='2') color=GL_RED;
+      if (vals[2]=='3') color=GL_BLUE;
+   } else {
+      fprintf(stderr, "Config: Not found\n");
+   }
 #else /* NIX_MODE */
 int main(int argc,char **argv) 
 {
