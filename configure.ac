@@ -19,7 +19,7 @@
 
 AC_PREREQ([2.63])
 t://matrixgl.git.sourceforge.net/gitroot/matrixgl
-AC_INIT([matrixgl], [2.2.1], [vincent@doublecreations.com])
+AC_INIT([matrixgl], [2.2.2], [vincent@doublecreations.com])
 AC_COPYRIGHT([Parts Copyright (C) Vincent Launchbury 2009])
 AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/matrix.c])

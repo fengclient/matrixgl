@@ -1,4 +1,9 @@
-matrixgl-v2.2.1 (not yet released)
+matrixgl-v2.2.2 (2009/07/07)
+---------------
+. Added configuration dialog for Windows
+. Added --limit option in *NIX, to change the framerate limit.
+
+matrixgl-v2.2.1 (2009/06/25)
 ---------------
 . Framerate limited to 32fps
 . Images fade in/out much more smoothly

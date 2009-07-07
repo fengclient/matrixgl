@@ -1,6 +1,11 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.2.2
+----------------
+. Added configuration dialog for Windows
+. Added --limit option in *NIX, to change the framerate limit.
+
 Changes in 2.2.1
 ----------------
 . Framerate limited to 32fps
