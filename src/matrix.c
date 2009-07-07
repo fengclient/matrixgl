@@ -123,9 +123,12 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    FILE *config;
    GetWindowsDirectory(win, 100);
    if(lpCmd[1]=='p') exit(0);
+   /* Run the config dialog, assuming the user has 
+    * copied it to %WINDIR% */
    if(lpCmd[1]=='c') {
-      sprintf(cfile, "%s\\matrixgl_dlg", win);
-      system(cfile);
+      sprintf(cfile, "%s\\matrixgl_config.exe", win);
+	  _execl(cfile); /* Don't show the cmd */
+	  exit(EXIT_SUCCESS);
    }
 
    glutInit(&argc, &lpCmd);
