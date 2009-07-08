@@ -32,7 +32,7 @@
             this.btnStyleStatic = new System.Windows.Forms.RadioButton();
             this.btnStyle3D = new System.Windows.Forms.RadioButton();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnExit = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.boxColor = new System.Windows.Forms.GroupBox();
             this.btnColorBlue = new System.Windows.Forms.RadioButton();
             this.btnColorRed = new System.Windows.Forms.RadioButton();
@@ -66,6 +66,7 @@
             this.btnStyleStatic.TabStop = true;
             this.btnStyleStatic.Text = "Static";
             this.btnStyleStatic.UseVisualStyleBackColor = true;
+            this.btnStyleStatic.CheckedChanged += new System.EventHandler(this.btnStyleStatic_CheckedChanged);
             // 
             // btnStyle3D
             // 
@@ -77,26 +78,27 @@
             this.btnStyle3D.TabStop = true;
             this.btnStyle3D.Text = "3D";
             this.btnStyle3D.UseVisualStyleBackColor = true;
+            this.btnStyle3D.CheckedChanged += new System.EventHandler(this.btnStyle3D_CheckedChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(15, 268);
+            this.btnSave.Location = new System.Drawing.Point(12, 268);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.Size = new System.Drawing.Size(61, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnExit
+            // btnCancel
             // 
-            this.btnExit.Location = new System.Drawing.Point(123, 268);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 23);
-            this.btnExit.TabIndex = 1;
-            this.btnExit.Text = "E&xit";
-            this.btnExit.UseVisualStyleBackColor = true;
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnCancel.Location = new System.Drawing.Point(140, 268);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(58, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "&Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // boxColor
             // 
@@ -183,7 +185,7 @@
             this.ClientSize = new System.Drawing.Size(214, 302);
             this.Controls.Add(this.boxCredits);
             this.Controls.Add(this.boxColor);
-            this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.boxStyle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -203,7 +205,7 @@
 
         private System.Windows.Forms.GroupBox boxStyle;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.RadioButton btnStyleStatic;
         private System.Windows.Forms.RadioButton btnStyle3D;
         private System.Windows.Forms.GroupBox boxColor;

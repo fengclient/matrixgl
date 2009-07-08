@@ -8,6 +8,7 @@ namespace MatrixGLConfig
     public partial class frmConfig : Form
     {
         public string path = Environment.GetEnvironmentVariable("SystemRoot") + "\\matrixgl_config";
+        public int cred;
         public frmConfig()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace MatrixGLConfig
                     fs.Close();
                 }
             }
+
             if (b[0] == 48 | b[0] > 49 | b[0] < 48) { btnStyle3D.Select(); }
             else if (b[0] == 49) { btnStyleStatic.Select(); }
 
@@ -35,6 +37,10 @@ namespace MatrixGLConfig
             if (b[2] == 49 | b[2] < 49 | b[2] > 51) { btnColorGreen.Select(); }
             else if (b[2] == 50) { btnColorRed.Select(); }
             else if (b[2] == 51) { btnColorBlue.Select(); }
+
+            cred = b[1];
+
+            if (b[0] != 48) { btnCreditsYes.Enabled = false; }
         }
         
         private void btnSave_Click(object sender, EventArgs e)
@@ -63,11 +69,25 @@ namespace MatrixGLConfig
                 fs.WriteByte(color);
                 fs.Close();
             }
+
+            Close();
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        // Weird case of 3d disabled so credits can't be enabled.
+
+        private void btnStyleStatic_CheckedChanged(object sender, EventArgs e)
+        {
+            btnCreditsYes.Enabled = false;
+        }
+
+        private void btnStyle3D_CheckedChanged(object sender, EventArgs e)
+        {
+            btnCreditsYes.Enabled = true;
         }
 
     }
