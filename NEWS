@@ -1,6 +1,12 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.2.3
+----------------
+. Clicking 'Save' in the config dialog now exits too
+. The credits option is disabled in the config dialog when
+3D mode is disabled, since the credits are 3D.
+
 Changes in 2.2.2
 ----------------
 . Added configuration dialog for Windows
