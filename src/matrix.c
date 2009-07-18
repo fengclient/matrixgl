@@ -62,6 +62,8 @@
   #include "../config.h"  /* Autoconf stuff */
 #endif /* NIX_MODE */
 
+#define abs(a) (((a)>0)?(a):(-(a)))
+
 /* Global Variables */
 float Z_Off = -89.0f;
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
@@ -127,8 +129,8 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
     * copied it to %WINDIR% */
    if(lpCmd[1]=='c') {
       sprintf(cfile, "%s\\matrixgl_config.exe", win);
-	  _execl(cfile); /* Don't show the cmd */
-	  exit(EXIT_SUCCESS);
+      _execl(cfile);
+      exit(EXIT_SUCCESS);
    }
 
    glutInit(&argc, &lpCmd);
@@ -527,12 +529,21 @@ void scroll(int mode)
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
+#ifdef NIX_MODE
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+#else /* WIN32_MODE */
+	  if(timer>75 && timer<80 && !classic) pic_mode=2; /* pic fade out */
+      if (timer > 75 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+#endif
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=70;pic_mode=1; /* Make DC dissapear quickly */
       }
-      if(timer>220) {
+#ifdef NIX_MODE
+      if(timer>210) {
+#else /* WIN32_MODE */
+	  if(timer>100) {
+#endif
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
          if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
@@ -612,9 +623,16 @@ void cbRenderScene(void)
 
 void MouseFunc(int x, int y)
 {
+	/* A work around for really buggy
+	mouse drivers that:
+		a) Randomly generate a mouse event when the
+		 coords haven't changed and
+	    b) Even worse, generate a mouse event with
+		 different coords, when the mouse hasn't moved.
+	*/
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
-   else if (xx!=x||yy!=y)exit(0);
+   else if (abs(xx-x)>8||abs(yy-y)>8)exit(0);
 }
 
 
