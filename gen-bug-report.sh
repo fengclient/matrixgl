@@ -59,7 +59,7 @@ make                                         >>bug_report 2>&1
 if test "$?" -eq 0; then
    # Grab location of xscreensaver dirs (incase they differ in your distro)
    echo '@@xscreensaver-dirs@@'              >>bug_report 2>&1
-   find /usr -maxdepth 4 -name xscreensaver \
+   find /usr -maxdepth 3 -name 'xscreensaver*' \
       -type d                                >>bug_report 2>/dev/null
    
    # Now grab fps stats/runtime errors
