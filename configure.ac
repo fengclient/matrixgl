@@ -119,7 +119,8 @@ if test "$skip_xscreensaver" = false; then
    for dir in /usr/lib/xscreensaver/config \
       /usr/lib/X11/xscreensaver/config \
       /usr/share/xscreensaver/config \
-      /usr/local/share/xscreensaver/config ; do
+      /usr/local/share/xscreensaver/config \
+      /usr/share/xscreesaver ; do # PLD Linux
       test -d $dir && XSS_CONF=$dir && break
    done
    if test -n $XSS_CONF; then
