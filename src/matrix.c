@@ -237,20 +237,6 @@ int main(int argc,char **argv)
          case 'l':
             maxfps=clamp(atoi(optarg), 1, 200);
             break;
-         case 'i':
-            fputs("\
-Error: This install method is deprecated.\n\
-Please use '$make install' in the source \
-directory instead.\n",
-               stderr);
-            exit(EXIT_FAILURE);
-         case 'u':
-            fputs("\
-Error: This uninstall method is deprecated.\n\
-Please use '$make uninstall' in the source \
-directory instead.\n",
-               stderr);
-            exit(EXIT_FAILURE);
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
 3D Matix Screensaver based on The Matrix Reloaded\n\
@@ -262,7 +248,6 @@ directory instead.\n",
  -l --limit=LIM         Limit framerate to LIM fps (default: 32)\n",
                stdout);
             fputs("\
- -u --remove            Remove from xscreensaver\n\
  -s --static            Run in static mode (no 3D images)\n\
  -v --version           Print version info\n\
  --allow-root           Allow to be run as root\n",
