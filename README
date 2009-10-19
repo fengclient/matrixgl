@@ -1,5 +1,5 @@
-MATRIXGL - CROSS-PLATFORM MATRIX SCREENSAVER
-============================================
+matrixgl - Cross-Platform Matrix Screensaver
+********************************************
 . Version: matrixgl-v2.2.4 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
@@ -10,10 +10,12 @@ MATRIXGL - CROSS-PLATFORM MATRIX SCREENSAVER
 
 INTRODUCTION
 ============
-The matrixgl 2.x series is based on the original version 1.0 screensaver from Knoppix.ru. It was written by brothers Alexander and Eugene Zolotov back in 2003. Vincent Launchbury is now maintaining the project, with the goals of:
-    * Fixing bugs, and making it run more smoothly.
-    * Improving portability, so that it can run on more operating systems.
-    * Adding new features and a larger variety of images.
+The matrixgl 2.x series is based on the original version 1.0 screensaver from 
+Knoppix.ru. It was written by brothers Alexander and Eugene Zolotov back in 
+2003. Vincent Launchbury is now maintaining the project, with the goals of:
+   * Fixing bugs, and making it run more smoothly.
+   * Improving portability, so that it can run on more operating systems.
+   * Adding new features and a larger variety of images.
 
 
 ADDITIONAL DOCUMENTATION 
@@ -33,43 +35,66 @@ Git Repository  : http://matrixgl.git.sourceforge.net/git/gitweb.cgi?p=matrixgl/
 
 COMPILING AND INSTALLING ON *NIX
 ================================
-Packages for *NIX aren't currently provided. You can always ask your distros development team to add matrixgl to their repositories, if you don't like compiling yourself. 
+Packages for *NIX aren't currently provided. You can always ask your distros 
+development team to add matrixgl to their repositories, if you don't like 
+compiling yourself. 
 
-To compile and install, fire up a terminal, cd into the source directory, and type the following commands:
+To compile and install, fire up a terminal, cd into the source directory, and 
+type the following commands:
    $./configure
    $make
    (Then, as root)
    #make install
 
-The latter command will install matrixgl into xscreensaver, as well as adding a man page. If you don't use xscreensaver, You can use './configure --disable-xscreensaver' to build without it. You could then still run it from a terminal, or use it with another screensaver manager. (To use with KDE/GNOME, install xscreensaver and see instructions in the xscreensaver manpage)
+The latter command will install matrixgl into xscreensaver, as well as adding 
+a man page. If you don't use xscreensaver, You can use 
+'./configure --disable-xscreensaver' to build without it. You could then 
+still run it from a terminal, or use it with another screensaver manager. 
+To use with KDE/GNOME, install xscreensaver and see instructions in the 
+xscreensaver manpage.
 
-Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. Use the settings dialog to change various settings, such as color and mode. 
+Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. 
+Use the settings dialog to change various settings, such as color and mode. 
 
-Note: On some setups, xscreensaver won't automatically recognize new screensavers when you launch xscreensaver-demo. If it doesn't, you can fix it manually by adding the line:
+Note: On some setups, xscreensaver won't automatically recognize new 
+screensavers when you launch xscreensaver-demo. If it doesn't, you can fix 
+it manually by adding the line:
  "   matrixgl -root -C green         \n\" 
-to the list of screensavers in your ~/.xscreensaver file. This should be done automatically in a future release.
+to the list of screensavers in your ~/.xscreensaver file. This should be 
+done automatically in a future release.
 
-For a more advanced install, see the file INSTALL. Note however, that the file contains generic instructions not specific to this project.
+For a more advanced install, see the file INSTALL. Note however, that the 
+file contains generic instructions not specific to this project.
+
+
+INSTALLING ON WINDOWS
+=====================
+To run on windows, download the .exe file from the project website listed 
+above, and follow the instructions in the accompanying README. Compiling on 
+windows isn't supported, if you don't know how to do it, we can't help you.
 
 
 COMPILING AND INSTALLING ON MAC OSX
 ===================================
-NOTE: Matrixgl can't be run as a screensaver on OSX, as it is incompatible with the mac version of xscreensaver. 
+Matrixgl can't be run as a screensaver on OSX, as it is incompatible 
+with the mac version of xscreensaver. It can be compiled and run the
+same as it would for *NIX, but the installation won't work.
 
-However, it will compile and run as a regular program. To do this, you will need to install XCode (either from the disk that came with your mac, or online at <http://developer.apple.com/technology/Xcode.html>). Depending what version of OSX you have, you may also need to download the X-Windows System (X11), available at <http://www.apple.com/downloads/macosx/apple/macosx_updates/x11formacosx.html>. It comes on the disc with 10.4 (Tiger), but you'll have to download it for 10.3 (Panther). I believe 10.5 (Leopard) has it installed by default.
+Note: There may be a mac version in the future, someone else is
+working on a port.
 
-You can then compile and run it as described in the *NIX instructions above.
-
-
-INSTALLING ON WINDOWS
-===================================
-To run on windows, download the .exe file from the project website listed above, and follow the instructions in the accompanying README. Compiling on windows isn't supported, if you don't know how to do it, we can't help you.
 
 REMOVING MATRIXGL
 =================
-In *NIX or OSX, to remove any files that may have been added, simply run '#make uninstall' in the source directory, as root.
+In *NIX or OSX, to remove any files that may have been added, simply run 
+'#make uninstall' in the source directory, as root.
 
-In Windows, no files are added, although if you clicked 'Install', the file was probably copied to %WINDIR%\System32\matrixgl.scr. Also, you may want to delete the files %WINDIR\matrixgl_config and %WINDIR%\matrixgl_config.exe. You may also wish to delete any GLUT files that you placed in your system directory. However, these files are only graphics libraries, and are not part of Matrixgl.
+In Windows, no files are added, although if you clicked 'Install', the file 
+was probably copied to %WINDIR%\System32\matrixgl.scr. Also, you may want to 
+delete the files %WINDIR\matrixgl_config and %WINDIR%\matrixgl_config.exe. 
+You may also wish to delete any GLUT files that you placed in your system 
+directory. However, these files are only graphics libraries, and are not part 
+of Matrixgl.
 
 
 SCREENSAVER FUNCTIONS/KEYS
@@ -82,20 +107,26 @@ n - Cycle through to next image (when not in classic mode)
 
 COMMENTS AND SUGGESTIONS
 ========================
-All comments and suggestions are fully welcome. If you have anything to say, drop me a line at vincent@doublecreations.com. 
+All comments and suggestions are fully welcome. If you have anything to say,
+drop me a line at vincent@doublecreations.com. 
 
 
 REPORTING BUGS
 ==============
-If you have found a bug in matrixgl, don't worry, it is very easy to report it. Open up a terminal and cd into the soruce directory. Then, type the following as a regular user:
+If you have found a bug in matrixgl, don't worry, it is very easy to report. 
+Open up a terminal and cd into the soruce directory. Then, as a regular user,
+run '$./gen-bug-report.sh' and follow the instructions. This script will 
+generate a file that will help us to fix bugs. When finished, you can email 
+<vincent@doublecreations.com> with details of the problem. Please attach the 
+bug_report file once it has been generated, it will help us immensely. 
 
-$./gen-bug-report.sh 
+Again, don't worry if you are new to this, if you're not sure if something is 
+a bug, send the report anyway. As a show of appreciation for your help, we 
+will add you to the AUTHORS file as a contributer, if you give us your name/
+nickname (and also your email or website if you choose).
 
-and follow the instructions. This script will generate a file that will help us to fix bugs. When finished, you can email <vincent@doublecreations.com> with details of the problem. Please attach the bug_report file once it has been generated, it will help us immensely. 
-
-Again, don't worry if you are new to this, if you're not sure if something is a bug, send the report anyway. As a show of appreciation for your help, we will add you to the AUTHORS file as a contributer, if you give us your name/nickname (and also your email or website if you choose).
-
-Please do not send any bug reports to knoppix.ru unless you are using their original version. Any bugs in this version are fully mine.
+Please do not send any bug reports to knoppix.ru unless you are using their 
+original version. Any bugs in this version are fully mine.
 
 
 SUPPORTED OPERATING SYSTEMS
@@ -108,10 +139,16 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Linux: Ubuntu
    . Linux: Debian
    . BSD: Openbsd
-If you're platform isn't listed, it doesn't mean that it won't work, it just means that it hasn't been tested.
+If you're platform isn't listed, it doesn't mean that it won't work, it just 
+means that it hasn't been tested.
 
 ACKNOWLEDGEMENTS
 ================
-Just a note to put credit where credit is due, I'd like to say that the original screensaver was developed by brothers Alexander and Eugene Zolotov of knoppix.ru. I did not write this screensaver, I merely modified it to my liking, fixing bugs and adding features. But in reality, these are just simple modifications of a complex and brilliantly designed gem of free software :). 
+Just a note to put credit where credit is due, I'd like to say that the 
+original screensaver was developed by brothers Alexander and Eugene 
+Zolotov of knoppix.ru. I did not write this screensaver, I merely modified 
+it to my liking, fixing bugs and adding features. But in reality, these are 
+just simple modifications of a complex and brilliantly designed gem of free 
+software :). 
 
 See file AUTHORS for a full list of acknowledgements and contributors.

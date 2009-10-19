@@ -1,2 +1,3 @@
 KNOWN BUGS
-. Runs on OSX, but doesn't install properly, and therefore can't be used as a screensaver.
+. Runs on OSX, but doesn't support the mac version of xscreensaver and 
+therefore can't be used as a screensaver.

@@ -1,6 +1,4 @@
 TODO
 . Need to add entry to ~/.xscreensaver, some distros don't do this
 . Add additional 3D images, with more variety/characters
-. Add ability to pass a directory of jpeg images, which we'll
-parse and display instead of the defaults.
-. Test on opensolaris
+. Test on opensolaris, and other *NIX platforms
