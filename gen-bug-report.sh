@@ -22,7 +22,7 @@
 # Note: We assume the user has dialog, but if they don't,
 #  it still generates a useful report.
 
-if test $EUID -eq 0; then
+if test `id -u` -eq 0; then
    echo "Error: Don't run this as root"
    exit
 fi
