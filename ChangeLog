@@ -1,4 +1,4 @@
-matrixgl-v2.2.5 (not yet released)
+matrixgl-v2.2.5 (2009/10/20)
 ---------------
 . Updated find maxdepth in bug report script
 . Updated bug report script so that find skips several large trees in /usr.
