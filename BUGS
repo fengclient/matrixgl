@@ -4,5 +4,3 @@ therefore can't be used as a screensaver.
 - The --limit option doesn't work exactly as described. It only really
 works on really fast setups where it would otherwise run at >300fps.
 But thats all it really needs to do.
-- add-user-entry.sh contanis a $(cmd) style subshell invocation, that
-is incompatible with very old versions of sh. See comment in script.

@@ -1,3 +1,7 @@
+matrixgl-v2.2.6 (not yet released)
+---------------
+. Removed $(cmd) portability issue from add-user-entry.sh
+
 matrixgl-v2.2.5 (2009/10/20)
 ---------------
 . Updated find maxdepth in bug report script

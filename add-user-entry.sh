@@ -45,9 +45,7 @@ if test `grep matrixgl ~/.xscreensaver|wc -l` -gt 0; then
 fi
 
 # Line of last entry
-# FIXME: This won't work on very old versions of sh.
-#  and using `cmd` won't work because of the pipe.
-LENTRY=$(sed -n /\\\\n/= ~/.xscreensaver | sed $\!d)
+LENTRY=`sed -n /\\\\\\\n/= ~/.xscreensaver | sed $\!d`
 
 # Add entry after last entry
 sed "$LENTRY a GL:\t\tmatrixgl -root -C green\t         \\\\n\\\\" ~/.xscreensaver > .tmp-$$-xs
