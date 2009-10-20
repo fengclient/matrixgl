@@ -124,7 +124,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    char *cfile = malloc(strlen(win)+25);
    FILE *config;
    GetWindowsDirectory(win, 100);
-   if(lpCmd[1]=='p') exit(0);
+   if(lpCmd[1]=='p') exit(EXIT_SUCCESS);
    /* Run the config dialog, assuming the user has 
     * copied it to %WINDIR% */
    if(lpCmd[1]=='c') {
@@ -162,6 +162,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    } else {
       fprintf(stderr, "Config: Not found\n");
    }
+   free(cfile);
 #else /* NIX_MODE */
 int main(int argc,char **argv) 
 {
@@ -262,7 +263,7 @@ In-Screensaver Keys:\n\
 Report bugs to <" PACKAGE_BUGREPORT ">\n\
 Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
              stdout);
-            exit(0);
+            exit(EXIT_SUCCESS);
          case 'v':
             fputs("matrixgl version " VERSION "\n\
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
@@ -275,14 +276,14 @@ To assist us best, please run the script ./gen-bug-report.sh in the \
 source directory and follow the instructions, before sending your \
 bug report.\n",
                stdout);
-            exit(0);
+            exit(EXIT_SUCCESS);
       }
    }
    /* Don't run as root, unless specifically requested */
    if (!allowroot && getuid()==0) {
       fprintf(stderr, "Error: You probably don't want to run this as "
          "root.\n (Use --allow-root if you really want to..)\n");
-      exit(0);
+      exit(EXIT_FAILURE);
    }
 #endif /* NIX_MODE */
 
@@ -298,7 +299,7 @@ bug report.\n",
    dpy = XOpenDisplay(NULL);
    if(dpy == NULL) {
       fprintf(stderr, "Can't connect to X server\n");
-      exit(0); 
+      exit(EXIT_FAILURE); 
    }
    root = DefaultRootWindow(dpy);
    vi = glXChooseVisual(dpy, 0, att);
@@ -612,12 +613,12 @@ void MouseFunc(int x, int y)
 	mouse drivers that:
 		a) Randomly generate a mouse event when the
 		 coords haven't changed and
-	    b) Even worse, generate a mouse event with
+	   b) Even worse, generate a mouse event with
 		 different coords, when the mouse hasn't moved.
 	*/
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
-   else if (abs(xx-x)>8||abs(yy-y)>8)exit(0);
+   else if (abs(xx-x)>8||abs(yy-y)>8)exit(EXIT_SUCCESS);
 }
 
 
@@ -632,8 +633,13 @@ void cbKeyPressed(unsigned char key, int x, int y)
          glXDestroyContext(dpy, glc);
          XDestroyWindow(dpy, win);
          XCloseDisplay(dpy);
+         XFree(vi);
 #endif /* NIX_MODE */
-         exit(0); 
+         free(speed);
+         free(text);
+         free(text_light);
+         free(bump_pic);
+         exit(EXIT_SUCCESS); 
       case 'n': /* n - Next picture. */
          if (classic) break;
          pic_offset+=rtext_x*text_y;
@@ -684,7 +690,7 @@ void ourInit(void)
    for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
    for(a=0;a<text_x;a++) {
       speed[a]=rand()&1;
-      if (!a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
+      if (a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
    }
 
    /* Make Textures */

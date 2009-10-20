@@ -5,6 +5,7 @@ Changes in 2.2.5
 ----------------
 . Numerous small bug fixes
 . Updated documentation
+. Fixed compatibility issue with pld linux
 
 Changes in 2.2.4
 ----------------

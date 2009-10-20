@@ -4,6 +4,11 @@ matrixgl-v2.2.5 (not yet released)
 . Updated bug report script so that find skips several large trees in /usr.
 . Removed EUID bashism from bug report script.
 . Added PLD Linux xscreensaver paths to autoconf script
+. Fixed out-of-bounds memory error
+. We now free used memory before exiting
+. Removed deprecated install/remove messages (options no longer exist)
+. Updated documentation to conform to common style
+. Removed crap from README, rewrote for better readability
 
 matrixgl-v2.2.4 (2009/07/18)
 ---------------
