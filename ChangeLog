@@ -9,6 +9,8 @@ matrixgl-v2.2.5 (not yet released)
 . Removed deprecated install/remove messages (options no longer exist)
 . Updated documentation to conform to common style
 . Removed crap from README, rewrote for better readability
+. Added script to add entry to ~/.xscreensaver for distros
+with bad versions of xscreensaver.
 
 matrixgl-v2.2.4 (2009/07/18)
 ---------------

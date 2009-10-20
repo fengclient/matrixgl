@@ -6,6 +6,9 @@ Changes in 2.2.5
 . Numerous small bug fixes
 . Updated documentation
 . Fixed compatibility issue with pld linux
+. There is now a script (add-user-entry.sh) that adds matrixgl
+to the xscreensaver-demo list, incase it isn't done automatically
+on your disto.
 
 Changes in 2.2.4
 ----------------

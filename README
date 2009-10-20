@@ -61,12 +61,13 @@ manpage.
 Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. 
 Use the settings dialog to change various settings, such as color and mode. 
 
-Note: On some setups, xscreensaver won't automatically recognize new 
-screensavers when you launch xscreensaver-demo. If it doesn't, you can fix 
-it manually by adding the line:
- "   matrixgl -root -C green         \n\" 
-to the list of screensavers in your ~/.xscreensaver file. This should be 
-done automatically in a future release.
+NOTE: In some distros, xscreensaver won't automatically recognize new 
+screensavers when you launch xscreensaver-demo. If you don't see it in the 
+list, you need to run the following script:
+  $./add-user-entry 
+which will add the entry for the user that ran the script. This means that
+if your distro is affected, each user that wants to use matrixgl MUST run 
+this script.
 
 For a more advanced install, see the file INSTALL. Note however, that the 
 file contains generic instructions not specific to this project.
