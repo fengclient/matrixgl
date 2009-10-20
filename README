@@ -35,12 +35,16 @@ Git Repository  : http://matrixgl.git.sourceforge.net/git/gitweb.cgi?p=matrixgl/
 
 COMPILING AND INSTALLING ON *NIX
 ================================
-Packages for *NIX aren't currently provided. You can always ask your distros 
+Packages for *NIX aren't currently provided. You could always ask your distros 
 development team to add matrixgl to their repositories, if you don't like 
 compiling yourself. 
 
-To compile and install, fire up a terminal, cd into the source directory, and 
-type the following commands:
+To extract the source code, fire up a terminal, cd into your download 
+directory and type the following commands:
+   $tar xzf matrixgl-2.2.4-src.tar.gz
+   $cd matrixgl
+
+Then, to compile and install, run the following commands:
    $./configure
    $make
    (Then, as root)
@@ -48,10 +52,11 @@ type the following commands:
 
 The latter command will install matrixgl into xscreensaver, as well as adding 
 a man page. If you don't use xscreensaver, You can use 
-'./configure --disable-xscreensaver' to build without it. You could then 
-still run it from a terminal, or use it with another screensaver manager. 
-To use with KDE/GNOME, install xscreensaver and see instructions in the 
-xscreensaver manpage.
+'./configure --disable-xscreensaver' to build without it. The install command
+will still work, just installing the man page. You could then run matrixgl 
+from a terminal, or use it with another screensaver manager. To use with 
+KDE/GNOME, install xscreensaver and see instructions in the xscreensaver 
+manpage.
 
 Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. 
 Use the settings dialog to change various settings, such as color and mode. 
@@ -66,10 +71,14 @@ done automatically in a future release.
 For a more advanced install, see the file INSTALL. Note however, that the 
 file contains generic instructions not specific to this project.
 
+If for any reason the compilation or installation fails, you can send us
+a bug report (described below), and we will get it working for you. It's
+easy to do, and will also help out other users in the same situation.
+
 
 INSTALLING ON WINDOWS
 =====================
-To run on windows, download the .exe file from the project website listed 
+To run on windows, download the binary package from the project website listed
 above, and follow the instructions in the accompanying README. Compiling on 
 windows isn't supported, if you don't know how to do it, we can't help you.
 
@@ -94,7 +103,7 @@ was probably copied to %WINDIR%\System32\matrixgl.scr. Also, you may want to
 delete the files %WINDIR\matrixgl_config and %WINDIR%\matrixgl_config.exe. 
 You may also wish to delete any GLUT files that you placed in your system 
 directory. However, these files are only graphics libraries, and are not part 
-of Matrixgl.
+of matrixgl.
 
 
 SCREENSAVER FUNCTIONS/KEYS
@@ -114,16 +123,16 @@ drop me a line at vincent@doublecreations.com.
 REPORTING BUGS
 ==============
 If you have found a bug in matrixgl, don't worry, it is very easy to report. 
-Open up a terminal and cd into the soruce directory. Then, as a regular user,
+Open up a terminal and cd into the source directory. Then, as a regular user,
 run '$./gen-bug-report.sh' and follow the instructions. This script will 
 generate a file that will help us to fix bugs. When finished, you can email 
 <vincent@doublecreations.com> with details of the problem. Please attach the 
 bug_report file once it has been generated, it will help us immensely. 
 
 Again, don't worry if you are new to this, if you're not sure if something is 
-a bug, send the report anyway. As a show of appreciation for your help, we 
-will add you to the AUTHORS file as a contributer, if you give us your name/
-nickname (and also your email or website if you choose).
+a bug, send the report anyway. As a show of our appreciation for your help, 
+we will add you to the AUTHORS file as a tester, if you give us your name/
+nickname (and also your email if you choose).
 
 Please do not send any bug reports to knoppix.ru unless you are using their 
 original version. Any bugs in this version are fully mine.
@@ -140,7 +149,9 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Linux: Debian
    . BSD: Openbsd
 If you're platform isn't listed, it doesn't mean that it won't work, it just 
-means that it hasn't been tested.
+means that it hasn't been tested. If matrixgl works properly on your OS,
+you can email the good news to <vincent@doublecreations.com> and we'll add
+it to the list.
 
 ACKNOWLEDGEMENTS
 ================
@@ -151,4 +162,4 @@ it to my liking, fixing bugs and adding features. But in reality, these are
 just simple modifications of a complex and brilliantly designed gem of free 
 software :). 
 
-See file AUTHORS for a full list of acknowledgements and contributors.
+See the file AUTHORS for a full list of acknowledgements and contributors.

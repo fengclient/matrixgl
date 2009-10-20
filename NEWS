@@ -1,6 +1,11 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.2.5
+----------------
+. Numerous small bug fixes
+. Updated documentation
+
 Changes in 2.2.4
 ----------------
 . Fixed a bug that would cause the screensaver to close randomly in windows.

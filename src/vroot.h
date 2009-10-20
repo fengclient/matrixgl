@@ -1,4 +1,3 @@
-/* -*- Mode: C; tab-width: 2 -*-                                             */
 /*****************************************************************************/
 /**                   Copyright 1991 by Andreas Stolcke                     **/
 /**               Copyright 1990 by Solbourne Computer Inc.                 **/
@@ -37,18 +36,6 @@
  * on the same display and screen arguments. 
  * The lookup code itself is taken from Tom LaStrange's ssetroot program.
  *
- * Most simple root window changing X programs can be converted to using
- * virtual roots by just including
- *
- * #include <X11/vroot.h>
- *
- * after all the X11 header files.  It has been tested on such popular
- * X clients as xphoon, xfroot, xloadimage, and xaqua.
- * It also works with the core clients xprop, xwininfo, xwd, and editres
- * (and is necessary to get those clients working under tvtwm).
- * It does NOT work with xsetroot; get the xsetroot replacement included in
- * the tvtwm distribution instead.
- *
  * Andreas Stolcke <stolcke@ICSI.Berkeley.EDU>, 9/7/90
  * - replaced all NULL's with properly cast 0's, 5/6/91
  * - free children list (suggested by Mark Martin <mmm@cetia.fr>), 5/16/91
@@ -71,12 +58,6 @@
 #ifndef _VROOT_H_
 #define _VROOT_H_
 #define _XSCREENSAVER_VROOT_H_
-
-#if !defined(lint) && !defined(SABER)
-static const char vroot_rcsid[] =
- "#Id: vroot.h,v 1.8 2004/12/16 05:33:54 jwz Exp #" "\n"
- "#Id: vroot.h,v 1.4 1991/09/30 19:23:16 stolcke Exp stolcke #";
-#endif
 
 #include <X11/X.h>
 #include <X11/Xatom.h>
