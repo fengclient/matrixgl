@@ -52,7 +52,7 @@ sed "$LENTRY a GL:\t\tmatrixgl -root -C green\t         \\\\n\\\\" ~/.xscreensav
 
 # Overwrite users file
 mv -f .tmp-$$-xs ~/.xscreensaver
-rm -f .tmp-$$-xs
+rm -f .tmp-$$-xs 2>/dev/null
 
 # Print success
 echo "Matrixgl successfully added to xscreensaver list."

@@ -21,24 +21,32 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
-void make_text(void);
-void draw_char(int mode, long num, float light, float x, float y, float z);
-void draw_flare(float x,float y,float z);
-void draw_text1(void);
-void draw_text2(int mode);
-void scroll(int mode);
-void make_change(void);
-void cbRenderScene(void);
-void MouseFunc(int x, int y);
-void cbKeyPressed(unsigned char key, int x, int y);
-void ourBuildTextures(void);
-void cbResizeScene(int Width, int Height);
-void ourInit(void);
-void load_texture(void);
-void *tmalloc(size_t n);
+
+/* In windows we use GLUT, and certain functions cannot be static */
 #ifdef NIX_MODE
-char get_ascii_keycode(XEvent *ev);
-int htoi(char *str);
+#define nix_static static 
+#else 
+#define nix_static
+#endif
+
+static void make_text(void);
+static void draw_char(int mode, long num, float light, float x, float y, float z);
+static void draw_flare(float x,float y,float z);
+static void draw_text1(void);
+static void draw_text2(int mode);
+static void scroll(int mode);
+static void make_change(void);
+nix_static void cbRenderScene(void);
+nix_static void MouseFunc(int x, int y);
+nix_static void cbKeyPressed(unsigned char key, int x, int y);
+nix_static void cbResizeScene(int Width, int Height);
+static void ourInit(void);
+static void load_texture(void);
+static void *tmalloc(size_t n);
+#ifdef NIX_MODE
+static char get_ascii_keycode(XEvent *ev);
+static int htoi(char *str);
 #endif
 
 #define clamp(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
+

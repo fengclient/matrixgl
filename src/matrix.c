@@ -416,7 +416,7 @@ bug report.\n",
 
 
 /* Draw character #num on the screen. */
-void draw_char(int mode, long num, float light, float x, float y, float z)
+static void draw_char(int mode, long num, float light, float x, float y, float z)
 {
    float tx,ty;
    long num2;
@@ -434,7 +434,7 @@ void draw_char(int mode, long num, float light, float x, float y, float z)
 
 
 /* Draw flare around white characters */
-void draw_flare(float x,float y,float z)
+static void draw_flare(float x,float y,float z)
 {
    glColor4f(0.9,0.4,0.3,.75);
 
@@ -445,7 +445,7 @@ void draw_flare(float x,float y,float z)
 }
 
 /* Draw green text on screen */
-void draw_text1(void)
+static void draw_text1(void)
 {
    float x,y;
    long p=0,b=0;
@@ -475,7 +475,7 @@ void draw_text1(void)
 }
 
 /* Draw white characters and flares for each column */
-void draw_text2(int mode)
+static void draw_text2(int mode)
 {
    float x,y;
    long p=0;
@@ -498,7 +498,7 @@ void draw_text2(int mode)
    }
 }
 
-void scroll(int mode)
+static void scroll(int mode)
 {
    static char odd=0;
    int a, s=0;
@@ -556,7 +556,7 @@ void scroll(int mode)
 }
 
 
-void make_change(void)
+static void make_change(void)
 {
    int r=rand()&0xFFFF;
    if (paused) return;
@@ -571,7 +571,7 @@ void make_change(void)
 }
 
 
-void cbRenderScene(void)
+nix_static void cbRenderScene(void)
 {  
    glBindTexture(GL_TEXTURE_2D,1);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
@@ -607,7 +607,7 @@ void cbRenderScene(void)
 } 
 
 
-void MouseFunc(int x, int y)
+nix_static void MouseFunc(int x, int y)
 {
 	/* A work around for really buggy
 	mouse drivers that:
@@ -622,7 +622,7 @@ void MouseFunc(int x, int y)
 }
 
 
-void cbKeyPressed(unsigned char key, int x, int y)
+nix_static void cbKeyPressed(unsigned char key, int x, int y)
 {
    switch (key) {
       case 'X':
@@ -673,7 +673,7 @@ void cbKeyPressed(unsigned char key, int x, int y)
 
 
 
-void cbResizeScene(int Width, int Height)
+nix_static void cbResizeScene(int Width, int Height)
 {
    glViewport(0, 0, Width, Height);
    glMatrixMode(GL_PROJECTION);
@@ -683,7 +683,7 @@ void cbResizeScene(int Width, int Height)
 }
 
 
-void ourInit(void) 
+static void ourInit(void) 
 {
    /* Set up column speeds and character mappings */
    long a;
@@ -723,7 +723,7 @@ void ourInit(void)
 }
 
 /* malloc w/ error checking  */
-void *tmalloc(size_t n)
+static void *tmalloc(size_t n)
 {
    void *p = malloc(n);
    if (!p && n != 0)
@@ -732,7 +732,7 @@ void *tmalloc(size_t n)
 }
 
 #ifdef NIX_MODE
-int htoi(char *str)
+static int htoi(char *str)
 {
   int i,sum=0,d,sl;
   sl=strlen(str);
@@ -750,7 +750,7 @@ int htoi(char *str)
   return(sum>>4);
 }
 
-char get_ascii_keycode(XEvent *ev)
+static char get_ascii_keycode(XEvent *ev)
 {
    char keys[256], *s;
    int count;
