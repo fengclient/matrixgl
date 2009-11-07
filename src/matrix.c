@@ -59,7 +59,7 @@
 #include "matrix1.h"    /* Font data */
 #include "matrix2.h"    /* Image data */
 #ifdef NIX_MODE
-  #include "../config.h"  /* Autoconf stuff */
+  #include "config.h"  /* Autoconf stuff */
 #endif /* NIX_MODE */
 
 #define abs(a) (((a)>0)?(a):(-(a)))
