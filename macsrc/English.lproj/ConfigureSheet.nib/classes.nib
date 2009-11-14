@@ -1,0 +1,21 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {closeSheet = id; switchImages = id; }; 
+            CLASS = MGLSaverView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                "IBcolor_" = id; 
+                "IBconfigureSheet_" = id; 
+                "IBmainScreen_" = id; 
+                "IBshowCredits_" = id; 
+                "IBshowImages_" = id; 
+                "IBversion_" = id; 
+            }; 
+            SUPERCLASS = ScreenSaverView; 
+        }, 
+        {CLASS = ScreenSaverView; LANGUAGE = ObjC; SUPERCLASS = NSView; }
+    ); 
+    IBVersion = 1; 
+}

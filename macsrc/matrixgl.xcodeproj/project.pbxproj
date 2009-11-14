@@ -1,0 +1,355 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F447CF7D09A8CA360086F12C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F545C82B02FD49C7017CF652 /* Localizable.strings */; };
+		F447CF7F09A8CA360086F12C /* MGLSaverView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5F2443E02CBBBE801AEC1CD /* MGLSaverView.m */; };
+		F447CF8009A8CA360086F12C /* matrix.c in Sources */ = {isa = PBXBuildFile; fileRef = F4985CD706EA53BB004544BC /* matrix.c */; };
+		F447CF8209A8CA360086F12C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
+		F447CF8309A8CA360086F12C /* ScreenSaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A4B434FF93A1BDD85030BD /* ScreenSaver.framework */; };
+		F447CF8409A8CA360086F12C /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0117A9DE005D913B7F000001 /* OpenGL.framework */; };
+		F44FF99310AAFD7300EBE88E /* ConfigureSheet.nib in Resources */ = {isa = PBXBuildFile; fileRef = F44FF99110AAFD7300EBE88E /* ConfigureSheet.nib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0117A9DE005D913B7F000001 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		02A4B434FF93A1BDD85030BD /* ScreenSaver.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScreenSaver.framework; path = /System/Library/Frameworks/ScreenSaver.framework; sourceTree = "<absolute>"; };
+		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		F447CF8A09A8CA360086F12C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F447CF8B09A8CA360086F12C /* matrixgl.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = matrixgl.saver; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44FF99210AAFD7300EBE88E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/ConfigureSheet.nib; sourceTree = "<group>"; };
+		F44FFA4210AB066600EBE88E /* matrixgl_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = matrixgl_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		F4985CD306EA53B2004544BC /* matrix1.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = matrix1.h; sourceTree = "<group>"; };
+		F4985CD506EA53B6004544BC /* matrix2.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = matrix2.h; sourceTree = "<group>"; };
+		F4985CD706EA53BB004544BC /* matrix.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = matrix.c; sourceTree = "<group>"; };
+		F4985CD906EA54B6004544BC /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
+		F4A0F5D610AF06C500EDF1E7 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/ConfigureSheet.nib; sourceTree = "<group>"; };
+		F4B182BC06EB47B900AD78F9 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4B182BD06EB47BE00AD78F9 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4B182BE06EB47C400AD78F9 /* Italian */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Italian; path = Italian.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4B182BF06EB47C900AD78F9 /* Spanish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Spanish; path = Spanish.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F4B182C006EB47CF00AD78F9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F545C82E02FD49DD017CF652 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F5F2443D02CBBBE801AEC1CD /* MGLSaverView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MGLSaverView.h; sourceTree = SOURCE_ROOT; };
+		F5F2443E02CBBBE801AEC1CD /* MGLSaverView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLSaverView.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F447CF8109A8CA360086F12C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F447CF8209A8CA360086F12C /* Cocoa.framework in Frameworks */,
+				F447CF8309A8CA360086F12C /* ScreenSaver.framework in Frameworks */,
+				F447CF8409A8CA360086F12C /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		089C166AFE841209C02AAC07 /* More Gears */ = {
+			isa = PBXGroup;
+			children = (
+				08FB77AFFE84173DC02AAC07 /* Classes */,
+				089C167CFE841241C02AAC07 /* Resources */,
+				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
+				19C28FB8FE9D52D311CA2CBB /* Products */,
+				F447CF8A09A8CA360086F12C /* Info.plist */,
+			);
+			name = "More Gears";
+			sourceTree = "<group>";
+		};
+		089C1671FE841209C02AAC07 /* Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */,
+				1058C7AEFEA557BF11CA2CBB /* Other Frameworks */,
+			);
+			name = "Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C167CFE841241C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F44FF99110AAFD7300EBE88E /* ConfigureSheet.nib */,
+				F545C82B02FD49C7017CF652 /* Localizable.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AFFE84173DC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				F4985CD306EA53B2004544BC /* matrix1.h */,
+				F4985CD506EA53B6004544BC /* matrix2.h */,
+				F4985CD906EA54B6004544BC /* matrix.h */,
+				F4985CD706EA53BB004544BC /* matrix.c */,
+				F5F2443D02CBBBE801AEC1CD /* MGLSaverView.h */,
+				F5F2443E02CBBBE801AEC1CD /* MGLSaverView.m */,
+				F44FFA4210AB066600EBE88E /* matrixgl_Prefix.pch */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7ACFEA557BF11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0117A9DE005D913B7F000001 /* OpenGL.framework */,
+				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				02A4B434FF93A1BDD85030BD /* ScreenSaver.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7AEFEA557BF11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				089C1672FE841209C02AAC07 /* Foundation.framework */,
+				089C167FFE841241C02AAC07 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB8FE9D52D311CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F447CF8B09A8CA360086F12C /* matrixgl.saver */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		F447CF7709A8CA360086F12C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		F447CF7609A8CA360086F12C /* matrixgl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F447CF8609A8CA360086F12C /* Build configuration list for PBXNativeTarget "matrixgl" */;
+			buildPhases = (
+				F447CF7709A8CA360086F12C /* Headers */,
+				F447CF7C09A8CA360086F12C /* Resources */,
+				F447CF7E09A8CA360086F12C /* Sources */,
+				F447CF8109A8CA360086F12C /* Frameworks */,
+				F447CF8509A8CA360086F12C /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = matrixgl;
+			productInstallPath = /var/root/Library/ScreenSavers;
+			productName = Xeverywhere;
+			productReference = F447CF8B09A8CA360086F12C /* matrixgl.saver */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		089C1669FE841209C02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = F447CF8D09A8CA370086F12C /* Build configuration list for PBXProject "matrixgl" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				Italian,
+				Spanish,
+				sv,
+			);
+			mainGroup = 089C166AFE841209C02AAC07 /* More Gears */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F447CF7609A8CA360086F12C /* matrixgl */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F447CF7C09A8CA360086F12C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F447CF7D09A8CA360086F12C /* Localizable.strings in Resources */,
+				F44FF99310AAFD7300EBE88E /* ConfigureSheet.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		F447CF8509A8CA360086F12C /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F447CF7E09A8CA360086F12C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F447CF7F09A8CA360086F12C /* MGLSaverView.m in Sources */,
+				F447CF8009A8CA360086F12C /* matrix.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F44FF99110AAFD7300EBE88E /* ConfigureSheet.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F44FF99210AAFD7300EBE88E /* English */,
+				F4A0F5D610AF06C500EDF1E7 /* French */,
+			);
+			name = ConfigureSheet.nib;
+			sourceTree = SOURCE_ROOT;
+		};
+		F545C82B02FD49C7017CF652 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F545C82E02FD49DD017CF652 /* English */,
+				F4B182BC06EB47B900AD78F9 /* French */,
+				F4B182BD06EB47BE00AD78F9 /* German */,
+				F4B182BE06EB47C400AD78F9 /* Italian */,
+				F4B182BF06EB47C900AD78F9 /* Spanish */,
+				F4B182C006EB47CF00AD78F9 /* sv */,
+			);
+			name = Localizable.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F447CF8709A8CA360086F12C /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSXSCREENSAVER__;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = /var/root/Library/ScreenSavers;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = matrixgl;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = saver;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		F447CF8809A8CA360086F12C /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = __MACOSXSCREENSAVER__;
+				HEADER_SEARCH_PATHS = "";
+				INSTALL_PATH = /var/root/Library/ScreenSavers;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = matrixgl;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = saver;
+			};
+			name = Deployment;
+		};
+		F447CF8E09A8CA370086F12C /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				COPY_PHASE_STRIP = NO;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = matrixgl_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Development;
+		};
+		F447CF8F09A8CA370086F12C /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = matrixgl_Prefix.pch;
+				GCC_VERSION = 4.0;
+				"GCC_VERSION[sdk=macosx10.6][arch=x86_64]" = "";
+				INFOPLIST_FILE = Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 10.4;
+				"MACOSX_DEPLOYMENT_TARGET[sdk=macosx10.6][arch=x86_64]" = 10.6;
+				SDKROOT = macosx10.4;
+				"SDKROOT[arch=x86_64]" = macosx10.6;
+			};
+			name = Deployment;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F447CF8609A8CA360086F12C /* Build configuration list for PBXNativeTarget "matrixgl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F447CF8709A8CA360086F12C /* Development */,
+				F447CF8809A8CA360086F12C /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+		F447CF8D09A8CA370086F12C /* Build configuration list for PBXProject "matrixgl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F447CF8E09A8CA370086F12C /* Development */,
+				F447CF8F09A8CA370086F12C /* Deployment */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Development;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 089C1669FE841209C02AAC07 /* Project object */;
+}
