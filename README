@@ -84,14 +84,11 @@ above, and follow the instructions in the accompanying README. Compiling on
 windows isn't supported, if you don't know how to do it, we can't help you.
 
 
-COMPILING AND INSTALLING ON MAC OSX
-===================================
-Matrixgl can't be run as a screensaver on OSX, as it is incompatible 
-with the mac version of xscreensaver. It can be compiled and run the
-same as it would for *NIX, but the installation won't work.
-
-Note: There may be a mac version in the future, someone else is
-working on a port.
+INSTALLING ON MAC OSX
+=====================
+Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
+You can download the mac binary and sources from:
+   http://s.sudre.free.fr/Software/matrixgl.html
 
 
 REMOVING MATRIXGL
@@ -149,6 +146,7 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Linux: Ubuntu
    . Linux: Debian
    . BSD: Openbsd
+   . Mac OSX 10.4, 10.5, 10.6
 If you're platform isn't listed, it doesn't mean that it won't work, it just 
 means that it hasn't been tested. If matrixgl works properly on your OS,
 you can email the good news to <vincent@doublecreations.com> and we'll add
