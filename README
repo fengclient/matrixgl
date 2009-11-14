@@ -90,6 +90,11 @@ Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
 You can download the mac binary and sources from:
    http://s.sudre.free.fr/Software/matrixgl.html
 
+The source is also available in the macsrc/ directory for your convenience.
+Note that compiling the mac version isn't supported by us, although, if you
+run into problems or find a bug, you could report it to Stephane. See the 
+AUTHORS file for contact information.
+
 
 REMOVING MATRIXGL
 =================
