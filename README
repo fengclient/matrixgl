@@ -1,6 +1,6 @@
 matrixgl - Cross-Platform Matrix Screensaver
 ********************************************
-. Version: matrixgl-v2.2.5 (Stable release)
+. Version: matrixgl-v2.2.6 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
@@ -41,7 +41,7 @@ compiling yourself.
 
 To extract the source code, fire up a terminal, cd into your download 
 directory and type the following commands:
-   $tar xzf matrixgl-2.2.5-src.tar.gz
+   $tar xzf matrixgl-2.2.6-src.tar.gz
    $cd matrixgl
 
 Then, to compile and install, run the following commands:

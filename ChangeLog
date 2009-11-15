@@ -1,5 +1,7 @@
-matrixgl-v2.2.6 (not yet released)
+matrixgl-v2.2.6 (2009/11/14)
 ---------------
+. Mac OSX Port available for 10.4+
+. Fixed compatibility issue with PLD Linux
 . Removed $(cmd) portability issue from add-user-entry.sh
 
 matrixgl-v2.2.5 (2009/10/20)
