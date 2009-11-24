@@ -44,6 +44,19 @@ uname -a                                     >>bug_report 2>&1
 echo '@@glxinfo@@'                           >>bug_report 2>&1
 glxinfo | grep direct                        >>bug_report 2>&1
 
+# Run autoreconf
+echo '@@autoreconf@@'                        >>bug_report 2>&1
+autoreconf -i                                >>bug_report 2>&1
+if test "$?" -eq 127; then
+   echo "Error: Autotools is needed to build matrixgl snapshots."
+   echo "Please install autoconf, automake and libtool, and"
+   echo "then try again. If you can't do this, you can still"
+   echo "email a text description of the problem to"
+   echo "vincent@doublecreations.com. Thanks for helping the"
+   echo "project!"
+   exit
+fi
+
 # Grab configure errors (if any)
 echo '@@config@@'                            >>bug_report 2>&1
 ./configure                                  >>bug_report 2>&1
@@ -96,6 +109,8 @@ stored or added to the report" 20 80
    fi
 
 fi
+
+echo '@@FINISHED@@' >> bug_report 2>&1
 
 
 
