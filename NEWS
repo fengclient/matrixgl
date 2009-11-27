@@ -1,7 +1,11 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
-Chages in 2.2.6
+Changes in 2.2.7
+----------------
+. Better build instructions
+
+Changes in 2.2.6
 ---------------
 . Mac OSX port by Stephane Sudre, for OSX 10.4+
 . Fixed compatability issue with PLD Linux

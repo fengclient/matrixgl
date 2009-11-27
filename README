@@ -30,7 +30,7 @@ TODO              - Future feature plans
 
 Project Website : http://www.doublecreations.com/projects/matrixgl/
 Sourceforge Site: http://www.sourceforge.net/projects/matrixgl/
-Git Repository  : http://matrixgl.git.sourceforge.net/git/gitweb.cgi?p=matrixgl/matrixgl;a=summary
+Git Repository  : http://matrixgl.git.sourceforge.net/git/gitweb.cgi?p=matrixgl/matrixgl
 
 
 COMPILING AND INSTALLING ON *NIX
@@ -50,24 +50,23 @@ Then, to compile and install, run the following commands:
    (Then, as root)
    #make install
 
-The latter command will install matrixgl into xscreensaver, as well as adding 
-a man page. If you don't use xscreensaver, You can use 
-'./configure --disable-xscreensaver' to build without it. The install command
-will still work, just installing the man page. You could then run matrixgl 
-from a terminal, or use it with another screensaver manager. To use with 
-KDE/GNOME, install xscreensaver and see instructions in the xscreensaver 
-manpage.
-
-Once installed, run 'xscreensaver-demo' and select 'matrixgl' from the list. 
-Use the settings dialog to change various settings, such as color and mode. 
-
-NOTE: In some distros, xscreensaver won't automatically recognize new 
-screensavers when you launch xscreensaver-demo. If you don't see it in the 
-list, you need to run the following script:
+The latter command will install matrixgl into xscreensaver, as well as adding a
+man page.  There's still one more step to get it working though, as xscreensaver
+won't automatically detect new screensavers when it is run. To get it to see
+matrixgl, you'll need to run the following script:
   $./add-user-entry 
-which will add the entry for the user that ran the script. This means that
-if your distro is affected, each user that wants to use matrixgl MUST run 
-this script.
+which will add the entry for the user that ran the script. This means that each
+user that wants to use matrixgl MUST run this script.
+
+To run matrixgl as a screensaver, run 'xscreensaver-demo' and select 'matrixgl'
+from the list.  Use the settings dialog to change various settings, such as
+color and mode. 
+
+If you don't use xscreensaver, you can run
+'./configure --disable-xscreensaver' to build without it. The install command
+is still needed so you can run matrixgl from a terminal, or use it with another
+screensaver manager. To use with KDE/GNOME, install xscreensaver and see
+instructions in the xscreensaver manpage.
 
 For a more advanced install, see the file INSTALL. Note however, that the 
 file contains generic instructions not specific to this project.
@@ -98,8 +97,10 @@ AUTHORS file for contact information.
 
 REMOVING MATRIXGL
 =================
-In *NIX or OSX, to remove any files that may have been added, simply run 
+In *NIX, to remove any files that may have been added, simply run 
 '#make uninstall' in the source directory, as root.
+
+In OSX, consult the README in the osx package.
 
 In Windows, no files are added, although if you clicked 'Install', the file 
 was probably copied to %WINDIR%\System32\matrixgl.scr. Also, you may want to 

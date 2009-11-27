@@ -1,3 +1,5 @@
 TODO
-. Add additional 3D images, with more variety/characters
-. Test on opensolaris, and other *NIX platforms
+. Installer for windows (someone is working on this)
+. Find a way to install into xscreensaver-demo list for all users,
+   so that ./add-user-entry equivilent can be run automatically 
+   by 'make install'.
