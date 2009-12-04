@@ -1,6 +1,7 @@
 matrixgl-v2.2.7 (not yet released)
 ---------------
 . Added clearer install instructions to README
+. Reformetted font/image data header files 
 
 matrixgl-v2.2.6 (2009/11/14)
 ---------------
