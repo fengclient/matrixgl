@@ -1,21 +1,21 @@
-# Autoconf file for the matrixgl project 
-# Copyright (C) Vincent Launchbury 2009 
-# Written By: Vincent Launchbury <vincent@doublecreations.com> 2009.
-# -------------------------------------------
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
+dnl Autoconf file for the matrixgl project 
+dnl Copyright (C) Vincent Launchbury 2009 
+dnl Written By: Vincent Launchbury <vincent@doublecreations.com> 2009.
+dnl -------------------------------------------
+dnl
+dnl This program is free software; you can redistribute it and/or modify
+dnl it under the terms of the GNU General Public License as published by
+dnl the Free Software Foundation; either version 2 of the License, or
+dnl (at your option) any later version.
+dnl 
+dnl This program is distributed in the hope that it will be useful,
+dnl but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl GNU General Public License for more details.
+dnl 
+dnl You should have received a copy of the GNU General Public License
+dnl along with this program; if not, write to the Free Software
+dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
 AC_PREREQ([2.63])
 t://matrixgl.git.sourceforge.net/gitroot/matrixgl
@@ -28,33 +28,36 @@ AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
 
-# Programs
+dnl Programs
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
-# Headers
+dnl Headers
 AC_HEADER_STDC
 
-# Library Stuff
+dnl Library Stuff
 AC_TYPE_SIZE_T
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset])
 
 
-# X11 Lib
+dnl X11 Lib
 AC_PATH_X
 AC_CHECK_LIB([X11], [XOpenDisplay],, 
              [AC_CHECK_HEADERS(X11/Xlib.h,,
               [echo "Error: X11 not found";exit 1])]
 )
 
-#Opengl stuff
+dnl Opengl stuff
 AX_CHECK_GLU
 
-# Find man dirs better than automake does.
-MAN1_DIR=0
+# Find man dirs better than autoconf does.
+# (Using the default man functionality
+#  doesn't work on some distros I've tested,
+#  so we have to find it manually)
+MAN1_DIR=""
 test "$silent" != yes && echo -n "checking for man1 directory... "
 for dir in /usr/share/man/man1 \
    /usr/local/share/man/man1 \
@@ -63,16 +66,15 @@ for dir in /usr/share/man/man1 \
    /usr/contrib/man/man1; do
    test -d $dir && MAN1_DIR=$dir && break
 done
-if test -n $MAN1_DIR; then
+if test -n "$MAN1_DIR"; then
    test "$silent" != yes && echo "$MAN1_DIR"
 else
    test "$silent" != yes && echo "no. Using /usr/share/man/man1"
-   MAN1_DIR = "/usr/share/man/man1"
+   MAN1_DIR="/usr/share/man/man1"
 fi
 AC_SUBST([MAN1_DIR])
 
-
-# Let user disable xscreensaver support
+dnl Let user disable xscreensaver support
 AC_ARG_ENABLE(xscreensaver,
               [  --disable-xscreensaver Don't install to or check for xscreensaver],
               [case "${enableval}" in
@@ -107,7 +109,7 @@ if test "$skip_xscreensaver" = false; then
       /usr/bin/xscreensaver-hacks; do
       test -d $dir && XSS_HACKS=$dir && break
    done
-   if test -n $XSS_HACKS; then
+   if test -n "$XSS_HACKS"; then
       test "$silent" != yes && echo "$XSS_HACKS"
    else
       test "$silent" != yes && echo "no"
@@ -124,7 +126,7 @@ if test "$skip_xscreensaver" = false; then
       /usr/share/xscreensaver ; do # PLD Linux
       test -d $dir && XSS_CONF=$dir && break
    done
-   if test -n $XSS_CONF; then
+   if test -n "$XSS_CONF"; then
       test "$silent" != yes && echo "$XSS_CONF"
    else
       test "$silent" != yes && echo "no"
@@ -143,5 +145,6 @@ the bug report for you, so please please send it :)"
    AC_SUBST([XSS_CONF])
 fi
 
-# And we're done
+dnl And we're done
 AC_OUTPUT
+
