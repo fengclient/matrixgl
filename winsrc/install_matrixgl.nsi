@@ -1,6 +1,7 @@
-outFile "matrixgl install.exe"
+outFile "matrixgl 2.2.7 Setup.exe"
 Name "MatrixGL Installer"
-BrandingText " "
+BrandingText "matrixgl is free software"
+
 
 installDir $WINDIR
 
@@ -16,7 +17,7 @@ UninstPage instfiles
 section
 
    setOutPath $INSTDIR
-   file matrixgl.scr
+   file "Matrixgl 2.2.7.scr"
    file matrixgl_config.exe
    
    setOutPath $INSTDIR\system
@@ -25,20 +26,20 @@ section
 
    writeUninstaller "$INSTDIR\matrixgluninstall.exe"
 
-   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL" "Display Name" "MatrixGL Screensaver"
-   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL" "UninstallString" "$\"$INSTDIR\matrixgluninstall.exe$\""
-   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL" "DisplayVersion" "2.2.6"
-   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL" "NoRepair" "1"
-   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL" "NoModify" "1"              
+   CreateDirectory "$SMPROGRAMS\Matrixgl 2.2.7"
+   CreateShortCut "$SMPROGRAMS\Matrixgl 2.2.7\Uninstall matrixgl.lnk" "$INSTDIR\matrixgluninstall.exe"
+   MessageBox MB_OK "Sucessfully installed! Right click on the desktop and select properties. Then, click on the screensavers tab and you will see Matrixgl in the list!"
+
 
 sectionEnd
 
 section "uninstall"
  
-    delete "$INSTDIR\matrixgluninstall.exe"
+   delete "$INSTDIR\matrixgluninstall.exe"
    delete "$INSTDIR\matrixgl_config"
-   delete "$INSTDIR\matrixgl.scr"
+   delete "$INSTDIR\Matrixgl 2.2.7.scr"
    delete "$INSTDIR\matrixgl_config.exe"
    delete "$INSTDIR\system\glut32.dll"
-   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\MatrixGL"
+   delete "$SMPROGRAMS\Matrixgl 2.2.7\Uninstall matrixgl.lnk"
+   RMDIR  "$SMPROGRAMS\Matrixgl 2.2.7"
 sectionEnd
