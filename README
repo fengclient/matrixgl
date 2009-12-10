@@ -1,6 +1,6 @@
 matrixgl - Cross-Platform Matrix Screensaver
 ********************************************
-. Version: matrixgl-v2.2.6 (Stable release)
+. Version: matrixgl-v2.2.7 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
@@ -78,9 +78,9 @@ easy to do, and will also help out other users in the same situation.
 
 INSTALLING ON WINDOWS
 =====================
-To run on windows, download the binary package from the project website listed
-above, and follow the instructions in the accompanying README. Compiling on 
-windows isn't supported, if you don't know how to do it, we can't help you.
+To run on windows, download the installer from the project website. Run it and
+follow the instructions. Compiling on windows isn't supported, if you don't
+know how to do it, we can't help you.
 
 
 INSTALLING ON MAC OSX
@@ -102,12 +102,9 @@ In *NIX, to remove any files that may have been added, simply run
 
 In OSX, consult the README in the osx package.
 
-In Windows, no files are added, although if you clicked 'Install', the file 
-was probably copied to %WINDIR%\System32\matrixgl.scr. Also, you may want to 
-delete the files %WINDIR\matrixgl_config and %WINDIR%\matrixgl_config.exe. 
-You may also wish to delete any GLUT files that you placed in your system 
-directory. However, these files are only graphics libraries, and are not part 
-of matrixgl.
+In Windows, to uninstall, open the start menu and go into 
+   All Programs > Matrixgl 2.2.7 
+then click on "uninstall matrixgl" and follow the instructions.
 
 
 SCREENSAVER FUNCTIONS/KEYS

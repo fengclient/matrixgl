@@ -3,6 +3,7 @@ See ChangeLog for a more detailed log of changes, geared toward developers
 
 Changes in 2.2.7
 ----------------
+. Added an installer for windows
 . Better build instructions
 
 Changes in 2.2.6

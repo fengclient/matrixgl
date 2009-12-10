@@ -1,7 +1,10 @@
-matrixgl-v2.2.7 (not yet released)
+matrixgl-v2.2.7 (2009/12/09)
 ---------------
+. Added a windows installer (no .zip files anymore)
 . Added clearer install instructions to README
 . Reformetted font/image data header files 
+. Fixed bug where man1 dir was incorrectly found
+. Added a git ignore file
 
 matrixgl-v2.2.6 (2009/11/14)
 ---------------
