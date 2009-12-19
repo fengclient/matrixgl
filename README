@@ -76,13 +76,6 @@ a bug report (described below), and we will get it working for you. It's
 easy to do, and will also help out other users in the same situation.
 
 
-INSTALLING ON WINDOWS
-=====================
-To run on windows, download the installer from the project website. Run it and
-follow the instructions. Compiling on windows isn't supported, if you don't
-know how to do it, we can't help you.
-
-
 INSTALLING ON MAC OSX
 =====================
 Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
@@ -93,6 +86,27 @@ The source is also available in the macsrc/ directory for your convenience.
 Note that compiling the mac version isn't supported by us, although, if you
 run into problems or find a bug, you could report it to Stephane. See the 
 AUTHORS file for contact information.
+
+INSTALLING ON WINDOWS
+=====================
+To run on windows, download the installer from the project website. Run it and
+follow the instructions. Compiling on windows isn't supported, if you don't
+know how to do it, we can't help you.
+
+Please note that as of December 18th, 2009, the windows version of matrixgl is
+no longer being maintained. However, we still accept contributions relating to
+windows, so long as they are accompanied by a portable compiled binary of the
+updated matrixgl, packaged within an NSIS installer, using the .nsi script
+provided in winsrc/ (i.e the same standard as the current windows installer).
+The resulting binary should then be tested on all versions of windows still in
+major use, and the source of all modifications must be submitted, of course,
+under the GPL. This is a lot easier than it sounds, once everything has been
+set up.
+
+Do note however that the latest windows build is very stable and has no known
+bugs. The development has ceased because the maintainer has stopped using
+non-free software alltogether, and therefore cannot produce new windows builds.
+
 
 
 REMOVING MATRIXGL
@@ -142,14 +156,14 @@ original version. Any bugs in this version are fully mine.
 SUPPORTED OPERATING SYSTEMS
 ===========================
 matrixgl has been tested and confirmed to fully work on the following platforms:
+   . GNU/Linux: Gentoo
+   . GNU/Linux: Ubuntu
+   . GNU/Linux: Debian
+   . BSD: Openbsd
+   . Mac OSX 10.4, 10.5, 10.6
    . Windows XP 32 bit
    . Windows Vista 32 bit
    . Windows 7 64 bit
-   . Linux: Gentoo
-   . Linux: Ubuntu
-   . Linux: Debian
-   . BSD: Openbsd
-   . Mac OSX 10.4, 10.5, 10.6
 If you're platform isn't listed, it doesn't mean that it won't work, it just 
 means that it hasn't been tested. If matrixgl works properly on your OS,
 you can email the good news to <vincent@doublecreations.com> and we'll add

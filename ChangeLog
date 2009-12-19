@@ -177,7 +177,7 @@ matrixgl-v1.02A  (2008/04/25)
 matrixgl-v1.01A
 ------------------
 This section highlights changes made from the base knoppix.ru release 1.0
-. Now runs in the desktop's current resolution in Linux
+. Now runs in the desktop's current resolution in *NIX
 . Fixed a mouse bug in Windows that caused it to exit almost immediatly
    - Note: It appears that only a handful of setups had this bug
 . Fixed bug regarding a permanant white node in the top left corner
@@ -196,10 +196,10 @@ This section highlights changes made from the base knoppix.ru release 1.0
 . Removed concurrent column speed collisions (they become speed 3)
 . Added 'Double Creations' screen to follow knoppix in credits
 . Modified credits to dissapear and transition faster
-. Added --help option (linux only)
-. Added --version option (linux only)
-. Prints out message with name, mentioning help option (linux only)
-. Stopped linking in the math library on Linux
+. Added --help option (*NIX only)
+. Added --version option (*NIX only)
+. Prints out message with name, mentioning help option (*NIX only)
+. Stopped linking in the math library on *NIX
 . Cleaned up source, removed some useless modifiers that were always 0.
 . Added license block, name, and description to source code
 . Added README, CHANGELOG, LICENSE (GPL V2)
