@@ -27,6 +27,9 @@ AC_CONFIG_SRCDIR([src/matrix.c])
 AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([Makefile
                  src/Makefile])
+dnl /usr/local doesn't work on some distros I tested,
+dnl  also fixes the man issue.
+AC_PREFIX_DEFAULT([/usr])
 
 dnl Programs
 AC_PROG_CC
@@ -52,27 +55,6 @@ AC_CHECK_LIB([X11], [XOpenDisplay],,
 
 dnl Opengl stuff
 AX_CHECK_GLU
-
-# Find man dirs better than autoconf does.
-# (Using the default man functionality
-#  doesn't work on some distros I've tested,
-#  so we have to find it manually)
-MAN1_DIR=""
-test "$silent" != yes && echo -n "checking for man1 directory... "
-for dir in /usr/share/man/man1 \
-   /usr/local/share/man/man1 \
-   /usr/local/man/man1 \
-   /usr/man/man1 \
-   /usr/contrib/man/man1; do
-   test -d $dir && MAN1_DIR=$dir && break
-done
-if test -n "$MAN1_DIR"; then
-   test "$silent" != yes && echo "$MAN1_DIR"
-else
-   test "$silent" != yes && echo "no. Using /usr/share/man/man1"
-   MAN1_DIR="/usr/share/man/man1"
-fi
-AC_SUBST([MAN1_DIR])
 
 dnl Let user disable xscreensaver support
 AC_ARG_ENABLE(xscreensaver,
