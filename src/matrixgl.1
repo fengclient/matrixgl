@@ -1,11 +1,13 @@
-.TH MATRIXGL "1" "December 9th, 2009" "matrixgl 2.2.7" "Matrixgl - The 3D Matrix Screensaver"
+.TH MATRIXGL "1" "January 30th, 2010" "matrixgl 2.2.8" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
 .SH SYNOPSIS
 .B matrixgl [\fI-CcFfhlsv\fR]
 .SH DESCRIPTION
-Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features the green scrolling text (or digital rain), that wraps around 3D representations of different characters from the series.
+Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features
+the green scrolling text (or digital rain), that wraps around 3D
+representations of different characters from the series.
 .P
 Mandatory arguments to long options are mandatory for short options too.
 .TP 5
@@ -19,27 +21,34 @@ Show the credits on startup. This option will have no effect if used with --stat
 Run in fullscreen, when run from a terminal. This is the default in xscreensaver.
 .TP
 -f --fps[=SEC]
-Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range 1,20 and defaults to 2 if not given. Note that the first few stats may be inaccurate due to startup delays.
+Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range
+[1,20] and defaults to 2 if not given. Note that the first few stats may be
+inaccurate due to startup delays.
 .TP
 -h --help
 Display a help message and exit.
 .TP
 -l --limit=LIM
-Limit the framerate to LIM fps. Defaults to 32 fps if this option isn't used. LIM is clamped to the range 1,200. Note: Doesn't work well with very small limits (i.e < 10 fps).
+Limit the framerate to LIM fps, or as close to it as possible. The default is
+32fps, and LIM is clamped to the range [1,200]. Note: This doesn't work at all
+for small limits, its purpose is to reduce speeds on really fast high-end
+cards.
 .TP
 -s --static
-Enable static mode, which disables the 3D images, making it look like the plain scrolling text from the original Matrix film.
+Enable static mode, which disables the display of 3D images. This mimics the
+style of the scrolling text from the original film.
 .TP
 -v --version
 Output version and author information and exit.
 .TP
 --allow-root
-Allow matrixgl to be run by the root user, if you really want it to. Disabled by default as a safeguard.
+Allow matrixgl to be run by the root user, if you really want to do so. Disabled
+by default as a safeguard.
 .P
 Note: Long options may be passed with a single dash.
 
 .SH KEYS
-The following keys can be used while in the screensaver.
+The following keys can be used while in the screensaver**
 .TP 5
 c
 View Credits
@@ -56,13 +65,15 @@ Pause screensaver
 q
 Quit screensaver
 .P
-Note: Under xscreensaver, matrixgl will be killed before it receives input. These keys only apply when you run matrixgl from a terminal, or when using a different screensaver manager (like KDE or GNOME's).
+**Note: Under xscreensaver, matrixgl will be killed before it receives input.
+Therefore, these keys only apply when you run matrixgl from a terminal, or when
+using a different screensaver manager (like the ones shipped with KDE or GNOME.)
 
-.SH AUTHOR
+.SH AUTHORS
 Written by  Alexander Zolotov  <nightradio@gmail.com> 2003
-      and   Eugene Zolotov     <sentinel@knoppix.ru> 2003.
+      and   Eugene Zolotov     <sentinel@knoppix.ru> 2003
 .br
-Modified by Vincent Launchbury <vincent@doublecreations.com> 2008,2009
+Modified by Vincent Launchbury <vincent@doublecreations.com> 2008-2010
 
 .SH REPORTING BUGS
 Report matrixgl bugs to <vincent@doublecreations.com>
@@ -80,7 +91,7 @@ More detailed and up-to-date instructions can be found online at <http://www.dou
 .SH COPYRIGHT
 Copyright (C) Alexander Zolotov, Eugene Zolotov 2003. 
 .br
-Modifications Copyright (C) Vincent Launchbury 2008,2009.
+Modifications Copyright (C) Vincent Launchbury 2008,2009,2010.
 .P
 License: GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>. This is free software: you are free to change and redistribute it. There is NO WARRANTY, to the extent permitted by law.
 
