@@ -168,7 +168,6 @@ int main(int argc,char **argv)
 {
    int i=0,a=0,s=0;
    int opt;
-   short ierror=0;    /* Install Error */
    short allowroot=0; /* If they insist... */
    int wuse=2;        /* Window method 2-windowed, 1-fs, 0-preview */
    Window wid=0;      /* ID of window, used to grab preview size */
@@ -622,7 +621,7 @@ nix_static void MouseFunc(int x, int y)
 }
 
 
-nix_static void cbKeyPressed(unsigned char key, int x, int y)
+nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
 {
    switch (key) {
       case 'X':

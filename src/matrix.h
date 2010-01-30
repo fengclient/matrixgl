@@ -29,7 +29,6 @@
 #define nix_static
 #endif
 
-static void make_text(void);
 static void draw_char(int mode, long num, float light, float x, float y, float z);
 static void draw_flare(float x,float y,float z);
 static void draw_text1(void);
@@ -41,12 +40,20 @@ nix_static void MouseFunc(int x, int y);
 nix_static void cbKeyPressed(unsigned char key, int x, int y);
 nix_static void cbResizeScene(int Width, int Height);
 static void ourInit(void);
-static void load_texture(void);
 static void *tmalloc(size_t n);
 #ifdef NIX_MODE
 static char get_ascii_keycode(XEvent *ev);
 static int htoi(char *str);
 #endif
+
+/* Get rid warnings when we need an unused parameter */
+#ifdef __GNUC__
+#  define unused __attribute__((unused))
+#elif defined (__LCLINT__)
+#  define unused /*@unused@*/
+#else
+#  define unused /* */
+#endif /* __GNUC__ */
 
 #define clamp(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
