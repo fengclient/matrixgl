@@ -1,6 +1,13 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.2.8
+----------------
+. Default install prefix is now /usr (see INSTALL for how to change this)
+. add-user-entry.sh script now outputs more useful information
+. Updated the manpage
+. Windows builds are no longer supported
+
 Changes in 2.2.7
 ----------------
 . Added an installer for windows

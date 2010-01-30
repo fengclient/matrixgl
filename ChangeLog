@@ -1,3 +1,14 @@
+matrixgl-v2.2.8 (2010/01/30)
+---------------
+. Autotools scripts now work with 'make dist'
+. Default prefix is now /usr, which fixes problems
+with distros not recognizing things in /usr/local,
+and simplifies code that previously handled this.
+. add-user-entry.sh has more useful output now.
+. Updated the manpage, mainly regarding the --limit option.
+. Dropped support for windows builds
+. Removed the BUGS file
+
 matrixgl-v2.2.7 (2009/12/09)
 ---------------
 . Added a windows installer (no .zip files anymore)

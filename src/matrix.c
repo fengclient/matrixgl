@@ -258,7 +258,8 @@ In-Screensaver Keys:\n\
  's' - Toggle static mode (3D)\n\
  'n' - Next image\n\
  'p' - Pause screensaver\n\
- 'q' - Quit\n\n\
+ 'q' - Quit\n\
+Note: Keys won't work in xscreensaver (see manpage)\n\n\
 Report bugs to <" PACKAGE_BUGREPORT ">\n\
 Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
              stdout);
@@ -268,7 +269,7 @@ Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
 Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
 Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.\n\
       and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.\n\
-Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.\n\n",
+Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008-2010.\n\n",
                stdout);
             fputs("Send bug reports to <" PACKAGE_BUGREPORT ">\n\
 To assist us best, please run the script ./gen-bug-report.sh in the \

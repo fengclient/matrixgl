@@ -1,6 +1,6 @@
 matrixgl - Cross-Platform Matrix Screensaver
 ********************************************
-. Version: matrixgl-v2.2.7 (Stable release)
+. Version: matrixgl-v2.2.8 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
@@ -40,7 +40,7 @@ compiling yourself.
 
 To extract the source code, fire up a terminal, cd into your download 
 directory and type the following commands:
-   $tar xzf matrixgl-2.2.6-src.tar.gz
+   $tar xzf matrixgl-2.2.8-src.tar.gz
    $cd matrixgl
 
 Then, to compile and install, run the following commands:
@@ -86,6 +86,7 @@ Note that compiling the mac version isn't supported by us, although, if you
 run into problems or find a bug, you could report it to Stephane. See the 
 AUTHORS file for contact information.
 
+
 INSTALLING ON WINDOWS
 =====================
 To run on windows, download the installer from the project website. Run it and
@@ -126,6 +127,8 @@ p - Pause Screensaver at any time
 c - View 3D-text credits
 s - Toggle classic mode (no 3D images)
 n - Cycle through to next image (when not in classic mode)
+
+Note: These keys don't work with xscreensaver, see manpage for details.
 
 
 COMMENTS AND SUGGESTIONS
