@@ -68,11 +68,13 @@ AC_ARG_ENABLE(xscreensaver,
 AM_CONDITIONAL(USE_XSCREENSAVER, 
                test "$skip_xscreensaver" != true)
 
-test "$silent" != yes && echo -n "checking if xscreensaver feature is enabled.. "
-if test "$skip_xscreensaver" = false; then
-   test "$silent" != yes && echo "yes"
-else
-   test "$silent" != yes && echo "no"
+if test "$silent" != yes ; then
+   echo -n "checking if xscreensaver feature is enabled.. "
+   if test "$skip_xscreensaver" = false; then
+      echo "yes"
+   else
+      echo "no"
+   fi
 fi
 
 if test "$skip_xscreensaver" = false; then
@@ -118,9 +120,9 @@ if test "$skip_xscreensaver" = false; then
    if test -z "$XSS_HACKS" || test -z "$XSS_CONF"; then
       echo "Error: xscreensaver directories cannot be found."
       echo "Use --disable-xscreensaver or \
-If you're sure you have xscreensaver installed, \
-please file a bug as detailed in README. Our script creates \
-the bug report for you, so please please send it :)"
+if you're sure you have xscreensaver installed, \
+file a bug as detailed in the README. Our script creates \
+the bug report for you, so please send it :)"
       exit 1
    fi
    AC_SUBST([XSS_HACKS])
