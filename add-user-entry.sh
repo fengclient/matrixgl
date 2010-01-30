@@ -18,29 +18,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-# On most distros, when xscreensaver-demo is run, it
-# searchs the hack/conf directories for new hacks and 
-# adds them to the list. It doesn't work on some distros
-# (like openbsd), so this script adds it for us. 
-
-
 # Make sure ~/.xscreensaver exists
 if test ! -e ~/.xscreensaver; then
    echo "Error: File '~/.xscreensaver' does not exist"
    echo "Are you sure you have xscreensaver installed?"
+   echo "Try running 'xscreensaver-demo', and then re-run this script"
    exit 1
 fi
 
 # If it's empty, user needs to run xscreensaver-demo to generate
 if test ! -s ~/.xscreensaver; then
    echo "Error: '~/.xscreensaver' is empty"
-   echo "Please run xscreensaver-demo and run this script again"
+   echo "Please run 'xscreensaver-demo' and then re-run this script"
    exit 1
 fi
 
 # Exit if the entry is already there
 if test `grep matrixgl ~/.xscreensaver|wc -l` -gt 0; then
-   echo "Error: Matrixgl already in list of screensavers"
+   echo "Warning: Matrixgl is already in the list of screensavers!"
+   echo "Run 'xscreensaver-demo' to select your screensaver."
    exit 0
 fi
 
