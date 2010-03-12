@@ -4,7 +4,7 @@
  * -------------------------------------------
  * Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
  *       and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
- * Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
+ * Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008-2010.
  * -------------------------------------------
  *
  * This program is free software; you can redistribute it and/or modify
@@ -41,13 +41,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef __APPLE__
-   #include <OpenGL/gl.h>
-   #include <OpenGL/glu.h>
-#else 
-   #include <GL/gl.h>   /* OpenGL itself. */
-   #include <GL/glu.h>  /* GLU support library. */
-#endif
+#include <GL/gl.h>   /* OpenGL itself. */
+#include <GL/glu.h>  /* GLU support library. */
 #ifdef NIX_MODE
    #include <GL/glx.h>
    #include "vroot.h"
