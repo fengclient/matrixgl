@@ -602,7 +602,8 @@ nix_static void cbRenderScene(void)
 } 
 
 
-nix_static void MouseFunc(int x, int y)
+#ifdef WIN32_MODE
+void MouseFunc(int x, int y)
 {
 	/* A work around for really buggy
 	mouse drivers that:
@@ -615,6 +616,7 @@ nix_static void MouseFunc(int x, int y)
    if (!t) {t++;xx=x;yy=y;}
    else if (abs(xx-x)>8||abs(yy-y)>8)exit(EXIT_SUCCESS);
 }
+#endif
 
 
 nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)

@@ -36,7 +36,6 @@ static void draw_text2(int mode);
 static void scroll(int mode);
 static void make_change(void);
 nix_static void cbRenderScene(void);
-nix_static void MouseFunc(int x, int y);
 nix_static void cbKeyPressed(unsigned char key, int x, int y);
 nix_static void cbResizeScene(int Width, int Height);
 static void ourInit(void);
@@ -44,6 +43,8 @@ static void *tmalloc(size_t n);
 #ifdef NIX_MODE
 static char get_ascii_keycode(XEvent *ev);
 static int htoi(char *str);
+#else
+void MouseFunc(int x, int y);
 #endif
 
 /* Get rid warnings when we need an unused parameter */

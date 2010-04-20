@@ -7,9 +7,7 @@
 # "GL_LIBS", respectively.  If no usable GL implementation is found, "no_gl"
 # is set to "yes".
 #
-# If the header "GL/gl.h" is found, "HAVE_GL_GL_H" is defined.  If the header
-# "OpenGL/gl.h" is found, HAVE_OPENGL_GL_H is defined.  These preprocessor
-# definitions may not be mutually exclusive.
+# If the header "GL/gl.h" is found, "HAVE_GL_GL_H" is defined.  
 #
 # version: 2.4
 # author: Braden McDaniel <braden@endoframe.com>
@@ -53,15 +51,13 @@ AS_IF([test X$no_x != Xyes],
 
 ax_save_CPPFLAGS=$CPPFLAGS
 CPPFLAGS="$GL_CFLAGS $CPPFLAGS"
-AC_CHECK_HEADERS([GL/gl.h OpenGL/gl.h])
+AC_CHECK_HEADERS([GL/gl.h])
 CPPFLAGS=$ax_save_CPPFLAGS
 
 m4_define([AX_CHECK_GL_PROGRAM],
           [AC_LANG_PROGRAM([[
 # ifdef HAVE_GL_GL_H
 #   include <GL/gl.h>
-# elif defined(HAVE_OPENGL_GL_H)
-#   include <OpenGL/gl.h>
 # else
 #   error no gl.h
 # endif]],
@@ -86,9 +82,9 @@ AC_LINK_IFELSE([AX_CHECK_GL_PROGRAM],
                [ax_check_gl_nvidia_flags="-L/usr/$ax_check_gl_libdir/nvidia" LIBS="$ax_try_lib $ax_check_gl_nvidia_flags $GL_LIBS $ax_save_LIBS"
                AC_LINK_IFELSE([AX_CHECK_GL_PROGRAM],
                               [ax_cv_check_gl_libgl="$ax_try_lib $ax_check_gl_nvidia_flags"; break],
-                              [ax_check_gl_dylib_flag='-dylib_file /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib' LIBS="$ax_try_lib $ax_check_gl_dylib_flag $GL_LIBS $ax_save_LIBS"
+                              [LIBS="$ax_try_lib $GL_LIBS $ax_save_LIBS"
                               AC_LINK_IFELSE([AX_CHECK_GL_PROGRAM],
-                                             [ax_cv_check_gl_libgl="$ax_try_lib $ax_check_gl_dylib_flag"; break])])])
+                                             [ax_cv_check_gl_libgl="$ax_try_lib"; break])])])
 done
 
 AS_IF([test "X$ax_cv_check_gl_libgl" = Xno -a X$no_x = Xyes],
