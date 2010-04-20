@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Script to generate a useful bug report
-# Copyright (C) Vincent Launchbury 2009 
-# Written By: Vincent Launchbury <vincent@doublecreations.com> 2009.
+# Copyright (C) Vincent Launchbury 2009, 2010
+# Written By: Vincent Launchbury <vincent@doublecreations.com>
 # -------------------------------------------
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,113 +19,124 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-# Note: We assume the user has dialog, but if they don't,
-#  it still generates a useful report.
-
+# Don't run as root
 if test `id -u` -eq 0; then
-   echo "Error: Don't run this as root"
+   echo "Error: Don't run this script as root!"
    exit
 fi
 
-dialog --clear --title "Generating a Bug Report" \
---msgbox "This script will help you generate a useful bug-report. \
-\n\nPLEASE DON'T CLOSE ANY WINDOWS THAT OPEN, they will be closed \
-automatically after the script has finished. \
-\n\n This may take a while, a dialog will pop up when it's \
-finished" 20 80
-clear
-echo 'WORKING..'
+# Intro message
+echo "This tool will help you generate a useful bug-report."
+echo ">>> PLEASE DON'T CLOSE ANY WINDOWS THAT OPEN <<<"
+sleep 1
+echo " "
 
 # Grab full uname, for distro info
-echo '@@uname@@'                              >bug_report 2>&1
+echo "@@uname@@"                              >bug_report 2>&1
 uname -a                                     >>bug_report 2>&1
+echo "Grabbing uname............................ [Done]"
 
 # Check if direct rendering is working (if available)
-echo '@@glxinfo@@'                           >>bug_report 2>&1
+echo "@@glxinfo@@"                           >>bug_report 2>&1
+echo -n 'Grabbing direct rendering information..... '
 glxinfo | grep direct                        >>bug_report 2>&1
+if test "$?" -eq 0; then
+   echo "[Done]"
+else
+   echo "[Failed!]"
+fi
 
-# Run autoreconf
-echo '@@autoreconf@@'                        >>bug_report 2>&1
-autoreconf -i                                >>bug_report 2>&1
-if test "$?" -eq 127; then
-   echo "Error: Autotools is needed to build matrixgl snapshots."
-   echo "Please install autoconf, automake and libtool, and"
-   echo "then try again. If you can't do this, you can still"
-   echo "email a text description of the problem to"
-   echo "vincent@doublecreations.com. Thanks for helping the"
-   echo "project!"
-   exit
+# Run autoreconf (if running a snapshot)
+echo '@@releasetype@@'                          >>bug_report 2>&1
+if test ! -e configure; then
+   echo 'snapshot'                              >>bug_report 2>&1
+   echo '@@autoreconf@@'                        >>bug_report 2>&1
+   echo -n "Generating autotools files................ "
+   autoreconf -i                                >>bug_report 2>&1
+   if test "$?" -eq 127; then
+      echo "[Failed!]"
+      echo "Error: Autotools is needed to build matrixgl snapshots."
+      echo "Please install autoconf, automake and libtool, and"
+      echo "then try again. If you can't do this, you can download"
+      echo "the latest stable release, and test it without autotools."
+      echo "If all else fails, you can still email a text description"
+      echo "of the problem to vincent@doublecreations.com. "
+      echo "Thanks for helping the project!"
+      exit
+   else 
+      echo "[Done]"
+   fi
+else
+   echo 'stable-release (best guess)'            >>bug_report 2>&1
 fi
 
 # Grab configure errors (if any)
-echo '@@config@@'                            >>bug_report 2>&1
+echo "@@config@@"                            >>bug_report 2>&1
+echo -n "Configuring matrixgl...................... "
 ./configure                                  >>bug_report 2>&1
+echo "[Done]"
 
 # Clean, to make sure it rebuilds again
+echo -n "Cleaning matrixgl......................... "
 make clean >/dev/null 2>&1
+echo "[Done]"
 
 # Grab compilation errors (if any)
-echo '@@make@@'                              >>bug_report 2>&1
+echo "@@make@@"                              >>bug_report 2>&1
+echo -n "Compiling matrixgl........................ "
 make                                         >>bug_report 2>&1
 
 # If it compiled
 if test "$?" -eq 0; then
+   echo "[Done]"
+
    # Grab location of xscreensaver dirs (incase they differ in your distro)
-   echo '@@xscreensaver-dirs@@'              >>bug_report 2>&1
+   echo "@@xscreensaver-dirs@@"              >>bug_report 2>&1
+   echo -n "Finding xscreensaver directories.......... "
    find /usr -maxdepth 3                        \
-      -path /usr/sbin    -prune -o              \
-      -path /usr/include -prune -o              \
-      -path /usr/games   -prune -o              \
-      -path /usr/src     -prune -o              \
-      -path /usr/tmp     -prune -o              \
-      -path /usr/portage -prune -o              \
-      -path /usr/kde     -prune -o              \
+      -path /usr/sbin      -prune -o            \
+      -path /usr/include   -prune -o            \
+      -path /usr/games     -prune -o            \
+      -path /usr/src       -prune -o            \
+      -path /usr/tmp       -prune -o            \
+      -path /usr/portage   -prune -o            \
+      -path /usr/kde       -prune -o            \
+      -path /usr/share/doc -prune -o            \
       -name 'xscreensaver*' -type d -print   >>bug_report 2>/dev/null
+   echo "[Done]"
    
    # Now grab fps stats/runtime errors
-   echo '@@fps-stats@@'                      >>bug_report 2>&1
-   ./src/matrixgl -f2                        >>bug_report 2>&1 & 
+   echo "@@fps-stats@@"                      >>bug_report 2>&1
+   exec 2>/dev/null
+   ./src/matrixgl -f2                        >>bug_report 2>&1 &
    PID=$!
-   dialog --clear --pause "Please don't close the matrixgl window, \
-it will close automatically after the timer finishes" 20 80 8
-   clear
-   echo 'WORKING'
-   kill $PID
+   echo -n "Grabbing fps stats........................ "
+   sleep 6
+   kill $PID                                 >/dev/null 2>&1
+   echo "[Done]"
 
    # Grab install errors, if user lets us run it as root
-   dialog --title "Notice" --colors --yes-label "Enter root password" \
---no-label "Continue without root" --yesno "In order for us to \
-catch install errors, and add them to this report, you will need \
-to enter the root password. If you don't want to enter your password, \
-you can continue without it. \n\n\Z1Note: Your password is not  \
-stored or added to the report" 20 80
-   if test $? -eq 0; then 
-      clear
-      echo 'Please enter your root password'
-      su -c "echo '@@install@@' >>bug_report 2>&1 && make install >>bug_report 2>&1 && exit"
-   else 
-      echo '@@install@@' >> bug_report
-      echo 'User refused to give root pass for install' >> bug_report
+   echo " "
+   echo ">>> We need to run as root to check for install errors <<<"
+   echo "Please enter your root password (it is not stored)"
+   echo '@@install@@'                        >>bug_report 2>&1
+   su -c "make install >>bug_report 2>&1" 2>&1
+   if test "$?" -ne 0; then
+      echo 'su returned non-zero status'     >>bug_report 2>&1
    fi
-
+else
+   echo "[Failed]"
 fi
 
-echo '@@FINISHED@@' >> bug_report 2>&1
-
+echo "@@FINISHED@@" >> bug_report 2>&1
 
 
 # All done, give user instructions
-dialog --clear --title "Finished!" \
---msgbox "Bug Report compiled. Please email \
-vincent@doublecreations.com and include a full description of \
-the problem, as well as attaching the file 'bug_report'. \
-\n\nThe file contains no personal information \
-\n\nIf you are a developer, please use the sourceforge \
-tracker system at <http://sf.net/projects/matrixgl/> \
-instead of emailing the report." 20 80
+echo " "
+echo "--------------------------"
+echo "Bug Report compiled. Please email vincent@doublecreations.com"
+echo "and include a full description of the problem, as well as "
+echo "attaching the file 'bug_report'. "
 
-clear
-echo "Email problem to vincent@doublecreations.com and attach \
-the file 'bug_report'"
+echo " "
 echo "Thank you for helping the project :-)"
-
