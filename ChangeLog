@@ -1,3 +1,15 @@
+matrixgl-v2.2.9 (2010/04/20)
+---------------
+. Overhauled bug report script
+	- Dialog no longer required (or used)
+	- Better output and feedback for user
+	- Autotools is only required for snapshots now
+	- Cleaner, and gives better info in the report.
+. Fixed a bug with the windows installer script
+. Removed OSX support from the OpenGL .m4 files
+. Removed conditional OSX includes
+. Added mac/win source to 'make dist' tarball
+
 matrixgl-v2.2.8 (2010/01/30)
 ---------------
 . Autotools scripts now work with 'make dist'
@@ -92,7 +104,7 @@ matrixgl-v2.1  (2009/06/7)
 matrixgl-v2.0.2  (2009/06/4)
 ---------------
 . Added additional install support for openbsd (and other distros that 
-   use alternative xscreensaver directories).
+use alternative xscreensaver directories).
 . Added failure message if we can't find the xscreensaver dirs.
 . Added color option, to change from green to red or blue.
 . Fixed bug with static option not working
@@ -119,7 +131,7 @@ matrixgl-v1.5A (2009/06/2)
 --------------
 . Added xscreensaver support
 . Remove kde support (as xscreensaver can be used in kde/gnome..etc,
-   plus, kde changes the directory structure often)
+plus, kde changes the directory structure often)
 . Started using getopt long, for better arg parsing
 . Added better help description
 . Added manpage
@@ -145,20 +157,20 @@ matrixgl-v1.1A (2009/05/30)
 matrixgl-v1.05A   (2008/10/08)
 -----------------
 . Widescreen support complete
-  - Calculates text_x then allocs the core arrays.
-  - rtext_x maintains the width of the 3D 'images'
+	- Calculates text_x then allocs the core arrays.
+	- rtext_x maintains the width of the 3D 'images'
 . Added header file matrix.h to prototype functions
 . Moved main() to the top 
 . Started editing 3D 'image' data to get seemless edges
-  - The extra columns for widescreen setups makes images
-      that fade at the edges look very lame.
+	- The extra columns for widescreen setups makes images
+	that fade at the edges look very lame.
 
 matrixgl-v1.04A   (2008/09/26)
 -----------------
 . Added widescreen capabilities
-  - 90x70 image shown in center
-  - Regular full-alpha lines scroll the sides
-  - Works for any screen-res, but doesn't detect the res YET
+	- 90x70 image shown in center
+	- Regular full-alpha lines scroll the sides
+	- Works for any screen-res, but doesn't detect the res YET
 . Hide mouse in windows
 . Increased the brightness of green slightly
 . Knoppix.ru shows longer in credits, so it's consistent with 'Double Creations' timing
@@ -190,13 +202,13 @@ matrixgl-v1.01A
 This section highlights changes made from the base knoppix.ru release 1.0
 . Now runs in the desktop's current resolution in *NIX
 . Fixed a mouse bug in Windows that caused it to exit almost immediatly
-   - Note: It appears that only a handful of setups had this bug
+	- Note: It appears that only a handful of setups had this bug
 . Fixed bug regarding a permanant white node in the top left corner
 . Removed FPS stats
 . Removed timing functions and unused variables
 . Removed catching of special keys
 . Removed texture error checking: 
-   - Makes ugly source code, and I don't see it ever failing.
+	- Makes ugly source code, and I don't see it ever failing.
 . Added Classic mode (to disable 3D images, toggle with 's')
 . Added pause functionality (toggle with 'p')
 . Improved 'n' next picture function so that it makes smoother transitions

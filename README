@@ -1,10 +1,10 @@
 matrixgl - Cross-Platform Matrix Screensaver
 ********************************************
-. Version: matrixgl-v2.2.8 (Stable release)
+. Version: matrixgl-v2.2.9 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
-. Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
+. Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008-2010
 . See AUTHORS for a complete list of contributors.
 
 
@@ -40,8 +40,8 @@ compiling yourself.
 
 To extract the source code, fire up a terminal, cd into your download 
 directory and type the following commands:
-   $tar xzf matrixgl-2.2.8-src.tar.gz
-   $cd matrixgl
+   $tar xzf matrixgl-2.2.9.tar.gz
+   $cd matrixgl-2.2.9
 
 Then, to compile and install, run the following commands:
    $./configure
@@ -78,13 +78,14 @@ easy to do, and will also help out other users in the same situation.
 INSTALLING ON MAC OSX
 =====================
 Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
-You can download the mac binary and sources from:
-   http://s.sudre.free.fr/Software/matrixgl.html
+The sourcecode is provided in the macsrc/ directory. You can download the mac
+installer from either
+   http://s.sudre.free.fr/Software/matrixgl.html or
+   http://www.sourceforge.net/projects/matrixgl/
 
-The source is also available in the macsrc/ directory for your convenience.
-Note that compiling the mac version isn't supported by us, although, if you
-run into problems or find a bug, you could report it to Stephane. See the 
-AUTHORS file for contact information.
+Note that compiling the mac version from source isn't supported by us.
+However, if you run into problems or find a bug, you could report it to
+Stephane. See the AUTHORS file for contact information.
 
 
 INSTALLING ON WINDOWS
@@ -94,19 +95,8 @@ follow the instructions. Compiling on windows isn't supported, if you don't
 know how to do it, we can't help you.
 
 Please note that as of December 18th, 2009, the windows version of matrixgl is
-no longer being maintained. However, we still accept contributions relating to
-windows, so long as they are accompanied by a portable compiled binary of the
-updated matrixgl, packaged within an NSIS installer, using the .nsi script
-provided in winsrc/ (i.e the same standard as the current windows installer).
-The resulting binary should then be tested on all versions of windows still in
-major use, and the source of all modifications must be submitted, of course,
-under the GPL. This is a lot easier than it sounds, once everything has been
-set up.
-
-Do note however that the latest windows build is very stable and has no known
-bugs. The development has ceased because the maintainer has stopped using
-non-free software alltogether, and therefore cannot produce new windows builds.
-
+no longer being actively maintained. However, Michael Hartog still makes
+occasional fixes, and the latest windows build is extremely stable.
 
 
 REMOVING MATRIXGL
@@ -139,20 +129,29 @@ drop me a line at vincent@doublecreations.com.
 
 REPORTING BUGS
 ==============
-If you have found a bug in matrixgl, don't worry, it is very easy to report. 
-Open up a terminal and cd into the source directory. Then, as a regular user,
-run '$./gen-bug-report.sh' and follow the instructions. This script will 
-generate a file that will help us to fix bugs. When finished, you can email 
-<vincent@doublecreations.com> with details of the problem. Please attach the 
-bug_report file once it has been generated, it will help us immensely. 
+If you think you have found a bug in matrixgl, or have any problems compiling,
+installing or using it, don't worry, it is very easy to report. To help make it
+easier for us to solve the problem, please follow these steps:
 
-Again, don't worry if you are new to this, if you're not sure if something is 
-a bug, send the report anyway. As a show of our appreciation for your help, 
-we will add you to the AUTHORS file as a tester, if you give us your name/
-nickname (and also your email if you choose).
+1) Open up a terminal and cd into the source directory:
+$cd matrixgl-2.2.9
 
-Please do not send any bug reports to knoppix.ru unless you are using their 
-original version. Any bugs in this version are fully mine.
+2) Then, run our script that generates a bug report for you:
+$./gen-bug-report.sh
+
+The script may ask you for some input, but will run fairly quickly. When it's
+done, it will output the file 'bug_report' that contains extremely useful
+debugging information. Don't worry, it's just a text file, and contains no
+personal information (just open it in a text-editor if you're interested)
+
+3) Email vincent@doublecreations.com with a text description of the problem,
+and attach the file 'bug_report' to the email. Please give us as much detail as
+possible, so that we have a better chance at fixing the problem.
+
+If you're not sure if something is a bug, it probably is, so please send the
+report anyway. As a show of our appreciation for your help, we will add you to
+the AUTHORS file as a tester, if you give us your name (and also your
+email if you choose).
 
 
 SUPPORTED OPERATING SYSTEMS
@@ -166,18 +165,16 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . Windows XP 32 bit
    . Windows Vista 32 bit
    . Windows 7 64 bit
-If you're platform isn't listed, it doesn't mean that it won't work, it just 
-means that it hasn't been tested. If matrixgl works properly on your OS,
-you can email the good news to <vincent@doublecreations.com> and we'll add
-it to the list.
+If you're platform isn't listed, it will likely still work, it just hasn't been
+tested yet. If matrixgl works properly on your OS, you can email the good news
+to <vincent@doublecreations.com> and we'll add it to the list above.
 
 ACKNOWLEDGEMENTS
 ================
-Just a note to put credit where credit is due, I'd like to say that the 
-original screensaver was developed by brothers Alexander and Eugene 
-Zolotov of knoppix.ru. I did not write this screensaver, I merely modified 
-it to my liking, fixing bugs and adding features. But in reality, these are 
-just simple modifications of a complex and brilliantly designed gem of free 
-software :). 
+Just a note to put credit where credit is due, I'd like to say that the
+original screensaver was developed by brothers Alexander and Eugene Zolotov of
+knoppix.ru. I did not write this screensaver, I merely modified it to my
+liking, fixing bugs and adding features. But in reality, these are just simple
+modifications of a complex and brilliantly designed gem of free software :). 
 
 See the file AUTHORS for a full list of acknowledgements and contributors.
