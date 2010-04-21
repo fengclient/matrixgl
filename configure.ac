@@ -1,6 +1,6 @@
 dnl Autoconf file for the matrixgl project 
-dnl Copyright (C) Vincent Launchbury 2009 
-dnl Written By: Vincent Launchbury <vincent@doublecreations.com> 2009.
+dnl Copyright (C) Vincent Launchbury 2009,2010 
+dnl Written By: Vincent Launchbury <vincent@doublecreations.com> 2009-2010.
 dnl -------------------------------------------
 dnl
 dnl This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@ dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
 AC_PREREQ([2.63])
 t://matrixgl.git.sourceforge.net/gitroot/matrixgl
-AC_INIT([matrixgl], [2.2.8], [vincent@doublecreations.com])
+AC_INIT([matrixgl], [2.2.9], [vincent@doublecreations.com])
 AC_COPYRIGHT([Parts Copyright (C) Vincent Launchbury 2009,2010])
 AC_CONFIG_AUX_DIR([build])
 AM_INIT_AUTOMAKE([-Wall -Werror])
