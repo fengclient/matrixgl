@@ -47,14 +47,41 @@ AC_CHECK_FUNCS([memset])
 
 
 dnl X11 Lib
-AC_PATH_X
-AC_CHECK_LIB([X11], [XOpenDisplay],, 
-             [AC_CHECK_HEADERS(X11/Xlib.h,,
-              [echo "Error: X11 not found";exit 1])]
-)
+AC_PATH_X([X11], [X11/Xlib.h], [XOpenDisplay])
+if test "$no_x" = "yes"; then
+   echo "***************************************************************"
+   echo "FATAL ERROR: X11 header files and/or libraries cannot be found."
+   echo "They are sometimes in a seperate 'dev' package (e.g libx11-dev)."
+   echo "Check the dependencies section of the README file for more"
+   echo "information."
+   echo "***************************************************************"
+   exit 1
+fi
+AC_SUBST(x_includes)
+AC_SUBST(x_libraries)
 
 dnl Opengl stuff
 AX_CHECK_GLU
+
+if test "$no_gl" = "yes"; then
+   echo "***************************************************************"
+   echo "FATAL ERROR: OpenGL header files and/or libraries cannot be found."
+   echo "They are sometimes in a seperate 'dev' package (e.g mesa-common-dev"
+   echo "or libgl1-mesa-dev). Check the dependencies section of the README "
+   echo "file for more information."
+   echo "***************************************************************"
+   exit 1
+fi
+if test "$no_glu" = "yes"; then
+   echo "***************************************************************"
+   echo "FATAL ERROR: The OpenGL Utility Library (GLU) header files and/or"
+   echo "libraries cannot be found. They are sometimes in a seperate 'dev'"
+   echo "package (e.g libglu1-mesa-dev). Check the dependencies section of"
+   echo "the README file for more information."
+   echo "***************************************************************"
+   exit 1
+fi
+
 
 dnl Let user disable xscreensaver support
 AC_ARG_ENABLE(xscreensaver,
@@ -132,3 +159,7 @@ fi
 dnl And we're done
 AC_OUTPUT
 
+dnl Output a success message
+echo "----------------------------------------------------------"
+echo "Package configuration was successful, type 'make' to build"
+echo "----------------------------------------------------------"
