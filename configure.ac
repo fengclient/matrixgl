@@ -37,6 +37,18 @@ AM_PROG_CC_C_O
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 
+dnl We need a cpp compiler to link libglu
+AC_PROG_CXX
+if test -z "$ac_ct_CXX"; then
+   echo "***************************************************************"
+   echo "FATAL ERROR: A c++ compiler cannot be found on your system."
+   echo "You will need to install one for matrixgl to work. Check your "
+   echo "package manager for g++ or similar. Check the dependencies"
+   echo "section of the README file for more information."
+   echo "***************************************************************"
+   exit 1
+fi
+
 dnl Headers
 AC_HEADER_STDC
 
@@ -48,7 +60,7 @@ AC_CHECK_FUNCS([memset])
 
 dnl X11 Lib
 AC_PATH_X([X11], [X11/Xlib.h], [XOpenDisplay])
-if test "$no_x" = "yes"; then
+if test "X$no_x" = "Xyes"; then
    echo "***************************************************************"
    echo "FATAL ERROR: X11 header files and/or libraries cannot be found."
    echo "They are sometimes in a seperate 'dev' package (e.g libx11-dev)."
@@ -63,7 +75,7 @@ AC_SUBST(x_libraries)
 dnl Opengl stuff
 AX_CHECK_GLU
 
-if test "$no_gl" = "yes"; then
+if test "X$no_gl" = "Xyes"; then
    echo "***************************************************************"
    echo "FATAL ERROR: OpenGL header files and/or libraries cannot be found."
    echo "They are sometimes in a seperate 'dev' package (e.g mesa-common-dev"
@@ -72,7 +84,7 @@ if test "$no_gl" = "yes"; then
    echo "***************************************************************"
    exit 1
 fi
-if test "$no_glu" = "yes"; then
+if test "X$no_glu" = "Xyes"; then
    echo "***************************************************************"
    echo "FATAL ERROR: The OpenGL Utility Library (GLU) header files and/or"
    echo "libraries cannot be found. They are sometimes in a seperate 'dev'"
