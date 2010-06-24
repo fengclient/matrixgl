@@ -1,6 +1,12 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.3
+--------------
+. Fixed configure script to fail when dependencies aren't met
+. Added section on dependencies to the README
+. Added more verbose error messages when the configure script fails
+
 Changes in 2.2.9
 ----------------
 . Win/mac source code is now properly included in the release tarball.

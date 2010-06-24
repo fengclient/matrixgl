@@ -1,15 +1,30 @@
 matrixgl - Cross-Platform Matrix Screensaver
 ********************************************
-. Version: matrixgl-v2.2.9 (Stable release)
+. Version: matrixgl-v2.3 (Stable release)
 . Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
 . Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
         and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
 . Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008-2010
 . See AUTHORS for a complete list of contributors.
 
+TABLE OF CONTENTS
+=================
+ 1. Introduction
+ 2. Additonal Documentation
+ 3. Dependencies for *NIX
+ 4. Compiling and Installing on *NIX
+ 5. Installing on Mac OSX
+ 6. Installing on Windows
+ 7. Removing matrixgl
+ 8. Screensaver keys
+ 9. Comments/Suggestions
+10. Reporting Bugs
+11. Supported Operating Systems
+12. Acknowledgements
 
-INTRODUCTION
-============
+
+1. INTRODUCTION
+===============
 The matrixgl 2.x series is based on the original version 1.0 screensaver from 
 Knoppix.ru. It was written by brothers Alexander and Eugene Zolotov back in 
 2003. Vincent Launchbury is now maintaining the project, with the goals of:
@@ -18,8 +33,8 @@ Knoppix.ru. It was written by brothers Alexander and Eugene Zolotov back in
    * Adding new features and a larger variety of images.
 
 
-ADDITIONAL DOCUMENTATION 
-========================
+2. ADDITIONAL DOCUMENTATION 
+===========================
 AUTHORS           - A list of authors and contributors
 COPYING           - License for this software (GPL V2)
 ChangeLog         - A complete changelog, for developers
@@ -32,8 +47,55 @@ Sourceforge Site: http://www.sourceforge.net/projects/matrixgl/
 Git Repository  : http://matrixgl.git.sourceforge.net/git/gitweb.cgi?p=matrixgl/matrixgl
 
 
-COMPILING AND INSTALLING ON *NIX
-================================
+3. DEPENDENCIES FOR *NIX
+=========================
+The Mac and Windows builds handle dependencies automatically. For all other
+*NIX (i.e Linux, BSD, Solaris, etc), you'll need the following packages
+for matrixgl to compile and run. If you're not sure what you have, skip ahead
+to section 4 below, and follow the instructions. If you're missing something,
+the 'configure' script will fail, and tell you what you're missing. You can
+then refer back to this section for more details.
+
+i) XLib + development files
+      You need to have the X11 libaries and header files. Some distros split
+      the header files off into a seperate 'devel' package, so if you have X11,
+      you might not everything required. Look through your package manager for
+      names including 'xlib', 'libx11' and 'xorg', and read the descriptions.
+         - Ubuntu packages: libx11-dev
+
+ii) OpenGL + development files
+      As with XLib, OpenGL header files aren't always included by default. Look
+      through your package manager for names including 'libgl', 'mesa', and
+      'opengl', and read the descriptions to find the right ones.
+         - Ubuntu packages: mesa-common-dev, libgl1-mesa-dev
+
+iii) OpenGL Utility Library (GLU) + development files)
+      You'll also need the header files and libraries for GLU. Look through
+      your package manager for names including 'glu', 'mesa' and 'libglu', and
+      read the descriptions to find the right ones.
+         - Ubuntu packages: libglu1-mesa-dev
+
+iv) A c++ compiler
+      You'll need a c++ compiler (to link the GLU library). One example is g++,
+      which is bundled with gcc on some platforms. If you don't have one (the
+      configure script in section 4 below, will tell you), look through your
+      package manager for names including 'g++', 'gcc', or things mentioning
+      the GNU Compiler Collection. If gcc isn't supported on your platform,
+      another c++ compiler will surfice.
+         - Ubuntu packages: g++
+
+v) xscreensaver (OPTIONAL)
+      Xscreensaver is an optional dependency, but without it, you may not be
+      able to run matrixgl properly as a screensaver. It is highly recommended
+      that you use xscreensaver, as it is a fantastic manager. See section 4,
+      further down, to see how you can disable xscreensaver support.
+
+If you find that package names are different for your distro, please send me a
+list to vincent@doublecreations.com so that I can update this README.
+   
+
+4. COMPILING AND INSTALLING ON *NIX
+====================================
 Packages for *NIX aren't currently provided. You could always ask your distros 
 development team to add matrixgl to their repositories, if you don't like 
 compiling yourself. 
@@ -75,8 +137,8 @@ a bug report (described below), and we will get it working for you. It's
 easy to do, and will also help out other users in the same situation.
 
 
-INSTALLING ON MAC OSX
-=====================
+5. INSTALLING ON MAC OSX
+========================
 Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
 The sourcecode is provided in the macsrc/ directory. You can download the mac
 installer from either
@@ -88,8 +150,8 @@ However, if you run into problems or find a bug, you could report it to
 Stephane. See the AUTHORS file for contact information.
 
 
-INSTALLING ON WINDOWS
-=====================
+6. INSTALLING ON WINDOWS
+========================
 To run on windows, download the installer from the project website. Run it and
 follow the instructions. Compiling on windows isn't supported, if you don't
 know how to do it, we can't help you.
@@ -99,8 +161,8 @@ no longer being actively maintained. However, Michael Hartog still makes
 occasional fixes, and the latest windows build is extremely stable.
 
 
-REMOVING MATRIXGL
-=================
+7. REMOVING MATRIXGL
+====================
 In *NIX, to remove any files that may have been added, simply run 
 '#make uninstall' in the source directory, as root.
 
@@ -111,8 +173,8 @@ In Windows, to uninstall, open the start menu and go into
 then click on "uninstall matrixgl" and follow the instructions.
 
 
-SCREENSAVER FUNCTIONS/KEYS
-==========================
+8. SCREENSAVER FUNCTIONS/KEYS
+=============================
 p - Pause Screensaver at any time
 c - View 3D-text credits
 s - Toggle classic mode (no 3D images)
@@ -121,14 +183,14 @@ n - Cycle through to next image (when not in classic mode)
 Note: These keys don't work with xscreensaver, see manpage for details.
 
 
-COMMENTS AND SUGGESTIONS
-========================
+9. COMMENTS AND SUGGESTIONS
+===========================
 All comments and suggestions are fully welcome. If you have anything to say,
 drop me a line at vincent@doublecreations.com. 
 
 
-REPORTING BUGS
-==============
+10. REPORTING BUGS
+==================
 If you think you have found a bug in matrixgl, or have any problems compiling,
 installing or using it, don't worry, it is very easy to report. To help make it
 easier for us to solve the problem, please follow these steps:
@@ -154,8 +216,8 @@ the AUTHORS file as a tester, if you give us your name (and also your
 email if you choose).
 
 
-SUPPORTED OPERATING SYSTEMS
-===========================
+11. SUPPORTED OPERATING SYSTEMS
+===============================
 matrixgl has been tested and confirmed to fully work on the following platforms:
    . GNU/Linux: Gentoo
    . GNU/Linux: Ubuntu
@@ -169,8 +231,8 @@ If you're platform isn't listed, it will likely still work, it just hasn't been
 tested yet. If matrixgl works properly on your OS, you can email the good news
 to <vincent@doublecreations.com> and we'll add it to the list above.
 
-ACKNOWLEDGEMENTS
-================
+12. ACKNOWLEDGEMENTS
+====================
 Just a note to put credit where credit is due, I'd like to say that the
 original screensaver was developed by brothers Alexander and Eugene Zolotov of
 knoppix.ru. I did not write this screensaver, I merely modified it to my
