@@ -57,10 +57,11 @@ the 'configure' script will fail, and tell you what you're missing. You can
 then refer back to this section for more details.
 
 i) XLib + development files
-      You need to have the X11 libaries and header files. Some distros split
-      the header files off into a seperate 'devel' package, so if you have X11,
-      you might not everything required. Look through your package manager for
-      names including 'xlib', 'libx11' and 'xorg', and read the descriptions.
+      You need to have the X11 libraries and header files. Some distros split
+      the header files off into a separate 'devel' package, so if you have X11,
+      you might not have everything required. Look through your package manager
+      for names including 'xlib', 'libx11' and 'xorg', and read the
+      descriptions.
          - Ubuntu packages: libx11-dev
 
 ii) OpenGL + development files
@@ -81,7 +82,7 @@ iv) A c++ compiler
       configure script in section 4 below, will tell you), look through your
       package manager for names including 'g++', 'gcc', or things mentioning
       the GNU Compiler Collection. If gcc isn't supported on your platform,
-      another c++ compiler will surfice.
+      another c++ compiler will suffice.
          - Ubuntu packages: g++
 
 v) xscreensaver (OPTIONAL)
