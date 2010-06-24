@@ -103,8 +103,8 @@ compiling yourself.
 
 To extract the source code, fire up a terminal, cd into your download 
 directory and type the following commands:
-   $tar xzf matrixgl-2.2.9.tar.gz
-   $cd matrixgl-2.2.9
+   $tar xzf matrixgl-2.3.tar.gz
+   $cd matrixgl-2.3
 
 Then, to compile and install, run the following commands:
    $./configure
@@ -197,7 +197,7 @@ installing or using it, don't worry, it is very easy to report. To help make it
 easier for us to solve the problem, please follow these steps:
 
 1) Open up a terminal and cd into the source directory:
-$cd matrixgl-2.2.9
+$cd matrixgl-2.3
 
 2) Then, run our script that generates a bug report for you:
 $./gen-bug-report.sh
