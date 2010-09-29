@@ -1,3 +1,8 @@
+matrixgl-v2.3.1 (not yet released)
+---------------
+- Fullscreen option w/o xscreensaver is now proper fullscreen
+- The '--root' option is now different from '--fs'
+
 matrixgl-v2.3	 (2010/06/23)
 -------------
 . Fixed configure script to fail when dependencies aren't met

@@ -31,6 +31,7 @@
    #include <windows.h>
 #else /* NIX_MODE */
    #include <X11/Xlib.h>
+   #include <X11/Xutil.h>
    #define __USE_XOPEN_EXTENDED
    #include <unistd.h>
    #include <getopt.h>
@@ -60,7 +61,6 @@
 #define abs(a) (((a)>0)?(a):(-(a)))
 
 /* Global Variables */
-float Z_Off = -89.0f;
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
 #define rtext_x 90
 #define _rtext_x rtext_x/2
@@ -86,7 +86,6 @@ GLenum color=GL_GREEN;     /* Color of text */
 
 #ifdef NIX_MODE
 Display                 *dpy;
-Window                  root;
 GLint                   att[] = {GLX_RGBA, GLX_DOUBLEBUFFER, None};
 XVisualInfo             *vi;
 XWindowAttributes       gwa;
@@ -164,7 +163,7 @@ int main(int argc,char **argv)
    int i=0,a=0,s=0;
    int opt;
    short allowroot=0; /* If they insist... */
-   int wuse=2;        /* Window method 2-windowed, 1-fs, 0-preview */
+   enum {PREVIEW, ROOT, FS, WINDOWED} wuse=WINDOWED; /* Windown type */
    Window wid=0;      /* ID of window, used to grab preview size */
 
    static struct option long_opts[] =
@@ -175,7 +174,7 @@ int main(int argc,char **argv)
       {"help",      no_argument,       0, 'h'},
       {"version",   no_argument,       0, 'v'},
       {"window-id", required_argument, 0, 'W'},
-      {"root",      no_argument,       0, 'F'},
+      {"root",      no_argument,       0, 'R'},
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
       {"allow-root",no_argument,       0, 'Z'},
@@ -185,7 +184,7 @@ int main(int argc,char **argv)
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "schvl:f::C:FW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "schvl:f::C:FRW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'Z':
@@ -193,11 +192,13 @@ int main(int argc,char **argv)
             allowroot=1;
             break;
          case 'W':
-            wuse=0;
+            wuse=PREVIEW;
             wid=htoi(optarg);
             break;
+         case 'R':
+            wuse=ROOT;
          case 'F':
-            wuse=1;
+            wuse=FS;
             break;
          case 's':
             pic_fade=0;
@@ -288,32 +289,58 @@ bug report.\n",
 
 
 #ifdef NIX_MODE
-   /* Set up X Window */
+   /* Set up X Window stuff */
    dpy = XOpenDisplay(NULL);
    if(dpy == NULL) {
       fprintf(stderr, "Can't connect to X server\n");
       exit(EXIT_FAILURE); 
    }
-   root = DefaultRootWindow(dpy);
-   vi = glXChooseVisual(dpy, 0, att);
-   swa.colormap = XCreateColormap(dpy, root, vi->visual, AllocNone);
    swa.event_mask = KeyPressMask;
+   /* Bypass window manager for fullscreen */
+   swa.override_redirect = (wuse==FS)?1:0;
+
+   /* Use screen dimensions */
    y = DisplayHeight(dpy, DefaultScreen(dpy));
    x = DisplayWidth(dpy, DefaultScreen(dpy));
+
    /* Take height of preview win in xscreensaver */
-   if (!wuse) {
+   if (wuse==PREVIEW) {
       XGetWindowAttributes(dpy, wid, &gwa);
       x = gwa.width;
       y = gwa.height;
-   }
-   if (wuse==2) {
+   /* Or scale down for windowed mode */
+   } else if (wuse==WINDOWED) {
       x/=2;
       y/=2;
    }
-   win = XCreateWindow(dpy, root, 0, 0, x, y, 0, vi->depth, InputOutput, 
-       vi->visual, CWColormap | CWEventMask, &swa);
-   XMapWindow(dpy, win);
-   XStoreName(dpy, win, "Matrixgl Screensaver");
+
+   /* Create window, and map it */
+   win = XCreateWindow(dpy, DefaultRootWindow(dpy),
+       0, 0, x, y, 0, 0, InputOutput, 
+       CopyFromParent, CWEventMask | CWOverrideRedirect, &swa);
+   XMapRaised(dpy, win);
+
+   /* Handle fullscreen.. */
+   if (wuse==FS) {
+      Pixmap blank;
+      Cursor cursor;
+      XColor c;
+      
+      /* Since we bypassed the window manager, 
+       * we have to steal keyboard control */
+      XGrabKeyboard(dpy, win, 1, GrabModeSync, GrabModeAsync, CurrentTime);
+
+      /* X has no function to hide the cursor, 
+       * so we have to create a blank one */
+      blank = XCreatePixmapFromBitmapData(dpy, win,"\000", 1, 1, 0, 0, 1);
+      cursor = XCreatePixmapCursor(dpy, blank, blank, &c, &c, 0, 0);
+      XFreePixmap (dpy, blank);
+      XDefineCursor(dpy, win, cursor);
+   }
+   XStoreName(dpy, win, "Matrixgl " VERSION);
+
+   /* Set up glX */
+   vi = glXChooseVisual(dpy, 0, att);
    glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
    glXMakeCurrent(dpy, win, glc);
 #endif /* NIX_MODE */
@@ -334,7 +361,6 @@ bug report.\n",
    text_light = tmalloc(text_x*(text_y+1));
    bump_pic = tmalloc(sizeof(float) * (text_x*(text_y+1)));
    memset(text_light, 253, text_x*(text_y+1));
-   /* End allocations */
 
    /* Init the light tables */
    mode2=0;
@@ -381,8 +407,11 @@ bug report.\n",
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
          cbKeyPressed(get_ascii_keycode(&xev),0,0);
       }
+
+      /* Update viewport on window size change */
       XGetWindowAttributes(dpy, win, &gwa);
       glViewport(0, 0, gwa.width, gwa.height);
+
       /* Render frame */
       cbRenderScene();
       usleep(sleeper);
@@ -404,8 +433,6 @@ bug report.\n",
 #endif /* WIN32_MODE */
    return 0;
 }
-
-
 
 
 /* Draw character #num on the screen. */
@@ -571,7 +598,7 @@ nix_static void cbRenderScene(void)
       GL_NEAREST_MIPMAP_LINEAR);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
-   glTranslatef(0.0f,0.0f,Z_Off);
+   glTranslatef(0.0f,0.0f,-89.0F);
    glClear(GL_COLOR_BUFFER_BIT);
 
    glBegin(GL_QUADS); 
