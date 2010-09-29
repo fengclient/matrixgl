@@ -1,6 +1,7 @@
 TODO
 . Catch X11 mousemove event to exit, incase xscreensaver isn't used
 . autoconf overhaul (in progress)
+. Rewrite smarter frame-limiting option (and update man-page after)
 . Find a way to install into xscreensaver-demo list for all users,
    so that ./add-user-entry equivilent can be run automatically 
    by 'make install'.
