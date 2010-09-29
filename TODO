@@ -1,6 +1,5 @@
 TODO
 . Catch X11 mousemove event to exit, incase xscreensaver isn't used
-. Image fixup (in progress)
 . autoconf overhaul (in progress)
 . Find a way to install into xscreensaver-demo list for all users,
    so that ./add-user-entry equivilent can be run automatically 

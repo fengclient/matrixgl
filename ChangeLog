@@ -2,6 +2,7 @@ matrixgl-v2.3.1 (not yet released)
 ---------------
 - Fullscreen option w/o xscreensaver is now proper fullscreen
 - The '--root' option is now different from '--fs'
+- Fixed widescreen gaps in neo-guns image
 
 matrixgl-v2.3	 (2010/06/23)
 -------------
