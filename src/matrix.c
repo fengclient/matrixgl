@@ -172,8 +172,6 @@ int main(int argc,char **argv)
       {"static",    no_argument,       0, 's'},
       {"credits",   no_argument,       0, 'c'},
       {"color",     required_argument, 0, 'C'},
-      {"install",   no_argument,       0, 'i'},
-      {"remove",    no_argument,       0, 'u'},
       {"help",      no_argument,       0, 'h'},
       {"version",   no_argument,       0, 'v'},
       {"window-id", required_argument, 0, 'W'},
@@ -187,7 +185,7 @@ int main(int argc,char **argv)
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "sciuhvl:f::C:FW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "schvl:f::C:FW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'Z':
