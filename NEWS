@@ -3,6 +3,7 @@ See ChangeLog for a more detailed log of changes, geared toward developers
 
 Changes in 2.3.1
 ----------------
+. Added two new 3D images courtsey of Chris_C
 . Fixed some issues with gaps in some of the images with widescreens
 . The fullscreen option now does proper fullscreen in X11 (this has absolutely
 nothing to do with xscreensaver fullscreen.)
