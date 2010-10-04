@@ -80,7 +80,7 @@ int pic_mode=1;            /* 1-fade in; 2-fade out (controls pic_fade) */
 int pic_fade=0;            /* Makes all chars lighter/darker */
 int classic=0;             /* classic mode (no 3d) */
 int paused=0;
-int num_pics=9 -1;         /* # 3d images (0 indexed) */
+int num_pics=11 -1;         /* # 3d images (0 indexed) */
 GLenum color=GL_GREEN;     /* Color of text */
 
 
