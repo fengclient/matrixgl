@@ -1,9 +1,9 @@
-.TH MATRIXGL "1" "September 29th, 2010" "matrixgl 2.3.1" "Matrixgl - The 3D Matrix Screensaver"
+.TH MATRIXGL "1" "October 13th, 2010" "matrixgl 2.3.1" "Matrixgl - The 3D Matrix Screensaver"
 
 .SH NAME
 matrixgl - 3D matrix screensaver
 .SH SYNOPSIS
-.B matrixgl [\fI-CcFfhlsv\fR]
+.B matrixgl [\fI\-CcFfhlsv\fR]
 .SH DESCRIPTION
 Matrixgl is a 3D matrix screensaver based on The Matrix Reloaded. It features
 the green scrolling text (or digital rain), that wraps around 3D
@@ -11,44 +11,44 @@ representations of different characters from the series.
 .P
 Mandatory arguments to long options are mandatory for short options too.
 .TP 5
--C --color=COL
+\-C \-\-color=COL
 Set color of the falling text. COL must be `green', `red' or `blue'.
 .TP
--c --credits
-Show the credits on startup. This option will have no effect if used with --static.
+\-c \-\-credits
+Show the credits on startup. This option will have no effect if used with \-\-static.
 .TP
--F --fs --fullscreen
+\-F \-\-fs \-\-fullscreen
 Run in fullscreen, when run from a terminal. Do not use with xscreensaver (see
--root)
+\-root)
 .TP
--f --fps[=SEC]
+\-f \-\-fps[=SEC]
 Print FPS stats to the terminal every SEC seconds. SEC is clamped to the range
 [1,20] and defaults to 2 if not given. Note that the first few stats may be
 inaccurate due to startup delays.
 .TP
--h --help
+\-h \-\-help
 Display a help message and exit.
 .TP
--l --limit=LIM
+\-l \-\-limit=LIM
 Limit the framerate to LIM fps, or as close to it as possible. The default is
 32fps, and LIM is clamped to the range [1,200]. \fINote\fR: This feature is
 currently poorly implemented, and may either take a long time to slow the frame
 rate, or not slow it enough.
 .TP
--s --static
+\-s \-\-static
 Enable static mode, which disables the display of 3D images. This mimics the
 style of the scrolling text from the original film.
 .TP
--v --version
+\-v \-\-version
 Output version and author information and exit.
 .TP
---allow-root
+\-\-allow\-root
 Allow matrixgl to be run by the root user, if you really want to do so. Disabled
 by default as a safeguard.
 .TP
---root
+\-\-root
 Attach to the root window for xscreensaver. This option is set by default
-(see xscreensaver-demo > Matrixgl > Settings > Advanced.)
+(see xscreensaver\-demo > Matrixgl > Settings > Advanced.)
 .P
 Note: Long options may be passed with a single dash.
 
@@ -78,7 +78,7 @@ using a different screensaver manager (like the ones shipped with KDE or GNOME.)
 Written by  Alexander Zolotov  <nightradio@gmail.com> 2003
       and   Eugene Zolotov     <sentinel@knoppix.ru> 2003
 .br
-Modified by Vincent Launchbury <vincent@doublecreations.com> 2008-2010
+Modified by Vincent Launchbury <vincent@doublecreations.com> 2008\-2010
 
 .SH REPORTING BUGS
 Report matrixgl bugs to <vincent@doublecreations.com>
