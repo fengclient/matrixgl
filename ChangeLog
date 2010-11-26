@@ -4,6 +4,8 @@ matrixgl-v2.3.1 (not yet released)
 - The '--root' option is now different from '--fs'
 - Fixed widescreen gaps in neo-guns image
 - Added two new 3D images by Chris_C
+- Updated manpage to fix a groff hypen/minus-sign issue
+- Removed bogus entry from src/Makefile.am (until autoconf rewrite is done)
 
 matrixgl-v2.3	 (2010/06/23)
 -------------
