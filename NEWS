@@ -7,6 +7,7 @@ Changes in 2.3.1
 . Fixed some issues with gaps in some of the images with widescreens
 . The fullscreen option now does proper fullscreen in X11 (this has absolutely
 nothing to do with xscreensaver fullscreen.)
+. Fixed linker issue that caused compilation failures on Debian/Ubuntu/Mint
 
 Changes in 2.3
 --------------

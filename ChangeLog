@@ -1,4 +1,4 @@
-matrixgl-v2.3.1 (not yet released)
+matrixgl-v2.3.1 (2013/12/27)
 ---------------
 - Fullscreen option w/o xscreensaver is now proper fullscreen
 - The '--root' option is now different from '--fs'
@@ -6,6 +6,8 @@ matrixgl-v2.3.1 (not yet released)
 - Added two new 3D images by Chris_C
 - Updated manpage to fix a groff hypen/minus-sign issue
 - Removed bogus entry from src/Makefile.am (until autoconf rewrite is done)
+- Fixed linker bug where libraries where in LDFLAGS instead of LDADD, which
+caused compilation failures on recent versions of Debian/Ubuntu/Mint
 
 matrixgl-v2.3	 (2010/06/23)
 -------------
