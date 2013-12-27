@@ -15,5 +15,5 @@ noinst_HEADERS = matrix.h matrix1.h matrix2.h vroot.h
 
 # Now make sure it finds Xlib and GL/GLU
 matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W @x_includes@ @GLU_CFLAGS@
-matrixgl_LDFLAGS = -lm -lX11 @GLU_LIBS@ 
+matrixgl_LDADD = -lm -lX11 @GLU_LIBS@
 
