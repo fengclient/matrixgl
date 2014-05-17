@@ -26,7 +26,8 @@ AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_SRCDIR([src/matrix.c])
 AC_CONFIG_HEADERS([src/config.h])
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+                 docs/Makefile])
 dnl /usr/local doesn't work on some distros I tested,
 dnl  also fixes the man issue.
 AC_PREFIX_DEFAULT([/usr])

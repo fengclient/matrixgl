@@ -18,3 +18,8 @@
 
 # Man page
 dist_man_MANS = matrixgl.1
+# Info page (does html/pdf/ps/..etc automatically)
+info_TEXINFOS = matrixgl.texi
+
+# Make HTML documentation single-page
+AM_MAKEINFOHTMLFLAGS = --no-headers --no-split

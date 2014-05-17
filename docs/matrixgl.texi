@@ -1,0 +1,273 @@
+\input texinfo
+@c Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014 Vincent Launchbury
+@c
+@c This program is free software; you can redistribute it and/or modify
+@c it under the terms of the GNU General Public License as published by
+@c the Free Software Foundation; either version 2 of the License, or
+@c (at your option) any later version.
+@c
+@c This program is distributed in the hope that it will be useful,
+@c but WITHOUT ANY WARRANTY; without even the implied warranty of
+@c MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+@c GNU General Public License for more details.
+@c
+@c You should have received a copy of the GNU General Public License along
+@c with this program; if not, write to the Free Software Foundation, Inc.,
+@c 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+@c
+@c ------------------------------------------------------------
+@c
+@c This file is hand-written, but is used to generate:
+@c          - Info documentation for the info(1) reader
+@c          - HTML hyperlinked/single-page documentation
+@c          - PDF documentation
+@c          - Postscript documentation
+@c          - DVI documentation
+@c
+@c The manpage `matrixgl.1' is separate from this, and is also hand-written.
+@c If you update something here, check the manpage as well.
+@c
+@c There are a few things to note about this file:
+@c    1) It can be much more detailed than the manpage, feel free to add new
+@c       sections, chapters etc. Just keep things organized.
+@c    2) Make good use of @cindex so people can quickly find things
+@c    3) Use @node, it is essential for HTML/info navigation
+@c    4) For further info, the texinfo manual is a good resource:
+@c
+@c          http://www.gnu.org/software/texinfo/manual/texinfo/
+@c
+@setfilename matrixgl.info
+@settitle matrixgl - 3D Matrix Screensaver
+
+
+@dircategory matrixgl - 3D Matrix Screensaver
+@direntry
+* matrixgl: (matrixgl). A 3D Matrix Screensaver
+@end direntry
+
+@c automake will notice this line and generate the file for us
+@include version.texi
+
+@titlepage
+@sp 10
+@center @titlefont{matrixgl - 3D Matrix Screensaver}
+@page
+@c Push copyright notice to the bottom of the page
+@vskip 0pt plus 1filll
+This manual is for matrixgl @value{VERSION}, released on @value{UPDATED}.
+
+Copyright @copyright{} 2009, 2010, 2011, 2012, 2013, 2014 Vincent Launchbury
+
+
+You can redistribute and/or modify this manual under the terms of the GNU
+General Public License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+@end titlepage
+
+@node Top, Introduction,,
+
+@menu
+* Introduction::     A brief summary and history of matrixgl
+* Options::          A detailed description of the available options
+* Keys::             A summary of in-screensaver options
+* Copyright::        Authors and copyright information
+* Index::            This index has two entries.
+@end menu
+
+@contents
+
+@node    Introduction, Options, Top, Top
+@cindex  Introduction
+@chapter Introduction
+@section What is MatrixGL?
+Matrixgl is a 3D matrix screensaver based on the digital rain scenes from
+@emph{The Matrix Reloaded}. It features the green scrolling text (or digital
+rain) that wraps around 3D representations of different characters from the
+series.
+
+Matrixgl is cross-platform; it runs on GNU/Linux, BSD, Mac OSX and Windows. For
+Windows, we provide an installer and configuration program, due to the
+difficulty of compiling from source on that platform. For Mac OSX, there is a
+separate Objective-C port; the C version compiles and runs on OSX, but the
+Objective-C screensaver API must be used to integrate with the OSX screensaver
+framework. For GNU/Linux, BSD and other Unix-like platforms, matrixgl can be
+easily compiled from source to run as a standalone screensaver, or via
+XScreenSaver.
+
+@cindex  History
+@section History
+Matrixgl was written in 2003 by Russian brothers Alexander and Eugene Zolotov.
+It begun as a cross-platform screensaver loosely based on the digital rain
+scenes from @emph{The Matrix Reloaded}, the second film in the Matrix trilogy.
+It was among the first of the Matrix insipired screensavers to have a 3D effect
+of the digital rain wrapping around the faces of characters from the films.
+
+In early 2008, Vincent Launchbury took over the maintainance of matrixgl,
+implementing widescreen support, switching to the modern GNU build system,
+adding XScreenSaver support, fixing several bugs and implementing several new
+options.
+
+@node    Options, Keys, Introduction, Top
+@cindex  Options
+@chapter Options
+
+@cindex Command Line Options
+@section Command Line Options
+@cindex Notes on Specifying Options
+@subsection Notes on Specifying Options
+Matrixgl parses command line options using the standard getopt library; it
+behaves like most other command line tools. Most options have short options
+(single character flags) as well as long options. Mandatory arguments to long
+options are mandatory for short options too. In addition, long options may be
+passed with a single dash.
+
+When running via XScreenSaver, you can use `xscreensaver-demo > Matrixgl >
+Settings > Advanced' to manually set options that aren't presented in the
+configuration dialog.
+
+@subsection List of Options
+@table @option
+
+@cindex --color
+@cindex Font color
+@item -C --color=COL
+Set the color of the falling text. COL must be `green', `red' or `blue'. The
+reason it is limited to these colors is that the font data specifies values for
+only one component of each RGB pixel. The component can be interpreted as being
+either red, green or blue, with the other components set to zero.
+
+@cindex Credits
+@cindex --credits
+@item -c --credits
+Specify this option to show the credit screens when the screensaver is first
+started. Note that this option has no effect if used with @code{--static}, as
+that flag disables 3D effects.
+
+The first credit screen shows KNOPPIX.RU, the website of the original authors
+of matrixgl. The second screen shows DoubleCreations, a moniker of the current
+maintainer.
+
+@cindex Fullscreen
+@cindex --fullscreen
+@item -F --fs --fullscreen
+Run in proper fullscreen mode, bypassing the window manager to draw a real
+fullscreen window and take full keyboard control. Note that this mode is
+incompatible with XScreenSaver, where the @code{--root} option should be used
+instead.
+
+@cindex Frames Per Second
+@cindex FPS
+@cindex --fps
+@item -f --fps[=SEC]
+Print FPS (frames per second) statistics to the terminal every SEC seconds. SEC
+is clamped to a range of [1,20] and defaults to 1 if not specified. Note that
+startup delays will likely cause the first few FPS stats to to be lower than
+usual.
+
+@cindex Usage Summary
+@cindex --help
+@item -h --help
+Print a help message and usage summary to the terminal, and then exit.
+
+@cindex Frame Limiting
+@cindex --limit
+@item -l --limit=LIM
+Limit the framerate to LIM fps, or as close to it as possible. The default
+frame limit is 32fps, and LIM is clamped to the range [1,200]. Frame limiting
+works by constantly monitoring the frame rate, and periodically adjusting a
+per-frame sleep value (which is of course zero if the hardware can't keep up.)
+
+@cindex Static Mode
+@cindex --static
+@item -s --static
+Enable static mode, which disables 3D effects such as the 3D credits and the
+wrapping of the scrolling text (or digital rain) around characters from
+@emph{The Matrix}.
+
+@cindex Version
+@cindex --version
+@item -v --version
+Print version and author information to the terminal, and then exit.
+
+@cindex Allow Running as root
+@cindex --allow-root
+@item --allow-root
+Allow matrixgl to be run by the root user, if you really want to do so.
+Disabled by default as a safeguard.
+
+@cindex Attach to the Root Window
+@cindex --root
+@item --root
+Attach to the root window for XScreenSaver. This option is set by default when
+running via XScreenSaver (see xscreensaver-demo > Matrixgl > Settings >
+Advanced.)
+
+When you run XScreenSaver, it creates a fullscreen "root" window for you. This
+option simply makes matrixgl draw to that window instead of creating a full
+screen window itself. In other words, this is required for XScreenSaver.
+
+@cindex Window ID
+@cindex --window-id
+@item --window-id=ID
+Take the width and height dimensions from the window specified by the X window
+ID. XScreenSaver passes this option automatically when it runs matrixgl in a
+preview window. You shouldn't ever need to specify this option yourself, it
+merely ensures that we render correctly in the XScreenSaver preview pane.
+
+@end table
+
+@node Keys, Copyright, Options, Top
+@cindex In-Screensaver Options
+@cindex Keys
+@section In-Screensaver Options
+@subsection Notes on In-Screensaver Keys
+Several options for matrixgl can be changed in-screensaver by pressing keys
+while the screensaver is running. These work both in windowed mode and in full
+screen mode.
+
+Note: when matrixgl is run under XScreenSaver, keyboard input goes directly to
+XScreenSaver, which stops the screensaver when a key is pressed. Therefore,
+these keys only apply when you run matrixgl from a terminal, or when using a
+different screensaver manager (like the ones shipped with KDE or GNOME.)
+
+@subsection List of Keys
+@table @option
+@item c
+View the credit screens. Note that static mode will be turned off if
+applicable.
+
+@item s
+Toggle static mode on and off. Static mode disables 3D effects including the
+wrapping of scrolling text (or digital rain) around characters from @emph{The
+Matrix}.
+
+@item n
+Skip to the next 3D character image, then continue as normal. This is useful if
+you want to quickly view all the different images. Note that this key has no
+effect if static mode is enabled (as that mode disables 3D images.)
+
+@item p
+Pause or unpause the screensaver, stopping the scrolling text and the
+transitioning of the 3D images.
+
+@item q
+Quit the screensaver.
+
+@end table
+
+@node    Copyright, Index, Keys, Top
+@cindex  Copyright
+@chapter Copyright
+Matrixgl @value{VERSION} is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by the
+Free Software Foundation; either version 2 of the License, or (at your option)
+any later version.@*@*
+Copyright @copyright{} 2003 Alexander Zolotov, Eugene Zolotov@*
+Copyright @copyright{} 2008, 2009, 2010, 2011, 2012, 2013, 2014 Vincent
+Launchbury
+
+@node    Index, , Copyright, Top
+@unnumbered Index
+@printindex cp
+
+@bye
