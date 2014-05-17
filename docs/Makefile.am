@@ -16,20 +16,5 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-bin_PROGRAMS = matrixgl
-
-if USE_XSCREENSAVER
-# Now install to xscreensaver
-xssexecdir = @XSS_HACKS@
-xssconfdir = @XSS_CONF@
-xssexec_PROGRAMS = matrixgl
-dist_xssconf_DATA = matrixgl.xml
-endif
-
-matrixgl_SOURCES = matrix.c
-noinst_HEADERS = matrix.h matrix1.h matrix2.h vroot.h
-
-# Now make sure it finds Xlib and GL/GLU
-matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W @x_includes@ @GLU_CFLAGS@
-matrixgl_LDADD = -lm -lX11 @GLU_LIBS@
-
+# Man page
+dist_man_MANS = matrixgl.1
