@@ -5,6 +5,8 @@ matrixgl-v2.3.2 (not yet released)
 - Move m4 files to build directory
 - Move all documentation to doc/ subdir
 - Make 'n' key a no-op if screensaver is paused to avoid display issues
+- Change configure option --disable-xscreensaver to --without-xscreensaver,
+which is the proper convention (oops!)
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

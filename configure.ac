@@ -96,34 +96,27 @@ if test "X$no_glu" = "Xyes"; then
 fi
 
 
-dnl Let user disable xscreensaver support
-AC_ARG_ENABLE(xscreensaver,
-              [  --disable-xscreensaver Don't install to or check for xscreensaver],
-              [case "${enableval}" in
-                no) skip_xscreensaver=true ;;
-               yes) skip_xscreensaver=false ;;
-                 *) AC_MSG_ERROR(bad value ${enableval} for --disable-xscreensaver) ;;
-               esac],
-               [skip_xscreensaver=false])
-AM_CONDITIONAL(USE_XSCREENSAVER, 
-               test "$skip_xscreensaver" != true)
+dnl Let user disable XScreenSaver support
+AC_ARG_WITH([xscreensaver],
+            [AS_HELP_STRING([--without-xscreensaver],
+                            [disable support for XScreenSaver])],
+            [],
+            [with_xscreensaver=yes])
+AM_CONDITIONAL([USE_XSCREENSAVER],
+               [test x"$with_xscreensaver" = x"yes"])
 
-if test "$silent" != yes ; then
-   echo -n "checking if xscreensaver feature is enabled.. "
-   if test "$skip_xscreensaver" = false; then
-      echo "yes"
-   else
-      echo "no"
-   fi
-fi
+AC_MSG_CHECKING([if xscreensaver support is enabled])
+AC_MSG_RESULT([$with_xscreensaver])
 
-if test "$skip_xscreensaver" = false; then
-   # 
-   # Find xscreensaver directories
-   #
-   # First the hack dir
-   XSS_HACKS=0
-   test "$silent" != yes && echo -n "checking for xscreensaver hack directory... "
+
+##
+## Find xscreensaver directories
+##
+if test x"$with_xscreensaver" = x"yes"; then
+
+   # Find the hack dir (i.e screensaver binaries)
+   XSS_HACKS=''
+   AC_MSG_CHECKING([for xscreensaver hack directory])
    for dir in /usr/lib/xscreensaver \
       /usr/lib/misc/xscreensaver \
       /usr/libexec/xscreensaver \
@@ -134,15 +127,15 @@ if test "$skip_xscreensaver" = false; then
       test -d $dir && XSS_HACKS=$dir && break
    done
    if test -n "$XSS_HACKS"; then
-      test "$silent" != yes && echo "$XSS_HACKS"
+      AC_MSG_RESULT($XSS_HACKS)
    else
-      test "$silent" != yes && echo "no"
+      AC_MSG_RESULT([no])
    fi
-   AC_DEFINE_UNQUOTED(XSCREENSAVER_HACKS_DIR, "$XSS_HACKS", [xscreensaver hack directory])
+   AC_SUBST([XSS_HACKS])
 
-   # Then the config dir
+   # Find the config dir (for per-screensaver XML config)
    XSS_CONF=''
-   test "$silent" != yes && echo -n "checking for xscreensaver config directory... "
+   AC_MSG_CHECKING([for xscreensaver config directory])
    for dir in /usr/lib/xscreensaver/config \
       /usr/lib/X11/xscreensaver/config \
       /usr/share/xscreensaver/config \
@@ -151,11 +144,11 @@ if test "$skip_xscreensaver" = false; then
       test -d $dir && XSS_CONF=$dir && break
    done
    if test -n "$XSS_CONF"; then
-      test "$silent" != yes && echo "$XSS_CONF"
+      AC_MSG_RESULT($XSS_CONF)
    else
-      test "$silent" != yes && echo "no"
+      AC_MSG_RESULT([no])
    fi
-   AC_DEFINE_UNQUOTED(XSCREENSAVER_CONFIG_DIR, "$XSS_CONF", [xscreensaver conf directory])
+   AC_SUBST([XSS_CONF])
 
    if test -z "$XSS_HACKS" || test -z "$XSS_CONF"; then
       echo "Error: xscreensaver directories cannot be found."
@@ -165,8 +158,6 @@ file a bug as detailed in the README. Our script creates \
 the bug report for you, so please send it :)"
       exit 1
    fi
-   AC_SUBST([XSS_HACKS])
-   AC_SUBST([XSS_CONF])
 fi
 
 dnl And we're done

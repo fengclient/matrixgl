@@ -5,6 +5,7 @@ Changes in 2.3.2
 ----------------
 . New texinfo documentation (which gives HTML/PDF/PS/info/DVI)
 . New `make help` documentation
+. The configuration option --disable-xscreensaver is now --without-xscreensaver
 
 Changes in 2.3.1
 ----------------
