@@ -169,6 +169,15 @@ usual.
 @item -h --help
 Print a help message and usage summary to the terminal, and then exit.
 
+@cindex Rain Intensity
+@cindex --intensity
+@item -i --intensity=NUM
+Set the intensity of the digital rain to NUM. The default is 1, and NUM is
+clamped to the range [1,50]. The intensity effects the number of white
+nodes, the number of random character changes and the general speed of the
+rain. It has no effect on the framerate or the speed of 3D character
+transitions. Higher values of intensity may appear somewhat jumpy.
+
 @cindex Frame Limiting
 @cindex --limit
 @item -l --limit=LIM
@@ -216,6 +225,7 @@ merely ensures that we render correctly in the XScreenSaver preview pane.
 
 @end table
 
+@page
 @node Keys, Copyright, Options, Top
 @cindex In-Screensaver Options
 @cindex Keys

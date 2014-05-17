@@ -10,6 +10,7 @@ which is the proper convention (oops!)
 - Cleaned up the README to be much shorter and easier to read.
 - Make ./configure errors shorter and more consistent
 - Smarter frame-limiting code that kicks in much faster
+- New parameter to set digital rain intensity
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

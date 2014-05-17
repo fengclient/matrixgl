@@ -60,6 +60,12 @@ inaccurate due to startup delays.
 \-h \-\-help
 Display a help message and exit.
 .TP
+\-i \-\-intensity=NUM
+Set the intensity of the digital rain to NUM. The default is 1, and NUM is
+clamped to the range [1,50]. The intensity effects the number of white
+nodes, the number of random character changes and the general speed of the
+rain.
+.TP
 \-l \-\-limit=LIM
 Limit the framerate to LIM fps, or as close to it as possible. The default is
 32fps, and LIM is clamped to the range [1,200].

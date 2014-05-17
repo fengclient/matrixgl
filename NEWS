@@ -8,6 +8,7 @@ Changes in 2.3.2
 . README file is shorter and easier to read
 . The configuration option --disable-xscreensaver is now --without-xscreensaver
 . Smarter code for limiting the framerate
+. New parameter to set digital rain intensity
 
 Changes in 2.3.1
 ----------------
