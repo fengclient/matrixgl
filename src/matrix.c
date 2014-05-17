@@ -97,13 +97,13 @@ int x,y;
 #endif
 
 /* FPS Stats */
-time_t last;               /* Tims since last stat was printed */
-int showfps=0;
-unsigned long sleeper = 0;
-float fps=0;
-int frames=0;              /* # frames shown since [last] */
-int fpoll=2;               /* Print stats every [fpoll] seconds */
-float maxfps=32.0;
+time_t last;               /* Time since FPS was last polled */
+int showfps=0;             /* Whether to output FPS stats or not */
+unsigned long sleeper = 0; /* Per-frame sleeper for frame-limiting */
+float fps=0;               /* Last polled FPS */
+int frames=0;              /* # frames shown since last FPS poll */
+int fpoll=1;               /* How often to poll the frame per seconds */
+float maxfps=32.0;         /* Default maximum FPS */
 
 
 #ifdef WIN32_MODE
@@ -396,11 +396,15 @@ bug report.\n",
 
          /* Limit framerate */
          if (fps > maxfps) {
-            sleeper+=3000;
-         } else if (sleeper >= 3000) {
-            sleeper-=1000;
+            /* Framerate too fast. Calculate how many microseconds per-frame
+             * too fast it's going, and add that to the per-frame sleeper */
+            sleeper += 1000000 / maxfps - 1000000 / fps;
+            if (sleeper > 1000000) sleeper = 1000000;
+         } else {
+            /* Framerate too slow. Calculate how many microseconds per-frame
+             * too slow it's going, and minus that from the per-frame sleeper */
+            sleeper -= clamp(1000000 / fps - 1000000 / maxfps, 0, sleeper);
          }
-         if (sleeper > 1000000) sleeper=100000;
       }
 
       /* Check events */
