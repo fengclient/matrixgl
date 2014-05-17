@@ -9,6 +9,7 @@ Changes in 2.3.2
 . The configuration option --disable-xscreensaver is now --without-xscreensaver
 . Smarter code for limiting the framerate
 . New parameter to set digital rain intensity
+. More configurable paramters in xscreensaver-demo config dialog
 
 Changes in 2.3.1
 ----------------

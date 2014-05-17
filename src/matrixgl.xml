@@ -2,13 +2,26 @@
 
 <screensaver name="matrixgl" _label="Matrixgl">
    <command arg="-root" /> 
-   <boolean id="static" _label="Disable 3D Images (static mode)" arg-set="-static"/>
-   <boolean id="showcred" _label="Show Credits on Startup" arg-set="-credits"/>
-   <select id="color"> 
-      <option id="green" _label="Green text" arg-set="-C green" />
-      <option id="red" _label="Red text" arg-set="-C red" />
-      <option id="blue" _label="Blue text" arg-set="-C blue" />
-   </select>
+
+   <hgroup>
+      <vgroup>
+         <number id="intensity" type="slider" arg="-i %"
+             _label="Rain Intensity" _low-label="Normal" _high-label="High"
+             low="1" high="50" default="1" />
+         <number id="fps" type="slider" arg="-l %"
+             _label="Frame Rate" _low-label="Low" _high-label="High"
+             low="1" high="200" default="32" />
+      </vgroup>
+      <vgroup>
+         <boolean id="static" _label="Disable 3D Images" arg-set="-static"/>
+         <boolean id="showcred" _label="Show Credits on Startup" arg-set="-credits"/>
+         <select id="color">
+            <option id="green" _label="Green Rain" arg-set="-C green" />
+            <option id="red" _label="Red Rain" arg-set="-C red" />
+            <option id="blue" _label="Blue Rain" arg-set="-C blue" />
+         </select>
+      </vgroup>
+   </hgroup>
 
    <_description>
    A 3D matrix screensaver based on the Matrix Reloaded

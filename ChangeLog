@@ -11,6 +11,7 @@ which is the proper convention (oops!)
 - Make ./configure errors shorter and more consistent
 - Smarter frame-limiting code that kicks in much faster
 - New parameter to set digital rain intensity
+- More configurable paramters in xscreensaver-demo config dialog
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------
