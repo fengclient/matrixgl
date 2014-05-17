@@ -82,6 +82,7 @@ int classic=0;             /* classic mode (no 3d) */
 int paused=0;
 int num_pics=11 -1;         /* # 3d images (0 indexed) */
 GLenum color=GL_GREEN;     /* Color of text */
+int rain_intensity=1;      /* Intensity of digital rain */
 
 
 #ifdef NIX_MODE
@@ -180,11 +181,12 @@ int main(int argc,char **argv)
       {"allow-root",no_argument,       0, 'Z'},
       {"fps",       optional_argument, 0, 'f'},
       {"limit",     required_argument, 0, 'l'},
+      {"intensity", required_argument, 0, 'i'},
       {0, 0, 0, 0}
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "schvl:f::C:FRW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "schvi:l:f::C:FRW:Z", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
          case 'Z':
@@ -222,6 +224,9 @@ int main(int argc,char **argv)
                color=GL_GREEN;
             }
             break;
+         case 'i':
+            rain_intensity = clamp(atoi(optarg), 1, 50);
+            break;
          case 'f':
             showfps=1;
             if (optarg) fpoll=clamp(atoi(optarg), 1, 20);
@@ -239,6 +244,7 @@ int main(int argc,char **argv)
  -F --fs --fullscreen   Run in fullscreen window\n\
  -f --fps[=SEC]         Print fps stats every SEC seconds (default: 2)\n\
  -h --help              Show the help screen\n\
+ -i --intensity=NUM     Set intensity of the digital rain (default: 1)\n\
  -l --limit=LIM         Limit framerate to LIM fps (default: 32)\n",
                stdout);
             fputs("\
@@ -583,12 +589,19 @@ static void scroll(unused int mode)
 
 static void make_change(void)
 {
-   int r=rand()&0xFFFF;
+   int r, i;
    if (paused) return;
-   r>>=3;  
-   if(r<(text_x*text_y)) text[r]+=133; /* random character changes) */
-   r=rand()&0xFFFF;r>>=7;
-   if(r<text_x && text_light[r]!=0) text_light[r]=255; /* white nodes */
+
+   for (i=0; i<rain_intensity; i++) {
+      /* Random character changes */
+      r=rand()&0xFFFF; r>>=3;
+      r %= (text_x * text_y);
+      text[r]+=133;
+
+      /* White nodes */
+      r=rand()&0xFFFF;r>>=7;
+      if(r<text_x && text_light[r]!=0) text_light[r]=255;
+   }
 
 #ifdef WIN32_MODE
    if(mode2) scroll(mode2);
