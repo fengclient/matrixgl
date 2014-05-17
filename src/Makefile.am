@@ -33,3 +33,5 @@ noinst_HEADERS = matrix.h matrix1.h matrix2.h vroot.h
 matrixgl_CFLAGS = -DNIX_MODE -pedantic -ansi -Wall -W @x_includes@ @GLU_CFLAGS@
 matrixgl_LDADD = -lm -lX11 @GLU_LIBS@
 
+help:
+	@cat ../docs/make-help.txt

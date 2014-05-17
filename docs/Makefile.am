@@ -16,6 +16,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
+EXTRA_DIST = make-help.txt
+
 # Man page
 dist_man_MANS = matrixgl.1
 # Info page (does html/pdf/ps/..etc automatically)
@@ -23,3 +25,6 @@ info_TEXINFOS = matrixgl.texi
 
 # Make HTML documentation single-page
 AM_MAKEINFOHTMLFLAGS = --no-headers --no-split
+
+help:
+	@cat make-help.txt

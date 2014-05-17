@@ -1,6 +1,11 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
+Changes in 2.3.2
+----------------
+. New texinfo documentation (which gives HTML/PDF/PS/info/DVI)
+. New `make help` documentation
+
 Changes in 2.3.1
 ----------------
 . Added two new 3D images courtsey of Chris_C
