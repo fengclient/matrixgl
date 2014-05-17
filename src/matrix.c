@@ -248,7 +248,7 @@ int main(int argc,char **argv)
                stdout);
             fputs("Long options may be passed with a single dash.\n\n\
 In-Screensaver Keys:\n\
- 'c' - View creidts\n\
+ 'c' - View credits\n\
  's' - Toggle static mode (3D)\n\
  'n' - Next image\n\
  'p' - Pause screensaver\n\
