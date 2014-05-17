@@ -41,12 +41,10 @@ AC_PROG_MAKE_SET
 dnl We need a cpp compiler to link libglu
 AC_PROG_CXX
 if test -z "$ac_ct_CXX"; then
-   echo "***************************************************************"
-   echo "FATAL ERROR: A c++ compiler cannot be found on your system."
-   echo "You will need to install one for matrixgl to work. Check your "
-   echo "package manager for g++ or similar. Check the dependencies"
-   echo "section of the README file for more information."
-   echo "***************************************************************"
+   echo "******************************************************************"
+   echo "ERROR: A c++ compiler cannot be found on your system. See the"
+   echo "dependencies section of the README for details on how to fix this."
+   echo "******************************************************************"
    exit 1
 fi
 
@@ -62,12 +60,10 @@ AC_CHECK_FUNCS([memset])
 dnl X11 Lib
 AC_PATH_X([X11], [X11/Xlib.h], [XOpenDisplay])
 if test "X$no_x" = "Xyes"; then
-   echo "***************************************************************"
-   echo "FATAL ERROR: X11 header files and/or libraries cannot be found."
-   echo "They are sometimes in a seperate 'dev' package (e.g libx11-dev)."
-   echo "Check the dependencies section of the README file for more"
-   echo "information."
-   echo "***************************************************************"
+   echo "******************************************************************"
+   echo "ERROR: X11 header files and/or libraries cannot be found. See the"
+   echo "dependencies section of the README for details on how to fix this."
+   echo "******************************************************************"
    exit 1
 fi
 AC_SUBST(x_includes)
@@ -77,21 +73,18 @@ dnl Opengl stuff
 AX_CHECK_GLU
 
 if test "X$no_gl" = "Xyes"; then
-   echo "***************************************************************"
-   echo "FATAL ERROR: OpenGL header files and/or libraries cannot be found."
-   echo "They are sometimes in a seperate 'dev' package (e.g mesa-common-dev"
-   echo "or libgl1-mesa-dev). Check the dependencies section of the README "
-   echo "file for more information."
-   echo "***************************************************************"
+   echo "******************************************************************"
+   echo "ERROR: OpenGL header files and/or libraries cannot be found. See the"
+   echo "dependencies section of the README for details on how to fix this."
+   echo "******************************************************************"
    exit 1
 fi
 if test "X$no_glu" = "Xyes"; then
-   echo "***************************************************************"
-   echo "FATAL ERROR: The OpenGL Utility Library (GLU) header files and/or"
-   echo "libraries cannot be found. They are sometimes in a seperate 'dev'"
-   echo "package (e.g libglu1-mesa-dev). Check the dependencies section of"
-   echo "the README file for more information."
-   echo "***************************************************************"
+   echo "******************************************************************"
+   echo "ERROR: OpenGL Utility Library (GLU) header files and/or libraries"
+   echo "cannot be found. See the dependencies section of the README for"
+   echo "details on how to fix this."
+   echo "******************************************************************"
    exit 1
 fi
 
@@ -151,11 +144,12 @@ if test x"$with_xscreensaver" = x"yes"; then
    AC_SUBST([XSS_CONF])
 
    if test -z "$XSS_HACKS" || test -z "$XSS_CONF"; then
-      echo "Error: xscreensaver directories cannot be found."
-      echo "Use --disable-xscreensaver or \
-if you're sure you have xscreensaver installed, \
-file a bug as detailed in the README. Our script creates \
-the bug report for you, so please send it :)"
+      echo "***************************************************************"
+      echo "ERROR: XScreenSaver directories cannot be found."
+      echo "Use --without-xscreensaver to disable XScreenSaver support."
+      echo "If you have XScreenSaver installed, please file a bug report as"
+      echo "detailed in the README (our script generates a report for you!)"
+      echo "***************************************************************"
       exit 1
    fi
 fi

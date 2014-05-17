@@ -8,6 +8,7 @@ matrixgl-v2.3.2 (not yet released)
 - Change configure option --disable-xscreensaver to --without-xscreensaver,
 which is the proper convention (oops!)
 - Cleaned up the README to be much shorter and easier to read.
+- Make ./configure errors shorter and more consistent
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------
