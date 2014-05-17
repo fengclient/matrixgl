@@ -4,6 +4,7 @@ matrixgl-v2.3.2 (not yet released)
 - New `make help` documentation
 - Move m4 files to build directory
 - Move all documentation to doc/ subdir
+- Make 'n' key a no-op if screensaver is paused to avoid display issues
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

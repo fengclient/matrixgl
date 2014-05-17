@@ -663,7 +663,7 @@ nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
          free(bump_pic);
          exit(EXIT_SUCCESS); 
       case 'n': /* n - Next picture. */
-         if (classic) break;
+         if (classic || paused) break;
          pic_offset+=rtext_x*text_y;
          pic_mode=1;
          timer=10;
