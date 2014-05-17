@@ -518,7 +518,8 @@ static void draw_text2(int mode)
    }
 }
 
-static void scroll(int mode)
+/* mode is only used in WIN32_MODE */
+static void scroll(unused int mode)
 {
    static char odd=0;
    int a, s=0;
