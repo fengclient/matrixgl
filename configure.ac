@@ -71,7 +71,7 @@ AC_CHECK_FUNCS([memset])
 
 
 dnl Check for X11 library
-AC_PATH_X([X11], [X11/Xlib.h], [XOpenDisplay])
+AC_PATH_X
 if test "X$no_x" = "Xyes"; then
    echo "******************************************************************"
    echo "ERROR: X11 header files and/or libraries cannot be found. See the"
