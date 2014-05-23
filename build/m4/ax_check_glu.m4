@@ -1,5 +1,3 @@
-# -*- mode: autoconf -*-
-#
 # AX_CHECK_GLU
 #
 # Check for GLU.  If GLU is found, the required preprocessor and linker flags
@@ -8,8 +6,10 @@
 #
 # If the header "GL/glu.h" is found, "HAVE_GL_GLU_H" is defined. 
 #
-# version: 2.2
-# author: Braden McDaniel <braden@endoframe.com>
+# --
+#
+# Copyright (c) 2009 Braden McDaniel <braden@endoframe.com>
+# Copyright (c) 2014 Vincent Launchbury <vincent@doublecreations.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,10 +30,9 @@
 # configure scripts that are the output of Autoconf when processing
 # the Macro.  You need not follow the terms of the GNU General Public
 # License when using or distributing such scripts.
-#
+
 AC_DEFUN([AX_CHECK_GLU],
-[AC_REQUIRE([AX_CHECK_GL])dnl
-AC_REQUIRE([AC_PROG_CXX])dnl
+[AC_REQUIRE([AX_CHECK_GL])
 GLU_CFLAGS=$GL_CFLAGS
 
 ax_save_CPPFLAGS=$CPPFLAGS
@@ -48,7 +47,7 @@ m4_define([AX_CHECK_GLU_PROGRAM],
 # else
 #   error no glu.h
 # endif]],
-                           [[gluBeginCurve(0)]])])
+          [[gluBeginCurve(0)]])])
 
 AC_CACHE_CHECK([for OpenGL Utility library], [ax_cv_check_glu_libglu],
 [ax_cv_check_glu_libglu=no
@@ -61,26 +60,18 @@ ax_save_LIBS=$LIBS
 # GL_LIBS.
 #
 LIBS="$GL_LIBS $ax_save_LIBS"
-#
-# libGLU typically links with libstdc++ on POSIX platforms.
-# However, setting the language to C++ means that test program
-# source is named "conftest.cc"; and Microsoft cl doesn't know what
-# to do with such a file.
-#
-AC_LANG_PUSH([C++])
+
+AC_LANG_PUSH([C])
 AC_LINK_IFELSE([AX_CHECK_GLU_PROGRAM],
                [ax_cv_check_glu_libglu=yes],
                [LIBS=""
                ax_check_libs="-lglu32 -lGLU"
                for ax_lib in ${ax_check_libs}; do
-                 AS_IF([test X$ax_compiler_ms = Xyes],
-                       [ax_try_lib=`echo $ax_lib | $SED -e 's/^-l//' -e 's/$/.lib/'`],
-                       [ax_try_lib=$ax_lib])
-                 LIBS="$ax_try_lib $GL_LIBS $ax_save_LIBS"
+                 LIBS="$ax_lib $GL_LIBS $ax_save_LIBS"
                  AC_LINK_IFELSE([AX_CHECK_GLU_PROGRAM],
-                                [ax_cv_check_glu_libglu=$ax_try_lib; break])
+                                [ax_cv_check_glu_libglu=$ax_lib; break])
                done])
-AC_LANG_POP([C++])
+AC_LANG_POP([C])
 
 LIBS=$ax_save_LIBS
 CPPFLAGS=$ax_save_CPPFLAGS])

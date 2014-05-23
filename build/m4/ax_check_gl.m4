@@ -1,5 +1,3 @@
-# -*- mode: autoconf -*-
-#
 # AX_CHECK_GL
 #
 # Check for an OpenGL implementation.  If GL is found, the required compiler
@@ -9,8 +7,10 @@
 #
 # If the header "GL/gl.h" is found, "HAVE_GL_GL_H" is defined.  
 #
-# version: 2.4
-# author: Braden McDaniel <braden@endoframe.com>
+# --
+#
+# Copyright (c) 2009 Braden McDaniel <braden@endoframe.com>
+# Copyright (c) 2014 Vincent Launchbury <vincent@doublecreations.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,18 +31,14 @@
 # configure scripts that are the output of Autoconf when processing
 # the Macro.  You need not follow the terms of the GNU General Public
 # License when using or distributing such scripts.
-#
+
 AC_DEFUN([AX_CHECK_GL],
-[AC_REQUIRE([AC_CANONICAL_HOST])dnl
-AC_REQUIRE([AC_PATH_X])dnl
-AC_REQUIRE([AC_PROG_SED])dnl
+[AC_REQUIRE([AC_CANONICAL_HOST])
+AC_REQUIRE([AC_PATH_X])
 
 AC_LANG_PUSH([C])
 
-#
-# Use x_includes and x_libraries if they have been set (presumably by
-# AC_PATH_X).
-#
+# Use x_includes/x_libraries from AC_PATH_X
 AS_IF([test X$no_x != Xyes],
       [AS_IF([test -n "$x_includes"],
              [GL_CFLAGS="-I$x_includes $GL_CFLAGS"])]
@@ -61,7 +57,7 @@ m4_define([AX_CHECK_GL_PROGRAM],
 # else
 #   error no gl.h
 # endif]],
-                           [[glBegin(0)]])])
+          [[glBegin(0)]])])
 
 AC_CACHE_CHECK([for OpenGL library], [ax_cv_check_gl_libgl],
 [ax_cv_check_gl_libgl=no
@@ -75,7 +71,7 @@ ax_save_LIBS=$LIBS
 LIBS=""
 ax_check_libs="-lopengl32 -lGL"
 for ax_lib in $ax_check_libs; do
-        ax_try_lib=$ax_lib
+  ax_try_lib=$ax_lib
   LIBS="$ax_try_lib $GL_LIBS $ax_save_LIBS"
 AC_LINK_IFELSE([AX_CHECK_GL_PROGRAM],
                [ax_cv_check_gl_libgl=$ax_try_lib; break],

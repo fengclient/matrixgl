@@ -8,8 +8,9 @@ Changes in 2.3.2
 . README file is shorter and easier to read
 . The configuration option --disable-xscreensaver is now --without-xscreensaver
 . Smarter code for limiting the framerate
-. New parameter to set digital rain intensity
+. New --intensity parameter to set digital rain intensity
 . More configurable paramters in xscreensaver-demo config dialog
+. Dropped build requirement for a c++ compiler
 
 Changes in 2.3.1
 ----------------

@@ -48,22 +48,14 @@ ii) OpenGL + development files
          - Ubuntu packages: mesa-common-dev, libgl1-mesa-dev
          - Gentoo packages: media-libs/mesa
 
-iii) OpenGL Utility Library (GLU) + development files)
+iii) OpenGL Utility Library (GLU) + development files
       You need to have the GLU library and header files (which are sometimes
       split into two different packages.) Look through your package manager for
       names including 'glu', 'mesa' and 'libglu', and read the descriptions.
          - Ubuntu packages: libglu1-mesa-dev
          - Gentoo packages: media-libs/glu
 
-iv) A c++ compiler
-      You might need a c++ compiler (to correctly link the GLU library). One
-      example is g++, part of the GNU Compiler Collection. Look through your
-      package manager for names including 'g++' and 'gcc' If gcc isn't
-      supported on your platform, another c++ compiler should suffice.
-         - Ubuntu packages: g++
-         - Gentoo packages: sys-devel/gcc[cxx]
-
-v) XScreenSaver (OPTIONAL)
+iv) XScreenSaver (OPTIONAL)
       XScreenSaver is an optional dependency that is enabled by default. Pass
       --without-xscreensaver to the configure script to compile without it.
       XScreenSaver is a decent screensaver manager/daemon, and it is

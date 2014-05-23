@@ -15,8 +15,8 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-dnl Autoconf 2.63 required to build
-AC_PREREQ([2.63])
+dnl Autoconf 2.69 required to build
+AC_PREREQ([2.69])
 
 dnl Project name, version and bug email
 AC_INIT([matrixgl], [2.3.1], [vincent@doublecreations.com])
@@ -49,24 +49,9 @@ dnl Programs
 AC_PROG_CC
 AM_PROG_CC_C_O
 AC_PROG_INSTALL
-AC_PROG_MAKE_SET
-
-dnl We need a cpp compiler to link libglu
-AC_PROG_CXX
-if test -z "$ac_ct_CXX"; then
-   echo "******************************************************************"
-   echo "ERROR: A c++ compiler cannot be found on your system. See the"
-   echo "dependencies section of the README for details on how to fix this."
-   echo "******************************************************************"
-   exit 1
-fi
-
-dnl Check for standard headers
-AC_HEADER_STDC
 
 dnl Library Stuff
 AC_TYPE_SIZE_T
-AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset])
 
 
