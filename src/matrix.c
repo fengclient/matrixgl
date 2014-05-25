@@ -22,29 +22,29 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-#ifndef NIX_MODE
+#ifndef UNIX_MODE
    #define WIN32_MODE
 #endif
 
 /* Includes */
 #ifdef WIN32_MODE 
    #include <windows.h>
-#else /* NIX_MODE */
+#else /* UNIX_MODE */
    #include <X11/Xlib.h>
    #include <X11/Xutil.h>
    #define __USE_XOPEN_EXTENDED
    #include <unistd.h>
    #include <getopt.h>
    #include <time.h>
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
 
-#include <stdio.h>   /* Always a good idea. */
+#include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #include <GL/gl.h>   /* OpenGL itself. */
 #include <GL/glu.h>  /* GLU support library. */
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
    #include <GL/glx.h>
    #include "vroot.h"
 #else /* WIN32_MODE */
@@ -54,10 +54,9 @@
 #include "matrix.h"     /* Prototypes */
 #include "matrix1.h"    /* Font data */
 #include "matrix2.h"    /* Image data */
-#ifdef NIX_MODE
-  #include "config.h"  /* Autoconf stuff */
-#endif /* NIX_MODE */
-
+#ifdef UNIX_MODE
+   #include "config.h"  /* Autoconf stuff */
+#endif /* UNIX_MODE */
 
 /* Global Variables */
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
@@ -84,7 +83,7 @@ GLenum color=GL_GREEN;     /* Color of text */
 int rain_intensity=1;      /* Intensity of digital rain */
 
 
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
 Display                 *dpy;
 GLint                   att[] = {GLX_RGBA, GLX_DOUBLEBUFFER, None};
 XVisualInfo             *vi;
@@ -157,7 +156,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
       fprintf(stderr, "Config: Not found\n");
    }
    free(cfile);
-#else /* NIX_MODE */
+#else /* UNIX_MODE */
 int main(int argc,char **argv) 
 {
    int i=0,a=0,s=0;
@@ -284,16 +283,16 @@ bug report.\n",
          "root.\n (Use --allow-root if you really want to..)\n");
       exit(EXIT_FAILURE);
    }
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
 
 #ifdef WIN32_MODE
    glutInit(&argc, &lpCmd);
-#else /* NIX_MODE */
+#else /* UNIX_MODE */
    srand(time(NULL));
 #endif
 
 
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
    /* Set up X Window stuff */
    dpy = XOpenDisplay(NULL);
    if(dpy == NULL) {
@@ -348,15 +347,15 @@ bug report.\n",
    vi = glXChooseVisual(dpy, 0, att);
    glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
    glXMakeCurrent(dpy, win, glc);
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
 
 /* Allocations for dynamic width */
 #ifdef WIN32_MODE
    text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH) 
       / glutGet(GLUT_SCREEN_HEIGHT)));
-#else /* NIX_MODE */
+#else /* UNIX_MODE */
    text_x = ceil(70 * ((float)x/y));
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
 
    /* Initializations */
    if (text_x % 2 == 1) text_x++;
@@ -384,7 +383,7 @@ bug report.\n",
    }
    mode2=1;
 
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
    ourInit();
    cbResizeScene(x,y);
    while(1) {
@@ -545,7 +544,7 @@ static void scroll(unused int mode)
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
       if(timer>10) {mode2=0;mode=0;} /* Initialization */
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
 #else /* WIN32_MODE */
@@ -555,7 +554,7 @@ static void scroll(unused int mode)
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=70;pic_mode=1; /* Make DC dissapear quickly */
       }
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
       if(timer>210) {
 #else /* WIN32_MODE */
 	  if(timer>100) {
@@ -608,7 +607,7 @@ static void make_change(void)
 }
 
 
-nix_static void cbRenderScene(void)
+unix_static void cbRenderScene(void)
 {  
    glBindTexture(GL_TEXTURE_2D,1);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
@@ -638,9 +637,9 @@ nix_static void cbRenderScene(void)
 
 #ifdef WIN32_MODE
    glutSwapBuffers();
-#else /* NIX_MODE */
+#else /* UNIX_MODE */
    glXSwapBuffers(dpy, win); 
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
 } 
 
 
@@ -661,18 +660,18 @@ void MouseFunc(int x, int y)
 #endif
 
 
-nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
+unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
 {
    if (!key) return;
    switch (key) {
       case 'q': case 'Q': case 27: /* 27==ESC */
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
          glXMakeCurrent(dpy, None, NULL);
          glXDestroyContext(dpy, glc);
          XDestroyWindow(dpy, win);
          XCloseDisplay(dpy);
          XFree(vi);
-#endif /* NIX_MODE */
+#endif /* UNIX_MODE */
          free(speed);
          free(text);
          free(text_light);
@@ -708,15 +707,12 @@ nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
    }
 }
 
-
-
-
-nix_static void cbResizeScene(int Width, int Height)
+unix_static void cbResizeScene(int width, int height)
 {
-   glViewport(0, 0, Width, Height);
+   glViewport(0, 0, width, height);
    glMatrixMode(GL_PROJECTION);
    glLoadIdentity();
-   gluPerspective(45.0f,(GLfloat)Width/(GLfloat)Height,0.1f,200.0f);
+   gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,200.0f);
    glMatrixMode(GL_MODELVIEW);
 }
 
@@ -769,7 +765,7 @@ static void *tmalloc(size_t n)
    return p;
 }
 
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
 static char get_ascii_keycode(XEvent *ev)
 {
    char key;
@@ -782,5 +778,5 @@ static char get_ascii_keycode(XEvent *ev)
 
    return 0;
 }
-#endif
+#endif /* UNIX_MODE */
 

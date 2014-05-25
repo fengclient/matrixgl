@@ -22,12 +22,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
-/* In windows we use GLUT, and certain functions cannot be static */
-#ifdef NIX_MODE
-#define nix_static static 
-#else 
-#define nix_static
-#endif
+/* Windows uses GLUT callbacks, which cannot be static */
+#ifdef UNIX_MODE
+#  define unix_static static
+#else  /* WIN32_MODE */
+#  define unix_static
+#endif /* WIN32_MODE */
 
 static void draw_char(int mode, long num, float light, float x, float y, float z);
 static void draw_flare(float x,float y,float z);
@@ -35,18 +35,18 @@ static void draw_text1(void);
 static void draw_text2(int mode);
 static void scroll(int mode);
 static void make_change(void);
-nix_static void cbRenderScene(void);
-nix_static void cbKeyPressed(unsigned char key, int x, int y);
-nix_static void cbResizeScene(int Width, int Height);
+unix_static void cbRenderScene(void);
+unix_static void cbKeyPressed(unsigned char key, int x, int y);
+unix_static void cbResizeScene(int width, int height);
 static void ourInit(void);
 static void *tmalloc(size_t n);
-#ifdef NIX_MODE
+#ifdef UNIX_MODE
 static char get_ascii_keycode(XEvent *ev);
 #else
 void MouseFunc(int x, int y);
 #endif
 
-/* Get rid warnings when we need an unused parameter */
+/* Get rid of warnings when we need an unused parameter */
 #ifdef __GNUC__
 #  define unused __attribute__((unused))
 #elif defined (__LCLINT__)
