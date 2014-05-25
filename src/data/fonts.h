@@ -22,6 +22,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
+#ifndef MATRIX_FONTS_H
+#define MATRIX_FONTS_H
+
 /* Font data for matrix characters, by Alex */
 unsigned char font[131072]={
 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
@@ -6579,4 +6582,6 @@ unsigned char font[131072]={
 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 5,5,5,5,5,5,5,5,5,5,5,5
 };
+
+#endif /* MATRIX_FONTS_H */
 

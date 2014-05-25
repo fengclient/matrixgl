@@ -22,6 +22,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
+#ifndef MATRIX_H
+#define MATRIX_H
+
 /* Windows uses GLUT callbacks, which cannot be static */
 #ifdef UNIX_MODE
 #  define unix_static static
@@ -56,4 +59,6 @@ void MouseFunc(int x, int y);
 #endif /* __GNUC__ */
 
 #define clamp(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
+
+#endif /* MATRIX_H */
 

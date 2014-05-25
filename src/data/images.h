@@ -22,6 +22,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
+#ifndef MATRIX_IMAGES_H
+#define MATRIX_IMAGES_H
+
 /* Image data for 3D images and credits. Each set of 6300 characters represents
  * Z values for each of the 90*70 on-screen characters.
  *
@@ -4202,3 +4205,4 @@ unsigned char pic[]={
 255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,
 };
 
+#endif /* MATRIX_IMAGES_H */
