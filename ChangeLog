@@ -17,6 +17,7 @@ matrixgl-v2.3.2 (not yet released)
 	- Smarter frame-limiting code that kicks in much faster
 	- New parameter to set digital rain intensity
 	- More configurable paramters in xscreensaver-demo config dialog
+	- Delete hand-rolled htoi() function, use strtol(3) instead
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

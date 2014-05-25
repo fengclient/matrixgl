@@ -52,7 +52,7 @@ AC_PROG_INSTALL
 
 dnl Library Stuff
 AC_TYPE_SIZE_T
-AC_CHECK_FUNCS([memset])
+AC_CHECK_FUNCS([memset strtol])
 
 
 dnl Check for X11 library

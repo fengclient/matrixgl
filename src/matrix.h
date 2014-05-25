@@ -42,7 +42,6 @@ static void ourInit(void);
 static void *tmalloc(size_t n);
 #ifdef NIX_MODE
 static char get_ascii_keycode(XEvent *ev);
-static int htoi(char *str);
 #else
 void MouseFunc(int x, int y);
 #endif

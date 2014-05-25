@@ -195,7 +195,7 @@ int main(int argc,char **argv)
             break;
          case 'W':
             wuse=PREVIEW;
-            wid=htoi(optarg);
+            wid=strtol(optarg, NULL, 16);
             break;
          case 'R':
             wuse=ROOT;
@@ -772,24 +772,6 @@ static void *tmalloc(size_t n)
 }
 
 #ifdef NIX_MODE
-static int htoi(char *str)
-{
-  int i,sum=0,d,sl;
-  sl=strlen(str);
-
-  if(str[0]!='0' || str[1]!='x') return -1;
-  for(i=2;i<sl;i++){
-    d=0;
-    if(str[i]>='0' && str[i]<='9') d=(int)(str[i]-'0');
-    if(str[i]>='A' && str[i]<='F') d=(int)(str[i]-'A'+10);
-    if(str[i]>='a' && str[i]<='f') d=(int)(str[i]-'a'+10);
-    sum+=d;
-    sum=sum<<4;
-  }
-
-  return(sum>>4);
-}
-
 static char get_ascii_keycode(XEvent *ev)
 {
    char keys[256], *s;
