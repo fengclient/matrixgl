@@ -58,7 +58,6 @@
   #include "config.h"  /* Autoconf stuff */
 #endif /* NIX_MODE */
 
-#define abs(a) (((a)>0)?(a):(-(a)))
 
 /* Global Variables */
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
