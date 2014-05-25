@@ -415,7 +415,7 @@ bug report.\n",
 
       /* Check events */
       if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
-         cbKeyPressed(get_ascii_keycode(&xev),0,0);
+         cbKeyPressed(get_ascii_keycode(&xev), 0, 0);
       }
 
       /* Update viewport on window size change */
@@ -664,10 +664,9 @@ void MouseFunc(int x, int y)
 
 nix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
 {
+   if (!key) return;
    switch (key) {
-      case 'X':
-         break; /* Do nothing */
-      case 113: case 81: case 27: /* q,ESC */
+      case 'q': case 'Q': case 27: /* 27==ESC */
 #ifdef NIX_MODE
          glXMakeCurrent(dpy, None, NULL);
          glXDestroyContext(dpy, glc);
@@ -774,20 +773,15 @@ static void *tmalloc(size_t n)
 #ifdef NIX_MODE
 static char get_ascii_keycode(XEvent *ev)
 {
-   char keys[256], *s;
-   int count;
-   KeySym k;
+   char key;
+   int count = XLookupString((XKeyEvent *)ev, &key, 1, NULL, NULL);
 
-   if (ev) {
-      count = XLookupString((XKeyEvent *)ev, keys, 256, &k,NULL);
-      keys[count] = '\0';
-      if (count == 0) {
-         s = XKeysymToString(k);
-         strcpy(keys, (s)?s:"");
-      }
-      if (count==1) return *keys;
+   /* We only care about single-character key presses */
+   if (count == 1) {
+      return key;
    }
-   return 'X';
+
+   return 0;
 }
 #endif
 
