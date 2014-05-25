@@ -51,9 +51,9 @@
    #include <GL/glut.h> /* GLUT support library. */
 #endif /* WIN32_MODE */
 
-#include "matrix.h"     /* Prototypes */
-#include "matrix1.h"    /* Font data */
-#include "matrix2.h"    /* Image data */
+#include "matrix.h"
+#include "data/fonts.h"
+#include "data/images.h"
 #ifdef UNIX_MODE
    #include "config.h"  /* Autoconf stuff */
 #endif /* UNIX_MODE */

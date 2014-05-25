@@ -1,5 +1,5 @@
 /* matrixgl - Cross-platform matrix screensaver
- * Copyright (C) Alexander Zolotov, Eugene Zolotov 2003. 
+ * Copyright (C) Alexander Zolotov, Eugene Zolotov 2003.
  * Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
  * -------------------------------------------
  * Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
@@ -11,19 +11,19 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
  */
 
 /* Image data for 3D images and credits. Each set of 6300 characters represents
- * Z values for each of the 90*70 on-screen characters. 
+ * Z values for each of the 90*70 on-screen characters.
  *
  * Tips for creating a new image:
  *    - Z-values must be in the range 0-255, higher numbers being further back
@@ -35,7 +35,7 @@
  *    could help with this.
  *    - Most photos/images will translate extremely poorly, because of the low
  *    resolution. The images below were very extensively modified before being
- *    exported, and most images just don't work. 
+ *    exported, and most images just don't work.
  *
  * To add a new image (without messing up the credits):
  *    - Add the new data just BEFORE the first credit image (search for #C1)

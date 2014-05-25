@@ -39,6 +39,7 @@ AC_CONFIG_HEADERS([src/config.h])
 dnl List of Makefiles that will be
 AC_CONFIG_FILES([Makefile
                  src/Makefile
+                 src/data/Makefile
                  docs/Makefile])
 
 dnl /usr/local isn't always in PATH, and /usr/local/share/man isn't always in

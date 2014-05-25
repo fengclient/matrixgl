@@ -1,4 +1,4 @@
-# Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014 Vincent Launchbury
+# Copyright (C) 2014 Vincent Launchbury
 # Written By: Vincent Launchbury <vincent@doublecreations.com>
 # -------------------------------------------
 #
@@ -16,23 +16,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-# Remember to update configure.ac's AC_CONFIG_FILES when adding new directories
-SUBDIRS = data
-
-bin_PROGRAMS = matrixgl
-
 if USE_XSCREENSAVER
-# Install binary to XScreenSaver hacks directory
-xssexecdir = @XSS_HACKS@
-xssexec_PROGRAMS = matrixgl
+# Install XML config for XScreenSaver
+xssconfdir = @XSS_CONF@
+dist_xssconf_DATA = matrixgl.xml
 endif
 
-matrixgl_SOURCES = matrix.c
-noinst_HEADERS = matrix.h vroot.h
-
-# Now make sure it finds Xlib and GL/GLU
-matrixgl_CFLAGS = -DUNIX_MODE -pedantic -ansi -Wall -W @x_includes@ @GLU_CFLAGS@
-matrixgl_LDADD = -lm -lX11 @GLU_LIBS@
+noinst_HEADERS = fonts.h images.h
 
 help:
-	@cat ../docs/make-help.txt
+	@cat ../../docs/make-help.txt
