@@ -715,7 +715,7 @@ static void ourInit(void)
       if (a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
    }
 
-   /* Make Textures */
+   /* Create texture mipmaps */
    glPixelTransferf(GL_GREEN_SCALE, 1.15f); /* Give green a bit of a boost */
    glBindTexture(GL_TEXTURE_2D,1);
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, color,
@@ -727,18 +727,14 @@ static void ourInit(void)
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE,
       GL_UNSIGNED_BYTE, (void *)flare);
 
+   /* Use GL_DECAL so texels aren't multipied by the colors on the screen, e.g
+    * the black set by calls to glClear(GL_COLOR_BUFFER_BIT) */
    glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
-   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-   glShadeModel(GL_SMOOTH);
-
-   /* A handy trick -- have surface material mirror the color. */
-   glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-   glEnable(GL_COLOR_MATERIAL);
 
    glEnable(GL_BLEND);
    glEnable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
-   glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+   glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 }
 
 /* malloc w/ error checking  */
