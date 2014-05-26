@@ -443,16 +443,18 @@ bug report.\n",
 /* Draw character #num on the screen. */
 static void draw_char(long num, float light, float x, float y, float z)
 {
-   float tx,ty;
-   long num2=num/10;
-   ty=(float)num2/7;
-   tx=(float)num/10;
+   /* The font texture is a grid of 10x6 characters. Texture coords are
+    * normalized to [0,1] and (s,t) is the top-left texel of the character
+    * #num. The division by 7 ensures that rows don't evenly line up. */
+   float s = (float)(num%10) / 10;
+   float t = 1 - (float)(num/10)/7;
+
    glColor4f(0.9, 0.4, 0.3, light/255);
 
-   glTexCoord2f(tx, ty); glVertex3f( x, y, z);
-   glTexCoord2f(tx+0.1, ty); glVertex3f( x+1, y, z);
-   glTexCoord2f(tx+0.1, ty+0.166); glVertex3f( x+1, y-1, z);
-   glTexCoord2f(tx, ty+0.166); glVertex3f( x, y-1, z);
+   glTexCoord2f(s,     t);       glVertex3f(x,   y,   z);
+   glTexCoord2f(s+0.1, t);       glVertex3f(x+1, y,   z);
+   glTexCoord2f(s+0.1, t-0.166); glVertex3f(x+1, y-1, z);
+   glTexCoord2f(s,     t-0.166); glVertex3f(x,   y-1, z);
 }
 
 
@@ -461,10 +463,10 @@ static void draw_flare(float x,float y,float z)
 {
    glColor4f(0.9,0.4,0.3,.75);
 
-   glTexCoord2f(0, 0); glVertex3f( x-1, y+1, z);
-   glTexCoord2f(0.75, 0); glVertex3f( x+2, y+1, z);
-   glTexCoord2f(0.75, 0.75); glVertex3f( x+2, y-2, z);
-   glTexCoord2f(0, 0.75); glVertex3f( x-1, y-2, z);
+   glTexCoord2f(0,    0);    glVertex3f(x-1, y+1, z);
+   glTexCoord2f(0.75, 0);    glVertex3f(x+2, y+1, z);
+   glTexCoord2f(0.75, 0.75); glVertex3f(x+2, y-2, z);
+   glTexCoord2f(0,    0.75); glVertex3f(x-1, y-2, z);
 }
 
 /* Draw green text on screen */
@@ -583,7 +585,7 @@ static void make_change(void)
       /* Random character changes */
       r=rand()&0xFFFF; r>>=3;
       r %= (text_x * text_y);
-      text[r]+=133;
+      text[r] = rand()%59;
 
       /* White nodes */
       r=rand()&0xFFFF;r>>=7;
@@ -710,7 +712,7 @@ static void ourInit(void)
 {
    /* Set up column speeds and character mappings */
    long a;
-   for(a=0;a<(text_x*text_y);a++) text[a]=rand()&63;
+   for(a=0;a<(text_x*text_y);a++) text[a]=rand()%59;
    for(a=0;a<text_x;a++) {
       speed[a]=rand()&1;
       if (a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
