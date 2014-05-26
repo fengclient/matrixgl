@@ -32,7 +32,7 @@
 #  define unix_static
 #endif /* WIN32_MODE */
 
-static void draw_char(int mode, long num, float light, float x, float y, float z);
+static void draw_char(long num, float light, float x, float y, float z);
 static void draw_flare(float x,float y,float z);
 static void draw_text1(void);
 static void draw_text2(int mode);

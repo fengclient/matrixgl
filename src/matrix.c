@@ -444,15 +444,13 @@ bug report.\n",
 
 
 /* Draw character #num on the screen. */
-static void draw_char(int mode, long num, float light, float x, float y, float z)
+static void draw_char(long num, float light, float x, float y, float z)
 {
    float tx,ty;
-   long num2;
-   if (mode==1) light/=255;
-   num2=num/10;
+   long num2=num/10;
    ty=(float)num2/7;
    tx=(float)num/10;
-   glColor4f(0.9,0.4,0.3,light);
+   glColor4f(0.9, 0.4, 0.3, light/255);
 
    glTexCoord2f(tx, ty); glVertex3f( x, y, z);
    glTexCoord2f(tx+0.1, ty); glVertex3f( x+1, y, z);
@@ -491,11 +489,11 @@ static void draw_text1(void)
             if(c_pic<0) {c_pic=0;} c-=c_pic;if(c<0) {c=0;}
 
             if(!paused)bump_pic[p]=(float)(255-c_pic)/32;
-            if(c>10 && text[p]) draw_char(1, text[p]+1,c,x,y, bump_pic[p]);
+            if(c>10 && text[p]) draw_char(text[p]+1,c,x,y, bump_pic[p]);
             b++;
          } else {
             c=text_light[p]-(text[p]>>1);c+=pic_fade;if(c>255) c=255;
-            if (c>10 && text[p]) draw_char(1, text[p]+1, c,x,y,8);
+            if (c>10 && text[p]) draw_char(text[p]+1, c,x,y,8);
          }
          p++;
       }
@@ -512,7 +510,7 @@ static void draw_text2(int mode)
          if(text_light[p]>128 && text_light[p+text_x]<10) {
             /* White character */
             if (!mode) {
-               draw_char(2, text[p]+1,0.5,x,y,
+               draw_char(text[p]+1,127.5,x,y,
                   ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
             /* Flare */
             } else {
