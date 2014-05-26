@@ -439,7 +439,6 @@ bug report.\n",
    return 0;
 }
 
-
 /* Draw character #num on the screen. */
 static void draw_char(long num, float light, float x, float y, float z)
 {
@@ -456,7 +455,6 @@ static void draw_char(long num, float light, float x, float y, float z)
    glTexCoord2f(s+0.1, t-0.166); glVertex3f(x+1, y-1, z);
    glTexCoord2f(s,     t-0.166); glVertex3f(x,   y-1, z);
 }
-
 
 /* Draw flare around white characters */
 static void draw_flare(float x,float y,float z)
@@ -539,7 +537,7 @@ static void scroll(unused int mode)
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
 #else /* WIN32_MODE */
-	  if(timer>75 && timer<80 && !classic) pic_mode=2; /* pic fade out */
+     if(timer>75 && timer<80 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 75 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
 #endif
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
@@ -548,7 +546,7 @@ static void scroll(unused int mode)
 #ifdef UNIX_MODE
       if(timer>210) {
 #else /* WIN32_MODE */
-	  if(timer>100) {
+     if(timer>100) {
 #endif
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
@@ -575,7 +573,6 @@ static void scroll(unused int mode)
 #endif
 }
 
-
 static void make_change(void)
 {
    int r, i;
@@ -597,7 +594,6 @@ static void make_change(void)
 #endif
 }
 
-
 unix_static void cbRenderScene(void)
 {
    glMatrixMode(GL_MODELVIEW);
@@ -606,17 +602,17 @@ unix_static void cbRenderScene(void)
 
    glBindTexture(GL_TEXTURE_2D,1);
    glBegin(GL_QUADS);
-   draw_text1();
+      draw_text1();
    glEnd();
 
    glBindTexture(GL_TEXTURE_2D,2);
    glBegin(GL_QUADS);
-   draw_text2(0);
+      draw_text2(0);
    glEnd();
 
    glBindTexture(GL_TEXTURE_2D,3);
    glBegin(GL_QUADS);
-   draw_text2(1);
+      draw_text2(1);
    glEnd();
 
    make_change();
@@ -630,23 +626,19 @@ unix_static void cbRenderScene(void)
 #endif /* UNIX_MODE */
 }
 
-
 #ifdef WIN32_MODE
 void MouseFunc(int x, int y)
 {
-	/* A work around for really buggy
-	mouse drivers that:
-		a) Randomly generate a mouse event when the
-		 coords haven't changed and
-	   b) Even worse, generate a mouse event with
-		 different coords, when the mouse hasn't moved.
-	*/
+   /* A work around for really buggy mouse drivers that:
+    *  a) Randomly generate a mouse event when the coords haven't changed and
+    *  b) Even worse, generate a mouse event with different coords, when the
+    *  mouse hasn't moved.
+    */
    static short xx=0,yy=0, t=0;
    if (!t) {t++;xx=x;yy=y;}
    else if (abs(xx-x)>8||abs(yy-y)>8)exit(EXIT_SUCCESS);
 }
 #endif
-
 
 unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
 {
@@ -703,7 +695,6 @@ unix_static void cbResizeScene(int width, int height)
    gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,200.0f);
    glMatrixMode(GL_MODELVIEW);
 }
-
 
 static void ourInit(void)
 {
