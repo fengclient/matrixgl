@@ -600,14 +600,11 @@ static void make_change(void)
 
 unix_static void cbRenderScene(void)
 {
-   glBindTexture(GL_TEXTURE_2D,1);
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,
-      GL_NEAREST_MIPMAP_LINEAR);
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
    glTranslatef(0.0f,0.0f,-89.0F);
    glClear(GL_COLOR_BUFFER_BIT);
 
+   glBindTexture(GL_TEXTURE_2D,1);
    glBegin(GL_QUADS);
    draw_text1();
    glEnd();
@@ -730,9 +727,6 @@ static void ourInit(void)
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE,
       GL_UNSIGNED_BYTE, (void *)flare);
 
-   /* Some pretty standard settings for wrapping and filtering. */
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
    glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_DECAL);
    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
    glShadeModel(GL_SMOOTH);
