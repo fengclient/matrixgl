@@ -61,15 +61,12 @@
 /* Global Variables */
 unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
 #define rtext_x 90
-#define _rtext_x rtext_x/2
 #define text_y 70
-#define _text_y text_y/2
-#define _text_x text_x/2
 int text_x;
 unsigned char *speed;      /* Speed of each column (0-2) */
 unsigned char *text;       /* Random Characters (0-62) */
 unsigned char *text_light; /* Alpha 255-white, 254-none */
-float *bump_pic;           /* Z-Offset (calculated from pic from matrix2.h) */
+float *bump_pic;           /* Z values for each character */
 
 int pic_offset;            /* Which image to show */
 long timer=40;             /* Controls pic fade in/out */
@@ -473,29 +470,27 @@ static void draw_flare(float x,float y,float z)
 /* Draw green text on screen */
 static void draw_text1(void)
 {
-   float x,y;
-   long p=0,b=0;
-   int c,c_pic;
+   int x, y, i=0, b=0;
    if(!paused && pic_mode==1 && (pic_fade+=3)>255) pic_fade=255;
    if(!paused && pic_mode==2 && (pic_fade-=3)<0) pic_fade=0;
-   for(y=_text_y;y>-_text_y;y--){
-      for(x=-_text_x;x<_text_x;x++){
-         if (x>-_rtext_x-1 && x<_rtext_x ) {
-            /* Main text */
-            c=text_light[p]-(text[p]>>1);
-            c+=pic_fade;if(c>255) c=255;
-            /* 3D Image offsets */
-            c_pic=pic[b+pic_offset]-(255-pic_fade);
-            if(c_pic<0) {c_pic=0;} c-=c_pic;if(c<0) {c=0;}
 
-            if(!paused)bump_pic[p]=(float)(255-c_pic)/32;
-            if(c>10 && text[p]) draw_char(text[p]+1,c,x,y, bump_pic[p]);
+   /* For each character, from top-left to bottom-right of screen */
+   for (y=text_y/2; y>-text_y/2; y--) {
+      for (x=-text_x/2; x<text_x/2; x++, i++) {
+         int light = clamp(text_light[i] + pic_fade, 0, 255);
+         int depth = 0;
+
+         /* If the coordinate is in the range of the 3D picture, set depth */
+         if (x >= -rtext_x/2 && x<rtext_x/2) {
+            depth=clamp(pic[b+pic_offset]+(pic_fade-255), 0, 255);
             b++;
-         } else {
-            c=text_light[p]-(text[p]>>1);c+=pic_fade;if(c>255) c=255;
-            if (c>10 && text[p]) draw_char(text[p]+1, c,x,y,8);
+
+            /* Make far-back pixels darker */
+            light-=depth; if (light<0) light=0;
          }
-         p++;
+
+         bump_pic[i]=(float)(255-depth)/32; /* Map depth (0-255) to Z coord */
+         draw_char(text[i], light, x, y, bump_pic[i]);
       }
    }
 }
@@ -503,23 +498,19 @@ static void draw_text1(void)
 /* Draw white characters and flares for each column */
 static void draw_text2(int mode)
 {
-   float x,y;
-   long p=0;
-   for(y=_text_y;y>-_text_y;y--){
-      for(x=-_text_x;x<_text_x;x++){
-         if(text_light[p]>128 && text_light[p+text_x]<10) {
-            /* White character */
+   int x, y, i=0;
+
+   /* For each character, from top-left to bottom-right of screen */
+   for (y=text_y/2; y>-text_y/2; y--) {
+      for (x=-text_x/2; x<text_x/2; x++, i++) {
+         if (text_light[i]>128 && text_light[i+text_x]<10) {
             if (!mode) {
-               draw_char(text[p]+1,127.5,x,y,
-                  ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
-            /* Flare */
+               /* White character */
+               draw_char(text[i], 127.5, x, y, bump_pic[i]);
             } else {
-               draw_flare(x,y,
-                  ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
+               draw_flare(x, y, bump_pic[i]);
             }
          }
-
-         p++;
       }
    }
 }
