@@ -1,5 +1,5 @@
 /* matrixgl - Cross-platform matrix screensaver
- * Copyright (C) Alexander Zolotov, Eugene Zolotov 2003. 
+ * Copyright (C) Alexander Zolotov, Eugene Zolotov 2003.
  * Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
  * -------------------------------------------
  * Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
@@ -11,12 +11,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
@@ -27,7 +27,7 @@
 #endif
 
 /* Includes */
-#ifdef WIN32_MODE 
+#ifdef WIN32_MODE
    #include <windows.h>
 #else /* UNIX_MODE */
    #include <X11/Xlib.h>
@@ -106,7 +106,7 @@ float maxfps=32.0;         /* Default maximum FPS */
 
 
 #ifdef WIN32_MODE
-/* 
+/*
  * int main(int argc, char **argv)
  */
 int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
@@ -118,7 +118,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    FILE *config;
    GetWindowsDirectory(win, 100);
    if(lpCmd[1]=='p') exit(EXIT_SUCCESS);
-   /* Run the config dialog, assuming the user has 
+   /* Run the config dialog, assuming the user has
     * copied it to %WINDIR% */
    if(lpCmd[1]=='c') {
       sprintf(cfile, "%s\\matrixgl_config.exe", win);
@@ -157,7 +157,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    }
    free(cfile);
 #else /* UNIX_MODE */
-int main(int argc,char **argv) 
+int main(int argc,char **argv)
 {
    int i=0,a=0,s=0;
    int opt;
@@ -228,7 +228,7 @@ int main(int argc,char **argv)
          case 'f':
             showfps=1;
             if (optarg) fpoll=clamp(atoi(optarg), 1, 20);
-            else if (optind>0 && optind<argc && atoi(argv[optind])) 
+            else if (optind>0 && optind<argc && atoi(argv[optind]))
                fpoll=clamp(atoi(argv[optind]), 1, 20);
             break;
          case 'l':
@@ -297,7 +297,7 @@ bug report.\n",
    dpy = XOpenDisplay(NULL);
    if(dpy == NULL) {
       fprintf(stderr, "Can't connect to X server\n");
-      exit(EXIT_FAILURE); 
+      exit(EXIT_FAILURE);
    }
    swa.event_mask = KeyPressMask;
    /* Bypass window manager for fullscreen */
@@ -320,7 +320,7 @@ bug report.\n",
 
    /* Create window, and map it */
    win = XCreateWindow(dpy, DefaultRootWindow(dpy),
-       0, 0, x, y, 0, 0, InputOutput, 
+       0, 0, x, y, 0, 0, InputOutput,
        CopyFromParent, CWEventMask | CWOverrideRedirect, &swa);
    XMapRaised(dpy, win);
 
@@ -329,12 +329,12 @@ bug report.\n",
       Pixmap blank;
       Cursor cursor;
       XColor c;
-      
-      /* Since we bypassed the window manager, 
+
+      /* Since we bypassed the window manager,
        * we have to steal keyboard control */
       XGrabKeyboard(dpy, win, 1, GrabModeSync, GrabModeAsync, CurrentTime);
 
-      /* X has no function to hide the cursor, 
+      /* X has no function to hide the cursor,
        * so we have to create a blank one */
       blank = XCreatePixmapFromBitmapData(dpy, win,"\000", 1, 1, 0, 0, 1);
       cursor = XCreatePixmapCursor(dpy, blank, blank, &c, &c, 0, 0);
@@ -351,7 +351,7 @@ bug report.\n",
 
 /* Allocations for dynamic width */
 #ifdef WIN32_MODE
-   text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH) 
+   text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH)
       / glutGet(GLUT_SCREEN_HEIGHT)));
 #else /* UNIX_MODE */
    text_x = ceil(70 * ((float)x/y));
@@ -372,7 +372,7 @@ bug report.\n",
       make_change();
 
       for(a=(text_x*text_y)+text_x-1;a>text_x;a--)
-         text_light[a]=text_light[a-text_x]; 
+         text_light[a]=text_light[a-text_x];
 
       for(a=1;a<text_x;a++) text_light[a]=253; /* Clear top line */
 
@@ -392,7 +392,7 @@ bug report.\n",
       else if (time(NULL)-last >= fpoll) {
          fps = frames/(time(NULL)-last);
          if (showfps) {
-            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds)\n", 
+            printf("FPS:%5.1f (%ld) (%3d frames in %2d seconds)\n",
                fps, sleeper, frames, (int)(time(NULL)-last));
             fflush(stdout); /* Don't buffer fps stats (do not remove!) */
          }
@@ -426,7 +426,7 @@ bug report.\n",
       glFinish();
       scroll(0);
       frames++; /* Finished drawing a frame */
-   } 
+   }
 #else /* WIN32_MODE */
    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
    glutEnterGameMode();
@@ -435,7 +435,7 @@ bug report.\n",
    glutIdleFunc(&cbRenderScene);
    glutReshapeFunc(&cbResizeScene);
    glutKeyboardFunc(&cbKeyPressed);
-   glutPassiveMotionFunc(MouseFunc);   
+   glutPassiveMotionFunc(MouseFunc);
    ourInit();
    glutMainLoop(); /* Pass off control to OpenGL. */
 #endif /* WIN32_MODE */
@@ -454,7 +454,7 @@ static void draw_char(int mode, long num, float light, float x, float y, float z
    tx=(float)num/10;
    glColor4f(0.9,0.4,0.3,light);
 
-   glTexCoord2f(tx, ty); glVertex3f( x, y, z); 
+   glTexCoord2f(tx, ty); glVertex3f( x, y, z);
    glTexCoord2f(tx+0.1, ty); glVertex3f( x+1, y, z);
    glTexCoord2f(tx+0.1, ty+0.166); glVertex3f( x+1, y-1, z);
    glTexCoord2f(tx, ty+0.166); glVertex3f( x, y-1, z);
@@ -466,7 +466,7 @@ static void draw_flare(float x,float y,float z)
 {
    glColor4f(0.9,0.4,0.3,.75);
 
-   glTexCoord2f(0, 0); glVertex3f( x-1, y+1, z); 
+   glTexCoord2f(0, 0); glVertex3f( x-1, y+1, z);
    glTexCoord2f(0.75, 0); glVertex3f( x+2, y+1, z);
    glTexCoord2f(0.75, 0.75); glVertex3f( x+2, y-2, z);
    glTexCoord2f(0, 0.75); glVertex3f( x-1, y-2, z);
@@ -485,13 +485,13 @@ static void draw_text1(void)
          if (x>-_rtext_x-1 && x<_rtext_x ) {
             /* Main text */
             c=text_light[p]-(text[p]>>1);
-            c+=pic_fade;if(c>255) c=255; 
+            c+=pic_fade;if(c>255) c=255;
             /* 3D Image offsets */
-            c_pic=pic[b+pic_offset]-(255-pic_fade); 
+            c_pic=pic[b+pic_offset]-(255-pic_fade);
             if(c_pic<0) {c_pic=0;} c-=c_pic;if(c<0) {c=0;}
 
             if(!paused)bump_pic[p]=(float)(255-c_pic)/32;
-            if(c>10 && text[p]) draw_char(1, text[p]+1,c,x,y, bump_pic[p]); 
+            if(c>10 && text[p]) draw_char(1, text[p]+1,c,x,y, bump_pic[p]);
             b++;
          } else {
             c=text_light[p]-(text[p]>>1);c+=pic_fade;if(c>255) c=255;
@@ -512,11 +512,11 @@ static void draw_text2(int mode)
          if(text_light[p]>128 && text_light[p+text_x]<10) {
             /* White character */
             if (!mode) {
-               draw_char(2, text[p]+1,0.5,x,y, 
+               draw_char(2, text[p]+1,0.5,x,y,
                   ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
             /* Flare */
             } else {
-               draw_flare(x,y, 
+               draw_flare(x,y,
                   ((x>-_rtext_x-1 && x<_rtext_x )?bump_pic[p]:8));
             }
          }
@@ -533,12 +533,12 @@ static void scroll(unused int mode)
    int a, s=0;
    if (paused)return;
    for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
-      if(speed[s]) text_light[a]=text_light[a-text_x]; 
-      s++;if(s>=text_x) s=0;    
+      if(speed[s]) text_light[a]=text_light[a-text_x];
+      s++;if(s>=text_x) s=0;
    }
    for(s=0,a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
-      if(speed[s]>1) text_light[a]=text_light[a-text_x]; 
-      s++;if(s>=text_x) s=0;    
+      if(speed[s]>1) text_light[a]=text_light[a-text_x];
+      s++;if(s>=text_x) s=0;
    }
 
    if (odd) {
@@ -561,12 +561,12 @@ static void scroll(unused int mode)
 #endif
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
-         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
+         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0;
       }
       timer++;
 
       for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--) {
-         text_light[a]=text_light[a-text_x]; 
+         text_light[a]=text_light[a-text_x];
       }
 
       /* Clear top line in light table */
@@ -608,16 +608,16 @@ static void make_change(void)
 
 
 unix_static void cbRenderScene(void)
-{  
+{
    glBindTexture(GL_TEXTURE_2D,1);
-   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER, 
+   glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,
       GL_NEAREST_MIPMAP_LINEAR);
    glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
    glMatrixMode(GL_MODELVIEW);
    glTranslatef(0.0f,0.0f,-89.0F);
    glClear(GL_COLOR_BUFFER_BIT);
 
-   glBegin(GL_QUADS); 
+   glBegin(GL_QUADS);
    draw_text1();
    glEnd();
 
@@ -638,9 +638,9 @@ unix_static void cbRenderScene(void)
 #ifdef WIN32_MODE
    glutSwapBuffers();
 #else /* UNIX_MODE */
-   glXSwapBuffers(dpy, win); 
+   glXSwapBuffers(dpy, win);
 #endif /* UNIX_MODE */
-} 
+}
 
 
 #ifdef WIN32_MODE
@@ -676,13 +676,13 @@ unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
          free(text);
          free(text_light);
          free(bump_pic);
-         exit(EXIT_SUCCESS); 
+         exit(EXIT_SUCCESS);
       case 'n': /* n - Next picture. */
          if (classic || paused) break;
          pic_offset+=rtext_x*text_y;
          pic_mode=1;
          timer=10;
-         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0; 
+         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0;
          break;
       case 'c': /* Show "Credits" */
          classic=0;
@@ -694,7 +694,7 @@ unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
          if (!classic) {
             pic_fade=0;
             pic_offset=0;
-         } 
+         }
          pic_mode=!pic_mode;
          classic=!classic;
          break;
@@ -717,7 +717,7 @@ unix_static void cbResizeScene(int width, int height)
 }
 
 
-static void ourInit(void) 
+static void ourInit(void)
 {
    /* Set up column speeds and character mappings */
    long a;
@@ -733,10 +733,10 @@ static void ourInit(void)
    gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, color,
       GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,2);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_LUMINANCE, 
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 512, 256, GL_LUMINANCE,
       GL_UNSIGNED_BYTE, (void *)font);
    glBindTexture(GL_TEXTURE_2D,3);
-   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE, 
+   gluBuild2DMipmaps(GL_TEXTURE_2D,GL_RGBA8, 4, 4, GL_LUMINANCE,
       GL_UNSIGNED_BYTE, (void *)flare);
 
    /* Some pretty standard settings for wrapping and filtering. */
@@ -753,7 +753,7 @@ static void ourInit(void)
    glEnable(GL_BLEND);
    glEnable(GL_TEXTURE_2D);
    glDisable(GL_LIGHTING);
-   glBlendFunc(GL_SRC_ALPHA,GL_ONE); 
+   glBlendFunc(GL_SRC_ALPHA,GL_ONE);
 }
 
 /* malloc w/ error checking  */
