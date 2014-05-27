@@ -198,10 +198,7 @@ int main(int argc,char **argv)
             wuse=FS;
             break;
          case 's':
-            pic_fade=0;
-            pic_offset=0;
-            pic_mode=!pic_mode;
-            classic=1;
+            cbKeyPressed('s', 0, 0);
             break;
          case 'c':
             if (classic) break; /* Can't be used with 's' */
