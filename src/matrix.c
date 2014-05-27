@@ -558,17 +558,15 @@ static void scroll(void)
 
 static void make_change(void)
 {
-   int r, i;
-
+   int i;
    for (i=0; i<rain_intensity; i++) {
       /* Random character changes */
-      r=rand()&0xFFFF; r>>=3;
-      r %= (text_x * text_y);
+      int r=rand() % (text_x * text_y);
       text[r] = rand()%59;
 
-      /* White nodes */
-      r=rand()&0xFFFF;r>>=7;
-      if(r<text_x && text_light[r]!=0) text_light[r]=255;
+      /* White nodes (1 in 5 chance of doing anything) */
+      r=rand() % (text_x * 5);
+      if (r<text_x && text_light[r]!=0) text_light[r]=255;
    }
 }
 
