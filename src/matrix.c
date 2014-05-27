@@ -114,9 +114,10 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
    char *cfile = malloc(strlen(win)+25);
    FILE *config;
    GetWindowsDirectory(win, 100);
+
+   /* We don't support preview on windows */
    if(lpCmd[1]=='p') exit(EXIT_SUCCESS);
-   /* Run the config dialog, assuming the user has
-    * copied it to %WINDIR% */
+   /* Run the config dialog */
    if(lpCmd[1]=='c') {
       sprintf(cfile, "%s\\matrixgl_config.exe", win);
       _execl(cfile, cfile, NULL);
