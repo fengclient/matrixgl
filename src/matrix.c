@@ -137,14 +137,11 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
       fgets(vals, 4, config);
       /* Static mode */
       if (vals[0]!='0') {
-            pic_fade=0;
-            pic_offset=0;
-            pic_mode=!pic_mode;
-            classic=1;
+         cbKeyPressed('s', 0, 0);
       }
       /* Show credits on startup */
       if (vals[1]!='0') {
-            if (!classic) cbKeyPressed('c', 0, 0); /* Start at credits */
+         if (!classic) cbKeyPressed('c', 0, 0); /* Start at credits */
       }
       /* Set color */
       if (vals[2]=='1') color=GL_GREEN;
