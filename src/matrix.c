@@ -130,7 +130,6 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 
    /* Read in config */
    sprintf(cfile, "%s\\matrixgl_config", win);
-   fprintf(stderr, "cfile=%s\n", cfile);
    config = fopen(cfile, "r");
    if (config) {
       char vals[4];
@@ -147,8 +146,6 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
       if (vals[2]=='1') color=GL_GREEN;
       if (vals[2]=='2') color=GL_RED;
       if (vals[2]=='3') color=GL_BLUE;
-   } else {
-      fprintf(stderr, "Config: Not found\n");
    }
    free(cfile);
 #else /* UNIX_MODE */
