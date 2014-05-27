@@ -108,8 +108,7 @@ float maxfps=32.0;         /* Default maximum FPS */
  */
 int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 {
-   int argc=1;
-   int i=0,a=0,s=0;
+   int argc=1,i=0,a=0,s=0;
    char win[100];
    char *cfile = malloc(strlen(win)+25);
    FILE *config;
@@ -135,13 +134,9 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
       char vals[4];
       fgets(vals, 4, config);
       /* Static mode */
-      if (vals[0]!='0') {
-         cbKeyPressed('s', 0, 0);
-      }
+      if (vals[0]!='0') cbKeyPressed('s', 0, 0);
       /* Show credits on startup */
-      if (vals[1]!='0') {
-         if (!classic) cbKeyPressed('c', 0, 0); /* Start at credits */
-      }
+      if (vals[1]!='0' && !classic) cbKeyPressed('c', 0, 0);
       /* Set color */
       if (vals[2]=='1') color=GL_GREEN;
       if (vals[2]=='2') color=GL_RED;
