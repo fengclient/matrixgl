@@ -28,7 +28,9 @@
 
 /* Includes */
 #ifdef WIN32_MODE
+   #define _CRT_SECURE_NO_WARNINGS
    #include <windows.h>
+   #include <process.h>
 #else /* UNIX_MODE */
    #include <X11/Xlib.h>
    #include <X11/Xutil.h>
@@ -119,7 +121,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
     * copied it to %WINDIR% */
    if(lpCmd[1]=='c') {
       sprintf(cfile, "%s\\matrixgl_config.exe", win);
-      _execl(cfile);
+      _execl(cfile, cfile, NULL);
       exit(EXIT_SUCCESS);
    }
 
