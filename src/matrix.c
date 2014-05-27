@@ -254,16 +254,9 @@ There is NO WARRANTY, to the extent permitted by law.\n",
             exit(EXIT_SUCCESS);
       }
    }
-#endif /* UNIX_MODE */
 
-#ifdef WIN32_MODE
-   glutInit(&argc, &lpCmd);
-#else /* UNIX_MODE */
    srand(time(NULL));
-#endif
 
-
-#ifdef UNIX_MODE
    /* Set up X Window stuff */
    dpy = XOpenDisplay(NULL);
    if(dpy == NULL) {
