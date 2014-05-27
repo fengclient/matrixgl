@@ -1,10 +1,10 @@
 /* matrixgl - Cross-platform matrix screensaver
- * Copyright (C) Alexander Zolotov, Eugene Zolotov 2003.
- * Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml)
- * -------------------------------------------
- * Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.
- *       and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.
- * Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008,2009.
+ *
+ * Copyright (C) 2003 Alexander Zolotov, Eugene Zolotov
+ * Copyright (C) 2008, 2009, 2010, 2011, 2012, 2013, 2014 Vincent Launchbury
+ *
+ * See AUTHORS for a full list of contributors.
+ *
  * -------------------------------------------
  *
  * This program is free software; you can redistribute it and/or modify
