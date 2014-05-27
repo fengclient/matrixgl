@@ -158,7 +158,6 @@ int main(int argc,char **argv)
 {
    int i=0,a=0,s=0;
    int opt;
-   short allowroot=0; /* If they insist... */
    enum {PREVIEW, ROOT, FS, WINDOWED} wuse=WINDOWED; /* Windown type */
    Window wid=0;      /* ID of window, used to grab preview size */
 
@@ -173,7 +172,6 @@ int main(int argc,char **argv)
       {"root",      no_argument,       0, 'R'},
       {"fs",        no_argument,       0, 'F'},
       {"fullscreen",no_argument,       0, 'F'},
-      {"allow-root",no_argument,       0, 'Z'},
       {"fps",       optional_argument, 0, 'f'},
       {"limit",     required_argument, 0, 'l'},
       {"intensity", required_argument, 0, 'i'},
@@ -181,13 +179,9 @@ int main(int argc,char **argv)
    };
    int opti = 0;
    pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
-   while ((opt = getopt_long_only(argc, argv, "schvi:l:f::C:FRW:Z", long_opts, &opti))) {
+   while ((opt = getopt_long_only(argc, argv, "schvi:l:f::C:FRW:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
-         case 'Z':
-            if (!opti) break; /* Short opt not allowed */
-            allowroot=1;
-            break;
          case 'W':
             wuse=PREVIEW;
             wid=strtol(optarg, NULL, 16);
@@ -258,12 +252,6 @@ There is NO WARRANTY, to the extent permitted by law.\n",
                stdout);
             exit(EXIT_SUCCESS);
       }
-   }
-   /* Don't run as root, unless specifically requested */
-   if (!allowroot && getuid()==0) {
-      fprintf(stderr, "Error: You probably don't want to run this as "
-         "root.\n (Use --allow-root if you really want to..)\n");
-      exit(EXIT_FAILURE);
    }
 #endif /* UNIX_MODE */
 

@@ -198,12 +198,6 @@ wrapping of the scrolling text (or digital rain) around characters from
 @item -v --version
 Print version and author information to the terminal, and then exit.
 
-@cindex Allow Running as root
-@cindex --allow-root
-@item --allow-root
-Allow matrixgl to be run by the root user, if you really want to do so.
-Disabled by default as a safeguard.
-
 @cindex Attach to the Root Window
 @cindex --root
 @item --root
