@@ -21,9 +21,6 @@ AC_PREREQ([2.69])
 dnl Project name, version and bug email
 AC_INIT([matrixgl], [2.3.1], [vincent@doublecreations.com])
 
-dnl "Parts" indicates parts of generated configure file
-AC_COPYRIGHT([Parts Copyright (C) 2009-2014 Vincent Launchbury])
-
 dnl Eliminate clutter with auxilary build directory
 AC_CONFIG_AUX_DIR([build])
 
