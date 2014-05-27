@@ -19,6 +19,7 @@ matrixgl-v2.3.2 (not yet released)
 	- More configurable paramters in xscreensaver-demo config dialog
 	- Delete hand-rolled htoi() function, use strtol(3) instead
 	- Move matrix[12].h and matrixgl.xml to new src/data/ directory
+	- Fix warnings when compiling on windows with Visual Studio c++ 2010
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

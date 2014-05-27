@@ -36,7 +36,7 @@ static void draw_char(long num, float light, float x, float y, float z);
 static void draw_flare(float x,float y,float z);
 static void draw_text1(void);
 static void draw_text2(int mode);
-static void scroll(int mode);
+static void scroll(void);
 static void make_change(void);
 unix_static void cbRenderScene(void);
 unix_static void cbKeyPressed(unsigned char key, int x, int y);

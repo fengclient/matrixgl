@@ -72,7 +72,6 @@ float *bump_pic;           /* Z values for each character */
 
 int pic_offset;            /* Which image to show */
 long timer=40;             /* Controls pic fade in/out */
-int mode2=1;               /* Initial speed boost (inits the light table) */
 int pic_mode=1;            /* 1-fade in; 2-fade out (controls pic_fade) */
 int pic_fade=0;            /* Makes all chars lighter/darker */
 int classic=0;             /* classic mode (no 3d) */
@@ -366,7 +365,6 @@ bug report.\n",
    memset(text_light, 253, text_x*(text_y+1));
 
    /* Init the light tables */
-   mode2=0;
    for (i=0; i<500;i++) {
       make_change();
 
@@ -380,7 +378,6 @@ bug report.\n",
          s++;if(s>=text_x) s=0;
       }
    }
-   mode2=1;
 
 #ifdef UNIX_MODE
    ourInit();
@@ -423,7 +420,6 @@ bug report.\n",
       cbRenderScene();
       usleep(sleeper);
       glFinish();
-      scroll(0);
       frames++; /* Finished drawing a frame */
    }
 #else /* WIN32_MODE */
@@ -517,12 +513,10 @@ static void draw_text2(int mode)
    }
 }
 
-/* mode is only used in WIN32_MODE */
-static void scroll(unused int mode)
+static void scroll(void)
 {
    static char odd=0;
    int a, s=0;
-   if (paused)return;
    for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
       if(speed[s]) text_light[a]=text_light[a-text_x];
       s++;if(s>=text_x) s=0;
@@ -534,22 +528,12 @@ static void scroll(unused int mode)
 
    if (odd) {
       if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
-      if(timer>10) {mode2=0;mode=0;} /* Initialization */
-#ifdef UNIX_MODE
       if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
       if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
-#else /* WIN32_MODE */
-     if(timer>75 && timer<80 && !classic) pic_mode=2; /* pic fade out */
-      if (timer > 75 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
-#endif
          pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
          timer=70;pic_mode=1; /* Make DC dissapear quickly */
       }
-#ifdef UNIX_MODE
       if(timer>210) {
-#else /* WIN32_MODE */
-     if(timer>100) {
-#endif
          timer=-1;  /* back to start */
          pic_offset+=rtext_x*text_y; /* Next pic */
          if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0;
@@ -570,15 +554,11 @@ static void scroll(unused int mode)
       }
    }
    odd =!odd;
-#ifdef WIN32_MODE
-   if(!mode) glutTimerFunc(60,scroll,mode2);
-#endif
 }
 
 static void make_change(void)
 {
    int r, i;
-   if (paused) return;
 
    for (i=0; i<rain_intensity; i++) {
       /* Random character changes */
@@ -590,10 +570,6 @@ static void make_change(void)
       r=rand()&0xFFFF;r>>=7;
       if(r<text_x && text_light[r]!=0) text_light[r]=255;
    }
-
-#ifdef WIN32_MODE
-   if(mode2) scroll(mode2);
-#endif
 }
 
 unix_static void cbRenderScene(void)
@@ -617,7 +593,11 @@ unix_static void cbRenderScene(void)
       draw_text2(1);
    glEnd();
 
-   make_change();
+   if (!paused) {
+      make_change();
+      scroll();
+   }
+
    glLoadIdentity();
    glMatrixMode(GL_PROJECTION);
 
@@ -682,9 +662,6 @@ unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
          break;
       case 'p': /* Pause */
          paused=!paused;
-#ifdef WIN32_MODE
-         if (!paused) glutTimerFunc(60,scroll,mode2);
-#endif /* WIN32_MODE */
          break;
    }
 }
