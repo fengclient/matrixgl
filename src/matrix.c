@@ -61,7 +61,6 @@
 #endif /* UNIX_MODE */
 
 /* Global Variables */
-unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
 #define rtext_x 90
 #define text_y 70
 int text_x;
@@ -675,12 +674,14 @@ unix_static void cbResizeScene(int width, int height)
 
 static void ourInit(void)
 {
+   unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
+   int i;
+
    /* Set up column speeds and character mappings */
-   long a;
-   for(a=0;a<(text_x*text_y);a++) text[a]=rand()%59;
-   for(a=0;a<text_x;a++) {
-      speed[a]=rand()&1;
-      if (a && speed[a]==speed[a-1]) speed[a]=2; /* Collisions goto speed 3 */
+   for(i=0;i<(text_x*text_y);i++) text[i]=rand()%59;
+   for(i=0;i<text_x;i++) {
+      speed[i]=rand()&1;
+      if (i && speed[i]==speed[i-1]) speed[i]=2; /* Collisions goto speed 3 */
    }
 
    /* Create texture mipmaps */
