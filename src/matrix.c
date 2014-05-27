@@ -230,43 +230,31 @@ int main(int argc,char **argv)
             break;
          case 'h':
             fputs("Usage: matrixgl [OPTIONS]...\n\
-3D Matix Screensaver based on The Matrix Reloaded\n\
- -C --color=COL         Set color to COL (must be green, red or blue)\n\
- -c --credits           Show the credits on startup\n\
- -F --fs --fullscreen   Run in fullscreen window\n\
- -f --fps[=SEC]         Print fps stats every SEC seconds (default: 2)\n\
- -h --help              Show the help screen\n\
- -i --intensity=NUM     Set intensity of the digital rain (default: 1)\n\
- -l --limit=LIM         Limit framerate to LIM fps (default: 32)\n",
+3D Matix Screensaver based on The Matrix Reloaded\n\n\
+Mandatory arguments to long options are mandatory for short options too.\n\
+  -C --color=COL         Set color to COL (must be green, red or blue)\n\
+  -c --credits           Show the credits on startup\n\
+  -F --fs --fullscreen   Run in fullscreen window\n\
+  -f --fps[=SEC]         Print fps stats every SEC seconds (default: 2)\n\
+  -h --help              Show the help screen\n",
                stdout);
             fputs("\
- -s --static            Run in static mode (no 3D images)\n\
- -v --version           Print version info\n\
- --allow-root           Allow to be run as root\n",
-               stdout);
-            fputs("Long options may be passed with a single dash.\n\n\
-In-Screensaver Keys:\n\
- 'c' - View credits\n\
- 's' - Toggle static mode (3D)\n\
- 'n' - Next image\n\
- 'p' - Pause screensaver\n\
- 'q' - Quit\n\
-Note: Keys won't work in xscreensaver (see manpage)\n\n\
+  -i --intensity=NUM     Set intensity of the digital rain (default: 1)\n\
+  -l --limit=LIM         Limit framerate to LIM fps (default: 32)\n\
+  -s --static            Run in static mode (no 3D images)\n\
+  -v --version           Print version info\n\
+  --allow-root           Allow to be run as root\n\n\
 Report bugs to <" PACKAGE_BUGREPORT ">\n\
-Home Page: http://www.sourceforge.net/projects/matrixgl/\n",
-             stdout);
+For complete documentation, run: info matrixgl\n",
+               stdout);
             exit(EXIT_SUCCESS);
          case 'v':
             fputs("matrixgl version " VERSION "\n\
-Based on matrixgl 1.0 (see http://knoppix.ru/matrixgl.shtml) \n\
-Written By:  Alexander Zolotov  <nightradio@gmail.com> 2003.\n\
-      and :  Eugene Zolotov     <sentinel@knoppix.ru> 2003.\n\
-Modified By: Vincent Launchbury <vincent@doublecreations.com> 2008-2010.\n\n",
-               stdout);
-            fputs("Send bug reports to <" PACKAGE_BUGREPORT ">\n\
-To assist us best, please run the script ./gen-bug-report.sh in the \
-source directory and follow the instructions, before sending your \
-bug report.\n",
+Copyright (C) 2003 Alexander Zolotov, Eugene Zolotov\n\
+Copyright (C) 2008-2014 Vincent Launchbury\n\n\
+License GPLv2+: GNU GPL version 2 or later <http://gnu.org/licenses/gpl.html>.\n\
+This is free software: you are free to change and redistribute it.\n\
+There is NO WARRANTY, to the extent permitted by law.\n",
                stdout);
             exit(EXIT_SUCCESS);
       }
