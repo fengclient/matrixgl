@@ -1,7 +1,6 @@
 #!/bin/sh
 # Script to generate a useful bug report
 # Copyright (C) 2009, 2010, 2014 Vincent Launchbury
-#
 # -------------------------------------------
 #
 # This program is free software; you can redistribute it and/or modify
@@ -117,11 +116,21 @@ if test "$?" -eq 0; then
    # Grab install errors, if user lets us run it as root
    echo " "
    echo ">>> We need to run as root to check for install errors <<<"
-   echo "Please enter your root password (it is not stored)"
-   echo '@@install@@'                        >>bug_report 2>&1
-   su -c "make install >>bug_report 2>&1" 2>&1
+   echo "Please enter your root password if prompted (it is not stored)"
+   echo '@@install@@'                                       >>bug_report 2>&1
+
+   # This tries to be as portable as possible in two regards:
+   #
+   #  - Specifiying the root username is required for various su(1)
+   #  implementations where the -c option doesn't mean to run a command. By
+   #  passing -c after the username, such implementations treat it as an option
+   #  to the shell.
+   #  - The "/bin/sh -c" part is required in case root's login shell isn't
+   #  bourne-compatible (e.g [t]csh). A bourne-compatible shell is required for
+   #  the output redirection to work.
+   su root -c "/bin/sh -c 'make install >>bug_report 2>&1'" >>bug_report 2>&1
    if test "$?" -ne 0; then
-      echo 'su returned non-zero status'     >>bug_report 2>&1
+      echo 'su returned non-zero status'                    >>bug_report 2>&1
    fi
 else
    echo "[Failed]"
