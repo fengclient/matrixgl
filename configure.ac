@@ -85,6 +85,29 @@ if test "X$no_glu" = "Xyes"; then
    exit 1
 fi
 
+dnl Add flag to WARN_CFLAGS if the C compiler supports it
+AC_DEFUN([AX_ADD_WARN_CFLAG],
+          [ ax_save_CFLAGS=$CFLAGS
+            CFLAGS="$1 $CFLAGS"
+            AC_MSG_CHECKING([if C compiler supports $1]);
+            AC_LANG_PUSH([C])
+            AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[ return 0; ]])],
+                          [ax_found_flag=yes],
+                          [ax_found_flag=no])
+            AC_MSG_RESULT([$ax_found_flag])
+            AS_IF([test x"$ax_found_flag" = x"yes"],
+                  [WARN_CFLAGS="$WARN_CFLAGS $1"],
+                  [])
+            CFLAGS=$ax_save_CFLAGS
+            AC_LANG_POP([C])])
+
+dnl Set up warning CFLAGS
+AX_ADD_WARN_CFLAG([-ansi])
+AX_ADD_WARN_CFLAG([-pedantic])
+AX_ADD_WARN_CFLAG([-Wall])
+AX_ADD_WARN_CFLAG([-W])
+AC_SUBST([WARN_CFLAGS])
+
 
 dnl Let user disable XScreenSaver support
 AC_ARG_WITH([xscreensaver],
