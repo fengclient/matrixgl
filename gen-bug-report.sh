@@ -17,12 +17,6 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
 
-# Don't run as root
-if test `id -u` -eq 0; then
-   echo "Error: Don't run this script as root!"
-   exit
-fi
-
 # Intro message
 echo "This tool will help you generate a useful bug-report."
 echo ">>> PLEASE DON'T CLOSE ANY WINDOWS THAT OPEN <<<"
