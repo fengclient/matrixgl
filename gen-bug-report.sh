@@ -1,20 +1,19 @@
 #!/bin/sh
-
 # Script to generate a useful bug report
-# Copyright (C) Vincent Launchbury 2009, 2010
-# Written By: Vincent Launchbury <vincent@doublecreations.com>
+# Copyright (C) 2009, 2010, 2014 Vincent Launchbury
+#
 # -------------------------------------------
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  US
@@ -39,7 +38,7 @@ echo "Grabbing uname............................ [Done]"
 # Check if direct rendering is working (if available)
 echo "@@glxinfo@@"                           >>bug_report 2>&1
 echo -n 'Grabbing direct rendering information..... '
-glxinfo | grep direct                        >>bug_report 2>&1
+glxinfo 2>>bug_report | grep direct          >>bug_report 2>&1
 if test "$?" -eq 0; then
    echo "[Done]"
 else
@@ -63,7 +62,7 @@ if test ! -e configure; then
       echo "of the problem to vincent@doublecreations.com. "
       echo "Thanks for helping the project!"
       exit
-   else 
+   else
       echo "[Done]"
    fi
 else
