@@ -11,6 +11,7 @@ Changes in 2.3.2
 . New --intensity parameter to set digital rain intensity
 . More configurable paramters in xscreensaver-demo config dialog
 . Dropped build requirement for a c++ compiler
+. Now runs on FreeBSD and compiles with clang
 
 Changes in 2.3.1
 ----------------

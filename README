@@ -38,30 +38,38 @@ i) XLib + development files
       You need to have the X11 libraries and header files (which are sometimes
       split into two different packages.) Look through your package manager for
       names including 'xlib', 'libx11' and 'xorg', and read the descriptions.
+
          - Ubuntu packages: libx11-dev
          - Gentoo packages: x11-libs/libX11
+         - FreeBSD ports:   /usr/ports/x11/libX11/
 
 ii) OpenGL + development files
       You need to have the OpenGL library and header files (which are sometimes
       split into two different packages.) Look through your package manager for
       names including 'libgl', 'mesa', and 'opengl', and read the descriptions.
+
          - Ubuntu packages: mesa-common-dev, libgl1-mesa-dev
          - Gentoo packages: media-libs/mesa
+         - FreeBSD ports:   /usr/ports/graphics/libGL/
 
 iii) OpenGL Utility Library (GLU) + development files
       You need to have the GLU library and header files (which are sometimes
       split into two different packages.) Look through your package manager for
       names including 'glu', 'mesa' and 'libglu', and read the descriptions.
+
          - Ubuntu packages: libglu1-mesa-dev
          - Gentoo packages: media-libs/glu
+         - FreeBSD ports:   /usr/ports/graphics/libGLU/
 
 iv) XScreenSaver (OPTIONAL)
       XScreenSaver is an optional dependency that is enabled by default. Pass
       --without-xscreensaver to the configure script to compile without it.
       XScreenSaver is a decent screensaver manager/daemon, and it is
       recommended that you use it.
+
          - Ubuntu packages:  xscreensaver
          - Gentoo packages:  x11-misc/xscreensaver
+         - FreeBSD ports:   /usr/ports/x11/xscreensaver/
    
 
 3. COMPILING AND INSTALLING FROM SOURCE
@@ -138,7 +146,8 @@ matrixgl has been tested and confirmed to fully work on the following platforms:
    . GNU/Linux: Gentoo
    . GNU/Linux: Ubuntu
    . GNU/Linux: Debian
-   . BSD: Openbsd
+   . BSD: OpenBSD
+   . BSD: FreeBSD
    . Mac OSX 10.4, 10.5, 10.6, 10.8
    . Windows XP 32 bit
    . Windows Vista 32 bit
