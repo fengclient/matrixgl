@@ -62,8 +62,9 @@ if test "X$no_x" = "Xyes"; then
    echo "******************************************************************"
    exit 1
 fi
-AC_SUBST(x_includes)
-AC_SUBST(x_libraries)
+AS_IF([test -n "$x_libraries"],
+      [X11_CFLAGS="-I$x_includes"])
+AC_SUBST(X11_CFLAGS)
 
 
 dnl Check for GL and GLU libraries
