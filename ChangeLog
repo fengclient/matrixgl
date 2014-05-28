@@ -12,6 +12,7 @@ matrixgl-v2.3.2 (not yet released)
 	required by the m4 macros for libGLU checks)
 	- Change configure option --disable-xscreensaver to --without-xscreensaver,
 	which is the proper convention (oops!)
+	- Added FreeBSD XScreenSaver paths to autoconf script
 - Code changes:
 	- Make 'n' key a no-op if screensaver is paused (to avoid display issues)
 	- Smarter frame-limiting code that kicks in much faster

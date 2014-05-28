@@ -112,6 +112,7 @@ if test x"$with_xscreensaver" = x"yes"; then
       /usr/local/lib/xscreensaver \
       /usr/local/lib/misc/xscreensaver \
       /usr/local/libexec/xscreensaver \
+      /usr/local/bin/xscreensaver-hacks \
       /usr/bin/xscreensaver-hacks; do
       test -d $dir && XSS_HACKS=$dir && break
    done
