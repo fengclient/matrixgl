@@ -45,6 +45,21 @@ else
    echo "[Failed!]"
 fi
 
+# Grab location of xscreensaver dirs (incase they differ in your distro)
+echo "@@xscreensaver-dirs@@"              >>bug_report 2>&1
+echo -n "Finding xscreensaver directories.......... "
+find /usr -maxdepth 3                        \
+   -path /usr/sbin      -prune -o            \
+   -path /usr/include   -prune -o            \
+   -path /usr/games     -prune -o            \
+   -path /usr/src       -prune -o            \
+   -path /usr/tmp       -prune -o            \
+   -path /usr/portage   -prune -o            \
+   -path /usr/kde       -prune -o            \
+   -path /usr/share/doc -prune -o            \
+   -name 'xscreensaver*' -type d -print   >>bug_report 2>/dev/null
+echo "[Done]"
+
 # Run autoreconf (if running a snapshot)
 echo '@@releasetype@@'                          >>bug_report 2>&1
 if test ! -e configure; then
@@ -89,21 +104,6 @@ make                                         >>bug_report 2>&1
 if test "$?" -eq 0; then
    echo "[Done]"
 
-   # Grab location of xscreensaver dirs (incase they differ in your distro)
-   echo "@@xscreensaver-dirs@@"              >>bug_report 2>&1
-   echo -n "Finding xscreensaver directories.......... "
-   find /usr -maxdepth 3                        \
-      -path /usr/sbin      -prune -o            \
-      -path /usr/include   -prune -o            \
-      -path /usr/games     -prune -o            \
-      -path /usr/src       -prune -o            \
-      -path /usr/tmp       -prune -o            \
-      -path /usr/portage   -prune -o            \
-      -path /usr/kde       -prune -o            \
-      -path /usr/share/doc -prune -o            \
-      -name 'xscreensaver*' -type d -print   >>bug_report 2>/dev/null
-   echo "[Done]"
-   
    # Now grab fps stats/runtime errors
    echo "@@fps-stats@@"                      >>bug_report 2>&1
    exec 2>/dev/null
