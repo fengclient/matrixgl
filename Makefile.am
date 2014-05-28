@@ -21,7 +21,7 @@ SUBDIRS = src docs
 
 ACLOCAL_AMFLAGS = -I build/m4
 
-dist_noinst_DATA = macsrc/* winsrc/*
+EXTRA_DIST = winsrc
 dist_noinst_SCRIPTS = add-user-entry.sh gen-bug-report.sh
 
 help:

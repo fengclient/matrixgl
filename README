@@ -107,10 +107,8 @@ help you out.
 4. INSTALLING ON MAC OSX
 ========================
 Stephane Sudre ported matrixgl to Mac OSX, and it works with OSX 10.4 or later.
-The sourcecode is provided in the macsrc/ directory. You can download the
-installer from:
-   http://s.sudre.free.fr/Software/matrixgl.html or
-   http://www.sourceforge.net/projects/matrixgl/
+You can download the installer and source code from:
+   http://s.sudre.free.fr/Software/matrixgl.html
 
 
 5. INSTALLING ON WINDOWS
