@@ -104,12 +104,12 @@ make                                         >>bug_report 2>&1
 if test "$?" -eq 0; then
    echo "[Done]"
 
-   # Now grab fps stats/runtime errors
+   # Now grab any runtime errors, and fps stats
    echo "@@fps-stats@@"                      >>bug_report 2>&1
    exec 2>/dev/null
    ./src/matrixgl -f2                        >>bug_report 2>&1 &
    PID=$!
-   echo -n "Grabbing fps stats........................ "
+   echo -n "Running matrixgl.......................... "
    sleep 6
    kill $PID                                 >/dev/null 2>&1
    echo "[Done]"
