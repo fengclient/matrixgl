@@ -105,12 +105,14 @@ if test "$?" -eq 0; then
 
    # Now grab any runtime errors, and fps stats
    echo "@@fps-stats@@"                      >>bug_report 2>&1
-   exec 2>/dev/null
-   ./src/matrixgl -f2                        >>bug_report 2>&1 &
-   PID=$!
-   echo -n "Running matrixgl.......................... "
-   sleep 6
-   kill $PID                                 >/dev/null 2>&1
+   # subshell to avoid "Terminated" messages getting printed
+   (
+      ./src/matrixgl -f2                     >>bug_report 2>&1 &
+      PID=$!
+      echo -n "Running matrixgl.......................... "
+      sleep 6
+      kill $PID                              >/dev/null 2>&1
+   )
    echo "[Done]"
 
    # Grab install errors, if user lets us run it as root
@@ -128,7 +130,7 @@ if test "$?" -eq 0; then
    #  - The "/bin/sh -c" part is required in case root's login shell isn't
    #  bourne-compatible (e.g [t]csh). A bourne-compatible shell is required for
    #  the output redirection to work.
-   su root -c "/bin/sh -c 'make install >>bug_report 2>&1'" >>bug_report 2>&1
+   su root -c "/bin/sh -c 'make install >>bug_report 2>&1'"
    if test "$?" -ne 0; then
       echo 'su returned non-zero status'                    >>bug_report 2>&1
    fi
