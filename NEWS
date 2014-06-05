@@ -1,8 +1,8 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
-Changes in 2.3.2
-----------------
+Changes in 2.3.2 (not yet released)
+-----------------------------------
 . New texinfo documentation (which gives HTML/PDF/PS/info/DVI)
 . New `make help` documentation
 . README file is shorter and easier to read
@@ -13,44 +13,44 @@ Changes in 2.3.2
 . Dropped build requirement for a c++ compiler
 . Now runs on FreeBSD and compiles with clang
 
-Changes in 2.3.1
-----------------
+Changes in 2.3.1 (released 2013/12/27)
+--------------------------------------
 . Added two new 3D images courtsey of Chris_C
 . Fixed some issues with gaps in some of the images with widescreens
 . The fullscreen option now does proper fullscreen in X11 (this has absolutely
 nothing to do with xscreensaver fullscreen.)
 . Fixed linker issue that caused compilation failures on Debian/Ubuntu/Mint
 
-Changes in 2.3
---------------
+Changes in 2.3 (released 2010/06/23)
+------------------------------------
 . Fixed configure script to fail when dependencies aren't met
 . Added section on dependencies to the README
 . Added more verbose error messages when the configure script fails
 
-Changes in 2.2.9
-----------------
+Changes in 2.2.9 (released 2010/04/20)
+--------------------------------------
 . Win/mac source code is now properly included in the release tarball.
 . Fixed a windows bug where matrixgl wouldn't display in the screensaver list.
 
-Changes in 2.2.8
-----------------
+Changes in 2.2.8 (released 2010/01/30)
+--------------------------------------
 . Default install prefix is now /usr (see INSTALL for how to change this)
 . add-user-entry.sh script now outputs more useful information
 . Updated the manpage
 . Windows builds are no longer supported
 
-Changes in 2.2.7
-----------------
+Changes in 2.2.7 (released 2009/12/09)
+--------------------------------------
 . Added an installer for windows
 . Better build instructions
 
-Changes in 2.2.6
----------------
+Changes in 2.2.6 (released 2009/11/14)
+--------------------------------------
 . Mac OSX port by Stephane Sudre, for OSX 10.4+
 . Fixed compatability issue with PLD Linux
 
-Changes in 2.2.5
-----------------
+Changes in 2.2.5 (released 2009/10/20)
+--------------------------------------
 . Numerous small bug fixes
 . Updated documentation
 . Fixed compatibility issue with pld linux
@@ -58,31 +58,31 @@ Changes in 2.2.5
 to the xscreensaver-demo list, incase it isn't done automatically
 on your disto.
 
-Changes in 2.2.4
-----------------
+Changes in 2.2.4 (released 2009/07/18)
+--------------------------------------
 . Fixed a bug that would cause the screensaver to close randomly in windows.
 . The images now progress faster in the windows build.
 
-Changes in 2.2.3
-----------------
+Changes in 2.2.3 (released 2009/07/08)
+--------------------------------------
 . Clicking 'Save' in the config dialog now exits too
 . The credits option is disabled in the config dialog when
 3D mode is disabled, since the credits are 3D.
 
-Changes in 2.2.2
-----------------
+Changes in 2.2.2 (released 2009/07/07)
+--------------------------------------
 . Added configuration dialog for Windows
 . Added --limit option in *NIX, to change the framerate limit.
 
-Changes in 2.2.1
-----------------
+Changes in 2.2.1 (released 2009/06/25)
+--------------------------------------
 . Framerate limited to 32fps
 . Images fade in/out much more smoothly
 . Added --disable-xscreensaver option to the configure 
 script, so that matrixgl can be used without xscreensaver.
 
-Changes in 2.2 (from the original 1.0 release)
------------------------------------------------
+Changes from the original 1.0 release
+-------------------------------------
 * Added widescreen support.
 * Fixed 3D images to look good in widescreen.
 * Added new 3D images.
