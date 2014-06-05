@@ -1,5 +1,9 @@
 TODO
-. Catch X11 mousemove event to exit, incase xscreensaver isn't used
-. Find a way to install into xscreensaver-demo list for all users,
-   so that ./add-user-entry equivilent can be run automatically 
-   by 'make install'.
+- Find a way to add matrixgl to the xscreensaver-demo list for all users,
+  without them having to run ./add-user-entry.sh. We could achieve this by
+  modifying the app-defaults file for XScreenSaver, but it might be overwritten
+  when upgrading XScreenSaver, and it violates some distros packaging policies
+  to edit files belonging to other packages.
+- Add configure options (for overriding defaults):
+    --with-xscreensaver-hacks-dir=...
+    --with-xscreensaver-conf-dir=...
