@@ -64,14 +64,16 @@
 #define rtext_x 90
 #define text_y 70
 int text_x;
-unsigned char *speed;      /* Speed of each column (0-2) */
-unsigned char *text;       /* Random Characters (0-62) */
-unsigned char *text_light; /* Alpha 255-white, 254-none */
-float *bump_pic;           /* Z values for each character */
+unsigned char *speeds; /* Speed of each column (0-2) */
+
+struct glyph {
+   unsigned char num;   /* Character number (0-59) */
+   unsigned char alpha; /* Alpha modifier */
+   float z;             /* Cached Z coordinate */
+} *glyphs;
 
 int pic_offset;            /* Which image to show */
 long timer=40;             /* Controls pic fade in/out */
-int pic_mode=1;            /* 1-fade in; 2-fade out (controls pic_fade) */
 int pic_fade=0;            /* Makes all chars lighter/darker */
 int classic=0;             /* classic mode (no 3d) */
 int paused=0;
@@ -108,7 +110,7 @@ float maxfps=32.0;         /* Default maximum FPS */
  */
 int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 {
-   int argc=1,i=0,a=0,s=0;
+   int argc=1,i;
    char win[100];
    char *cfile = malloc(strlen(win)+25);
    FILE *config;
@@ -125,7 +127,6 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 
    glutInit(&argc, &lpCmd);
    srand(GetTickCount());
-   pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
 
    /* Read in config */
    sprintf(cfile, "%s\\matrixgl_config", win);
@@ -146,8 +147,7 @@ int __stdcall WinMain(HINSTANCE hInst,HINSTANCE hPrev,LPSTR lpCmd,int nShow)
 #else /* UNIX_MODE */
 int main(int argc,char **argv)
 {
-   int i=0,a=0,s=0;
-   int opt;
+   int i, opt;
    enum {PREVIEW, ROOT, FS, WINDOWED} wuse=WINDOWED; /* Windown type */
    Window wid=0;      /* ID of window, used to grab preview size */
 
@@ -168,7 +168,6 @@ int main(int argc,char **argv)
       {0, 0, 0, 0}
    };
    int opti = 0;
-   pic_offset=(rtext_x*text_y)*(rand()%num_pics); /* Start at rand pic */
    while ((opt = getopt_long_only(argc, argv, "schvi:l:f::C:FRW:", long_opts, &opti))) {
       if (opt == EOF) break;
       switch (opt) {
@@ -304,34 +303,30 @@ There is NO WARRANTY, to the extent permitted by law.\n",
 
 /* Allocations for dynamic width */
 #ifdef WIN32_MODE
-   text_x = ceil(70 * ((float)glutGet(GLUT_SCREEN_WIDTH)
+   text_x = ceil(text_y * ((float)glutGet(GLUT_SCREEN_WIDTH)
       / glutGet(GLUT_SCREEN_HEIGHT)));
 #else /* UNIX_MODE */
-   text_x = ceil(70 * ((float)x/y));
+   text_x = ceil(text_y * ((float)x/y));
 #endif /* UNIX_MODE */
 
+   /* Start at rand pic */
+   pic_offset=(rtext_x*text_y)*(rand()%num_pics);
+
    /* Initializations */
-   if (text_x % 2 == 1) text_x++;
+   if (text_x & 1) text_x++;
    if (text_x < 90) text_x=90; /* Sanity check */
-   speed = tmalloc(text_x);
-   text= tmalloc(text_x*(text_y+1));
-   text_light = tmalloc(text_x*(text_y+1));
-   bump_pic = tmalloc(sizeof(float) * (text_x*(text_y+1)));
-   memset(text_light, 253, text_x*(text_y+1));
+   speeds = tmalloc(text_x);
+   glyphs = tmalloc(sizeof(struct glyph) * (text_x * text_y));
+   for (i=0; i<text_x*text_y; i++) {
+      glyphs[i].alpha = 253;
+      glyphs[i].num   = rand()%60;
+      glyphs[i].z     = 0;
+   }
 
    /* Init the light tables */
    for (i=0; i<500;i++) {
       make_change();
-
-      for(a=(text_x*text_y)+text_x-1;a>text_x;a--)
-         text_light[a]=text_light[a-text_x];
-
-      for(a=1;a<text_x;a++) text_light[a]=253; /* Clear top line */
-
-      for(s=0,a=(text_x*text_y)/2; a<(text_x*text_y); a++){
-         if(text_light[a]==255) text_light[s]=text_light[s+text_x]>>1;
-         s++;if(s>=text_x) s=0;
-      }
+      scroll();
    }
 
 #ifdef UNIX_MODE
@@ -424,13 +419,11 @@ static void draw_flare(float x,float y,float z)
 static void draw_text1(void)
 {
    int x, y, i=0, b=0;
-   if(!paused && pic_mode==1 && (pic_fade+=3)>255) pic_fade=255;
-   if(!paused && pic_mode==2 && (pic_fade-=3)<0) pic_fade=0;
 
    /* For each character, from top-left to bottom-right of screen */
    for (y=text_y/2; y>-text_y/2; y--) {
       for (x=-text_x/2; x<text_x/2; x++, i++) {
-         int light = clamp(text_light[i] + pic_fade, 0, 255);
+         int light = clamp(glyphs[i].alpha + pic_fade, 0, 255);
          int depth = 0;
 
          /* If the coordinate is in the range of the 3D picture, set depth */
@@ -442,8 +435,8 @@ static void draw_text1(void)
             light-=depth; if (light<0) light=0;
          }
 
-         bump_pic[i]=(float)(255-depth)/32; /* Map depth (0-255) to Z coord */
-         draw_char(text[i], light, x, y, bump_pic[i]);
+         glyphs[i].z = (float)(255-depth)/32; /* Map depth (0-255) to coord */
+         draw_char(glyphs[i].num, light, x, y, glyphs[i].z);
       }
    }
 }
@@ -453,15 +446,17 @@ static void draw_text2(int mode)
 {
    int x, y, i=0;
 
-   /* For each character, from top-left to bottom-right of screen */
-   for (y=text_y/2; y>-text_y/2; y--) {
+   /* For each character from top-left to bottom-right of screen,
+    * excluding the bottom-most row. */
+   for (y=text_y/2-1; y>-text_y/2; y--) {
       for (x=-text_x/2; x<text_x/2; x++, i++) {
-         if (text_light[i]>128 && text_light[i+text_x]<10) {
+         /* Highlight visible characters directly above a black stream */
+         if (glyphs[i].alpha && !glyphs[i+text_x].alpha) {
             if (!mode) {
                /* White character */
-               draw_char(text[i], 127.5, x, y, bump_pic[i]);
+               draw_char(glyphs[i].num, 127.5, x, y, glyphs[i].z);
             } else {
-               draw_flare(x, y, bump_pic[i]);
+               draw_flare(x, y, glyphs[i].z);
             }
          }
       }
@@ -470,45 +465,52 @@ static void draw_text2(int mode)
 
 static void scroll(void)
 {
+   int i, speed, col=0;
    static char odd=0;
-   int a, s=0;
-   for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
-      if(speed[s]) text_light[a]=text_light[a-text_x];
-      s++;if(s>=text_x) s=0;
-   }
-   for(s=0,a=(text_x*text_y)+text_x-1;a>text_x-1;a--){
-      if(speed[s]>1) text_light[a]=text_light[a-text_x];
-      s++;if(s>=text_x) s=0;
+
+   /* Only scroll the slowest columns every second scroll() */
+   odd = !odd;
+
+   /* Scroll columns */
+   for (speed=odd; speed <= 2; speed++) {
+      for (i=text_x*text_y-1; i>=text_x; i--) {
+         if (speeds[col] >= speed) glyphs[i].alpha=glyphs[i-text_x].alpha;
+         if (++col >=text_x) col=0;
+      }
    }
 
-   if (odd) {
-      if(timer==0 && !classic)  pic_mode=1;  /* pic fade in */
-      if(timer>140 && timer<145 && !classic) pic_mode=2; /* pic fade out */
-      if (timer > 140 && pic_offset==(num_pics+1)*(rtext_x*text_y)) {
-         pic_offset+=rtext_x*text_y; /* Go from 'knoppix.ru' -> 'DC' */
-         timer=70;pic_mode=1; /* Make DC dissapear quickly */
-      }
-      if(timer>210) {
-         timer=-1;  /* back to start */
-         pic_offset+=rtext_x*text_y; /* Next pic */
-         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0;
-      }
+   /* Clear top line in light table */
+   for(i=0; i<text_x; i++) glyphs[i].alpha=253;
+
+   /* Make black bugs in top line */
+   for(col=0,i=(text_x*text_y)/2; i<(text_x*text_y); i++) {
+      if (glyphs[i].alpha==255) glyphs[col].alpha=glyphs[col+text_x].alpha>>1;
+      if (++col >=text_x) col=0;
+   }
+
+   /* 3D picture transitions */
+   if (!classic) {
       timer++;
 
-      for(a=(text_x*text_y)+text_x-1;a>text_x-1;a--) {
-         text_light[a]=text_light[a-text_x];
+      if (timer < 250) {
+         /* Fading in */
+         if ((pic_fade+=3)>255) pic_fade=255;
+      } else {
+         /* Fading out */
+         if ((pic_fade-=3) < 0) pic_fade = 0;
+
+         /* Transition credits from knoppix.ru -> doublecreations */
+         if (pic_offset==(num_pics+1)*(rtext_x*text_y)) {
+            pic_offset+=rtext_x*text_y;
+            timer=120;
+         }
       }
 
-      /* Clear top line in light table */
-      for(a=1;a<text_x;a++) text_light[a]=253;
-
-      for(s=0,a=(text_x*text_y)/2; a<(text_x*text_y); a++){
-         /* Make black bugs in top line */
-         if(text_light[a]==255) text_light[s]=text_light[s+text_x]>>1;
-         s++;if(s>=text_x) s=0;
+      /* Go to next picture */
+      if (timer>400) {
+         cbKeyPressed('n', 0, 0);
       }
    }
-   odd =!odd;
 }
 
 static void make_change(void)
@@ -517,11 +519,11 @@ static void make_change(void)
    for (i=0; i<rain_intensity; i++) {
       /* Random character changes */
       int r=rand() % (text_x * text_y);
-      text[r] = rand()%59;
+      glyphs[r].num = rand()%60;
 
       /* White nodes (1 in 5 chance of doing anything) */
       r=rand() % (text_x * 5);
-      if (r<text_x && text_light[r]!=0) text_light[r]=255;
+      if (r<text_x && glyphs[r].alpha!=0) glyphs[r].alpha=255;
    }
 }
 
@@ -587,30 +589,23 @@ unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
          XCloseDisplay(dpy);
          XFree(vi);
 #endif /* UNIX_MODE */
-         free(speed);
-         free(text);
-         free(text_light);
-         free(bump_pic);
+         free(speeds);
+         free(glyphs);
          exit(EXIT_SUCCESS);
       case 'n': /* n - Next picture. */
          if (classic || paused) break;
          pic_offset+=rtext_x*text_y;
-         pic_mode=1;
-         timer=10;
-         if(pic_offset>(rtext_x*text_y*(num_pics))) pic_offset=0;
+         pic_offset%=(rtext_x*text_y)*num_pics;
+         timer=0;
          break;
       case 'c': /* Show "Credits" */
          classic=0;
+         timer = 0;
          pic_offset=(num_pics+1)*(rtext_x*text_y);
-         pic_mode=1;
          timer=70;
          break;
       case 's': /* Stop 3D Images, classic style. */
-         if (!classic) {
-            pic_fade=0;
-            pic_offset=0;
-         }
-         pic_mode=!pic_mode;
+         pic_fade=0;
          classic=!classic;
          break;
       case 'p': /* Pause */
@@ -633,11 +628,11 @@ static void ourInit(void)
    unsigned char flare[16]={0,0,0,0,0,180,0}; /* Node flare texture */
    int i;
 
-   /* Set up column speeds and character mappings */
-   for(i=0;i<(text_x*text_y);i++) text[i]=rand()%59;
+   /* Set up column speeds */
    for(i=0;i<text_x;i++) {
-      speed[i]=rand()&1;
-      if (i && speed[i]==speed[i-1]) speed[i]=2; /* Collisions goto speed 3 */
+      speeds[i]=rand()&1;
+      /* If the column on the left is the same speed, go faster */
+      if (i && speeds[i]==speeds[i-1]) speeds[i]=2;
    }
 
    /* Create texture mipmaps */
