@@ -19,7 +19,7 @@ dnl Autoconf 2.69 required to build
 AC_PREREQ([2.69])
 
 dnl Project name, version and bug email
-AC_INIT([matrixgl], [2.3.1], [vincent@doublecreations.com])
+AC_INIT([matrixgl], [2.3.2], [vincent@doublecreations.com])
 
 dnl Eliminate clutter with auxilary build directory
 AC_CONFIG_AUX_DIR([build])

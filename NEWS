@@ -1,8 +1,8 @@
 This file contains a non-definitive list of user-visible changes. 
 See ChangeLog for a more detailed log of changes, geared toward developers
 
-Changes in 2.3.2 (not yet released)
------------------------------------
+Changes in 2.3.2 (released 2014/06/05)
+--------------------------------------
 . New texinfo documentation (which gives HTML/PDF/PS/info/DVI)
 . New `make help` documentation
 . README file is shorter and easier to read

@@ -1,6 +1,6 @@
 matrixgl - 3D Matrix Screensaver
 ********************************
-Matrixgl 2.3.1 is a 3D matrix screensaver based on the digital rain scenes from
+Matrixgl 2.3.2 is a 3D matrix screensaver based on the digital rain scenes from
 The Matrix Reloaded. It features the green scrolling text (or digital rain)
 that wraps around 3D representations of different characters from the series.
 
@@ -78,8 +78,8 @@ To compile and install from source on a Unix-like system, open a terminal and
 cd(1) to your download directory. To extract the source code, run the following
 commands:
 
-   $ tar xzf matrixgl-2.3.1.tar.gz
-   $ cd matrixgl-2.3.1
+   $ tar xzf matrixgl-2.3.2.tar.gz
+   $ cd matrixgl-2.3.2
 
 To compile and build, run the following commands:
 
@@ -132,7 +132,7 @@ If you've found a bug, or are having any troubles compiling, installing or
 running matrixgl, we have a script that will generate a bug report for you.
 Open up a terminal in your download directory and run the following commands:
 
-   $ cd matrixgl-2.3.1
+   $ cd matrixgl-2.3.2
    $ ./gen-bug-report.sh
 
 This will generate a file named 'bug_report'. Please attach the file to an
