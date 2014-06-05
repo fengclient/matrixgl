@@ -26,6 +26,7 @@ matrixgl-v2.3.2 (not yet released)
 	- Remove --allow-root option (and allow it anyway)
 	- Fix unportable sed code in add-user-entry.sh
 	- Fix unportable su(1) invocation in gen-bug-report.sh
+	- In fullscreen mode on Unix, quit if the mouse is moved
 
 matrixgl-v2.3.1 (2013/12/27)
 ---------------

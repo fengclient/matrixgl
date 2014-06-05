@@ -12,6 +12,7 @@ Changes in 2.3.2 (not yet released)
 . More configurable paramters in xscreensaver-demo config dialog
 . Dropped build requirement for a c++ compiler
 . Now runs on FreeBSD and compiles with clang
+. In fullscreen mode on Unix-like platforms, quit if the mouse is moved
 
 Changes in 2.3.1 (released 2013/12/27)
 --------------------------------------

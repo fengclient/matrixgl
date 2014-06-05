@@ -252,6 +252,9 @@ There is NO WARRANTY, to the extent permitted by law.\n",
       exit(EXIT_FAILURE);
    }
    swa.event_mask = KeyPressMask;
+   if (wuse==FS) {
+      swa.event_mask |= PointerMotionMask;
+   }
    /* Bypass window manager for fullscreen */
    swa.override_redirect = (wuse==FS)?1:0;
 
@@ -283,8 +286,10 @@ There is NO WARRANTY, to the extent permitted by law.\n",
       XColor c;
 
       /* Since we bypassed the window manager,
-       * we have to steal keyboard control */
+       * we have to steal keyboard/mouse control */
       XGrabKeyboard(dpy, win, 1, GrabModeSync, GrabModeAsync, CurrentTime);
+      XGrabPointer(dpy, win, 1, PointerMotionMask, GrabModeAsync,
+         GrabModeAsync, None, None, CurrentTime);
 
       /* X has no function to hide the cursor,
        * so we have to create a blank one */
@@ -358,8 +363,11 @@ There is NO WARRANTY, to the extent permitted by law.\n",
       }
 
       /* Check events */
-      if(XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
+      if (XCheckWindowEvent(dpy, win, KeyPressMask, &xev)) {
          cbKeyPressed(get_ascii_keycode(&xev), 0, 0);
+      }
+      if (XCheckWindowEvent(dpy, win, PointerMotionMask, &xev)) {
+         MouseFunc(xev.xmotion.x, xev.xmotion.y);
       }
 
       /* Update viewport on window size change */
@@ -563,10 +571,9 @@ unix_static void cbRenderScene(void)
 #endif /* UNIX_MODE */
 }
 
-#ifdef WIN32_MODE
-void MouseFunc(int x, int y)
+unix_static void MouseFunc(int x, int y)
 {
-   /* A work around for really buggy mouse drivers that:
+   /* A work around for really buggy mouse drivers (on Windows) that:
     *  a) Randomly generate a mouse event when the coords haven't changed and
     *  b) Even worse, generate a mouse event with different coords, when the
     *  mouse hasn't moved.
@@ -575,7 +582,6 @@ void MouseFunc(int x, int y)
    if (!t) {t++;xx=x;yy=y;}
    else if (abs(xx-x)>8||abs(yy-y)>8)exit(EXIT_SUCCESS);
 }
-#endif
 
 unix_static void cbKeyPressed(unsigned char key, unused int x, unused int y)
 {

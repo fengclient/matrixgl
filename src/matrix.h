@@ -41,12 +41,11 @@ static void make_change(void);
 unix_static void cbRenderScene(void);
 unix_static void cbKeyPressed(unsigned char key, int x, int y);
 unix_static void cbResizeScene(int width, int height);
+unix_static void MouseFunc(int x, int y);
 static void ourInit(void);
 static void *tmalloc(size_t n);
 #ifdef UNIX_MODE
 static char get_ascii_keycode(XEvent *ev);
-#else
-void MouseFunc(int x, int y);
 #endif
 
 /* Get rid of warnings when we need an unused parameter */
